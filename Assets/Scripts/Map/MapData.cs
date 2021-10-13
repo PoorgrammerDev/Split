@@ -10,16 +10,16 @@ namespace Split.Map {
     
     [CreateAssetMenu(fileName = "New Map Data", menuName = "Maps/Map Data")]
     public class MapData : ScriptableObject {
+        [Range(0, 1)]
+        public float tileOutlinePercent;
 
+        public Array2DBool holeGrid;
         public Vector2Int FieldSize {
             get {
                 return holeGrid.GridSize;
             }
         }
 
-        [Range(0, 1)]
-        public float tileOutlinePercent;
-
-        public Array2DBool holeGrid;
+        public Vector2Int SpawnPosition;
     }
 }

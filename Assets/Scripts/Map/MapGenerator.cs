@@ -9,18 +9,17 @@ namespace Split.Map {
 
     public class MapGenerator : MonoBehaviour {
         [SerializeField] private Transform tilePrefab;
-        [SerializeField] private MapData mapData;
-        private Transform[,] grid;
+        [SerializeField] private MapData mapData; //TODO: Maybe replace this with a manager class?
 
-        // Start is called before the first frame update
-        void Start() {
-            grid = new Transform[mapData.FieldSize.x, mapData.FieldSize.y];
+        public Transform[,] Grid {get; private set;}
+
+        void Awake() {
+            Grid = new Transform[mapData.FieldSize.x, mapData.FieldSize.y];
 
             GenerateMap();
         }
 
         //TODO: Replace all of this with a more efficient mesh generator 
-        [ContextMenu("Generate Map")]
         public void GenerateMap() {
             ClearMap();
 
@@ -38,22 +37,24 @@ namespace Split.Map {
                     scale.z = scale.x;
                     newTile.localScale = scale;
 
-                    grid[x, y] = newTile;
+                    Grid[x, y] = newTile;
                 }
             }
         }
 
-        [ContextMenu("Clear Map")]
-        private void ClearMap() {
+        public void ClearMap() {
             //Iterates through grid and destroys each tile
-            for (int x = 0; x < grid.GetLength(0); ++x) {
-                for (int y = 0; y < grid.GetLength(1); ++y) {
-                    if (grid[x, y] != null) {
-                        Destroy(grid[x, y].gameObject);
-                        grid[x, y] = null;
+            for (int x = 0; x < Grid.GetLength(0); ++x) {
+                for (int y = 0; y < Grid.GetLength(1); ++y) {
+                    if (Grid[x, y] != null) {
+                        Destroy(Grid[x, y].gameObject);
+                        Grid[x, y] = null;
                     }
                 }
             }
         }
+
+
+
     }
 }
