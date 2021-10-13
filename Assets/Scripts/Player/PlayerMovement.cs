@@ -1,10 +1,16 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Split.Map;
 
 namespace Split.Player {
     public class PlayerMovement : MonoBehaviour {
+        [Header("References")]
         [SerializeField] private MapGenerator mapGenerator;
         [SerializeField] private MapData mapData;
+
+        [Header("Settings")]
+        [SerializeField] private float moveSpeed;
+
         private Vector2Int currentPosition;
 
         // Start is called before the first frame update
@@ -12,35 +18,63 @@ namespace Split.Player {
             currentPosition = mapData.SpawnPosition;
         }
 
-        // Update is called once per frame
-        //TODO: FIXME: HORRIBLE HORRIBLE CODE REPLACE PLEASE THIS IS A PLACEHOLDER
-        void Update() {
-            Transform moveSpace = null;
+        public void MoveForward(InputAction.CallbackContext context) {
+            if (!context.performed) return;
 
-            if (Input.GetKeyDown(KeyCode.W) && currentPosition.x != mapData.FieldSize.x - 1) {
-                moveSpace = mapGenerator.Grid[currentPosition.x + 1, currentPosition.y];
-                if (moveSpace != null) currentPosition.x++;
+            Vector3 movePos;
+            if (ValidateMovePosition(currentPosition.x + 1, currentPosition.y, out movePos)) {
+                currentPosition.x++;
+                movePos.y = this.transform.position.y;
+                LeanTween.move(this.gameObject, movePos, moveSpeed);
             }
-            else if (Input.GetKeyDown(KeyCode.D) && currentPosition.y != mapData.FieldSize.y - 1) {
-                moveSpace = mapGenerator.Grid[currentPosition.x, currentPosition.y + 1];
-                if (moveSpace != null) currentPosition.y++;
+        }
+
+        public void MoveBackward(InputAction.CallbackContext context) {
+            if (!context.performed) return;
+
+            Vector3 movePos;
+            if (ValidateMovePosition(currentPosition.x - 1, currentPosition.y, out movePos)) {
+                currentPosition.x--;
+                movePos.y = this.transform.position.y;
+                LeanTween.move(this.gameObject, movePos, moveSpeed);
             }
-            else if (Input.GetKeyDown(KeyCode.S) && currentPosition.x != 0) {
-                moveSpace = mapGenerator.Grid[currentPosition.x - 1, currentPosition.y];
-                if (moveSpace != null) currentPosition.x--;
+        }
+
+        public void MoveLeft(InputAction.CallbackContext context) {
+            if (!context.performed) return;
+
+            Vector3 movePos;
+            if (ValidateMovePosition(currentPosition.x, currentPosition.y - 1, out movePos)) {
+                currentPosition.y--;
+                movePos.y = this.transform.position.y;
+                LeanTween.move(this.gameObject, movePos, moveSpeed);
             }
-            else if (Input.GetKeyDown(KeyCode.A) && currentPosition.y != 0) {
-                moveSpace = mapGenerator.Grid[currentPosition.x, currentPosition.y - 1];
-                if (moveSpace != null) currentPosition.y--;
+        }
+
+        public void MoveRight(InputAction.CallbackContext context) {
+            if (!context.performed) return;
+
+            Vector3 movePos;
+            if (ValidateMovePosition(currentPosition.x, currentPosition.y + 1, out movePos)) {
+                currentPosition.y++;
+                movePos.y = this.transform.position.y;
+                LeanTween.move(this.gameObject, movePos, moveSpeed);
+            }
+        }
+
+        private bool ValidateMovePosition(int x, int y, out Vector3 worldPos) {
+            //Validates that specified position is in bounds of the board
+            if ((x >= 0 && x < mapData.FieldSize.x) && (y >= 0 && y < mapData.FieldSize.y)) {
+                //Validates that there is a panel at that position
+                if (mapGenerator.Grid[x, y] != null) {
+                    //TODO: Somehow determine that there's not a wall there in the future
+                    worldPos = mapGenerator.Grid[x,y].position;
+                    return true;
+                }
             }
 
-            if (moveSpace != null) {
-                Vector3 playerPosition = this.transform.position;
-                playerPosition.x = moveSpace.position.x;
-                playerPosition.z = moveSpace.position.z;
-
-                LeanTween.move(this.gameObject, playerPosition, 0.1f);
-            }
+            worldPos = Vector3.zero;
+            return false;
         }
     }
 }
