@@ -14,8 +14,8 @@ namespace Split.Map {
         [SerializeField] private MapData mapData; //TODO: Maybe replace this with a manager class?
         [SerializeField] private Transform regularTile;
         [SerializeField] private Transform buttonTile;
-        [SerializeField] private Transform bridgeTile;        
-        [SerializeField] private Transform brokenTile;        
+        [SerializeField] private Transform bridgeTile;
+        [SerializeField] private Transform brokenTile;
 
         public Tile[,] Grid {get; private set;}
 
@@ -25,7 +25,6 @@ namespace Split.Map {
             GenerateMap();
         }
 
-        //TODO: Replace all of this with a more efficient mesh generator 
         public void GenerateMap() {
             HashSet<Vector2Int> specialTiles = new HashSet<Vector2Int>();
             ClearMap();

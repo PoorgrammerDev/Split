@@ -27,16 +27,16 @@ namespace Split.Map.Tiles {
         private void OnButtonActivate(Vector2Int buttonPosition) {
             ButtonTileData buttonTileData = mapData.GetButtonByCoord(buttonPosition);
 
-            if (buttonTileData != null && buttonTileData.ContainsBridgeTile(this.GridPosition)) {
+            if (buttonTileData != null && buttonTileData.activateBridgeTiles && buttonTileData.ContainsBridgeTile(this.GridPosition)) {
                 TileActivate(true);
             }
         }
 
-        //TODO: Step off button - deactivate tiles
+        //Step off button - deactivate tiles
         private void OnButtonDeactivate(Vector2Int buttonPosition) {
             ButtonTileData buttonTileData = mapData.GetButtonByCoord(buttonPosition);
 
-            if (buttonTileData != null && buttonTileData.ContainsBridgeTile(this.GridPosition)) {
+            if (buttonTileData != null && buttonTileData.activateBridgeTiles && buttonTileData.ContainsBridgeTile(this.GridPosition)) {
                 TileActivate(false);
             }
         }

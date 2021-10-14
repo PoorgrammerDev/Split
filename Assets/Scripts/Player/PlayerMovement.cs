@@ -24,69 +24,36 @@ namespace Split.Player {
             currentPosition = mapData.SpawnPosition;
         }
 
-        //TODO: Refactor this to prevent repitition
+        //NOTE: The directions on the Vectors don't match because the game is being viewed in a different angle
         public void MoveForward(InputAction.CallbackContext context) {
             if (!context.performed) return;
-
-            Vector3 movePos;
-            if (ValidateMovePosition(currentPosition.x + 1, currentPosition.y, out movePos)) {
-                Vector2Int oldPosition = currentPosition;
-
-                //Update position and move player
-                currentPosition.x++;
-                movePos.y = this.transform.position.y;
-                LeanTween.move(this.gameObject, movePos, moveSpeed);
-
-                //Fire Move Event
-                GameEvents.current.PlayerMoveToTile(oldPosition, currentPosition);
-            }
+            MoveToPosition(currentPosition + Vector2Int.right);
         }
 
         public void MoveBackward(InputAction.CallbackContext context) {
             if (!context.performed) return;
-
-            Vector3 movePos;
-            if (ValidateMovePosition(currentPosition.x - 1, currentPosition.y, out movePos)) {
-                Vector2Int oldPosition = currentPosition;
-
-                //Update position and move player
-                currentPosition.x--;
-                movePos.y = this.transform.position.y;
-                LeanTween.move(this.gameObject, movePos, moveSpeed);
-
-                //Fire Move Event
-                GameEvents.current.PlayerMoveToTile(oldPosition, currentPosition);
-            }
+            MoveToPosition(currentPosition + Vector2Int.left);
         }
 
         public void MoveLeft(InputAction.CallbackContext context) {
             if (!context.performed) return;
-
-            Vector3 movePos;
-            if (ValidateMovePosition(currentPosition.x, currentPosition.y - 1, out movePos)) {
-                Vector2Int oldPosition = currentPosition;
-
-                //Update position and move player
-                currentPosition.y--;
-                movePos.y = this.transform.position.y;
-                LeanTween.move(this.gameObject, movePos, moveSpeed);
-
-                //Fire Move Event
-                GameEvents.current.PlayerMoveToTile(oldPosition, currentPosition);
-            }
+            MoveToPosition(currentPosition + Vector2Int.down);
         }
 
         public void MoveRight(InputAction.CallbackContext context) {
             if (!context.performed) return;
+            MoveToPosition(currentPosition + Vector2Int.up);
+        }
 
-            Vector3 movePos;
-            if (ValidateMovePosition(currentPosition.x, currentPosition.y + 1, out movePos)) {
+        private void MoveToPosition(Vector2Int newPosition) {
+            Vector3 moveWorldPos;
+            if (ValidateMovePosition(newPosition.x, newPosition.y, out moveWorldPos)) {
                 Vector2Int oldPosition = currentPosition;
 
                 //Update position and move player
-                currentPosition.y++;
-                movePos.y = this.transform.position.y;
-                LeanTween.move(this.gameObject, movePos, moveSpeed);
+                currentPosition = newPosition;
+                moveWorldPos.y = this.transform.position.y;
+                LeanTween.move(this.gameObject, moveWorldPos, moveSpeed);
 
                 //Fire Move Event
                 GameEvents.current.PlayerMoveToTile(oldPosition, currentPosition);
