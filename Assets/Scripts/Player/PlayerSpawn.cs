@@ -2,6 +2,11 @@ using UnityEngine;
 using Split.Map;
 
 namespace Split.Player {
+
+    /*
+     * This class places the player at the correct position upon game start
+     */
+
     public class PlayerSpawn : MonoBehaviour {
         [SerializeField] private MapData mapData; //TODO: Maybe replace this with a manager class?
         [SerializeField] private MapGenerator mapGenerator;

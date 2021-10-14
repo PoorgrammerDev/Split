@@ -2,6 +2,10 @@ using UnityEngine;
 
 namespace Split {
 
+    /*
+     * This class handles the smooth movement of the Camera
+     */
+
     [RequireComponent(typeof(Camera))]
     public class CameraFollow : MonoBehaviour {
         [SerializeField] private Transform target;

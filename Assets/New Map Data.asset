@@ -23,3 +23,11 @@ MonoBehaviour:
     - row: 000000000000000000010100000000
     - row: 000000000000000000010100000000
   SpawnPosition: {x: 2, y: 2}
+  buttonTileData:
+  - buttonPosition: {x: 3, y: 3}
+    activateBridgeTiles: 1
+    bridgeTiles:
+    - {x: 5, y: 3}
+    - {x: 5, y: 4}
+    - {x: 6, y: 3}
+    - {x: 6, y: 4}

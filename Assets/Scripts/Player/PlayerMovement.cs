@@ -1,8 +1,14 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Split.Map;
+using Split.Map.Tiles;
 
 namespace Split.Player {
+
+    /*
+     * This class handles player movement using the new action-based Unity Input system
+     */
+
     public class PlayerMovement : MonoBehaviour {
         [Header("References")]
         [SerializeField] private MapGenerator mapGenerator;
@@ -18,14 +24,21 @@ namespace Split.Player {
             currentPosition = mapData.SpawnPosition;
         }
 
+        //TODO: Refactor this to prevent repitition
         public void MoveForward(InputAction.CallbackContext context) {
             if (!context.performed) return;
 
             Vector3 movePos;
             if (ValidateMovePosition(currentPosition.x + 1, currentPosition.y, out movePos)) {
+                Vector2Int oldPosition = currentPosition;
+
+                //Update position and move player
                 currentPosition.x++;
                 movePos.y = this.transform.position.y;
                 LeanTween.move(this.gameObject, movePos, moveSpeed);
+
+                //Fire Move Event
+                GameEvents.current.PlayerMoveToTile(oldPosition, currentPosition);
             }
         }
 
@@ -34,9 +47,15 @@ namespace Split.Player {
 
             Vector3 movePos;
             if (ValidateMovePosition(currentPosition.x - 1, currentPosition.y, out movePos)) {
+                Vector2Int oldPosition = currentPosition;
+
+                //Update position and move player
                 currentPosition.x--;
                 movePos.y = this.transform.position.y;
                 LeanTween.move(this.gameObject, movePos, moveSpeed);
+
+                //Fire Move Event
+                GameEvents.current.PlayerMoveToTile(oldPosition, currentPosition);
             }
         }
 
@@ -45,9 +64,15 @@ namespace Split.Player {
 
             Vector3 movePos;
             if (ValidateMovePosition(currentPosition.x, currentPosition.y - 1, out movePos)) {
+                Vector2Int oldPosition = currentPosition;
+
+                //Update position and move player
                 currentPosition.y--;
                 movePos.y = this.transform.position.y;
                 LeanTween.move(this.gameObject, movePos, moveSpeed);
+
+                //Fire Move Event
+                GameEvents.current.PlayerMoveToTile(oldPosition, currentPosition);
             }
         }
 
@@ -56,9 +81,15 @@ namespace Split.Player {
 
             Vector3 movePos;
             if (ValidateMovePosition(currentPosition.x, currentPosition.y + 1, out movePos)) {
+                Vector2Int oldPosition = currentPosition;
+
+                //Update position and move player
                 currentPosition.y++;
                 movePos.y = this.transform.position.y;
                 LeanTween.move(this.gameObject, movePos, moveSpeed);
+
+                //Fire Move Event
+                GameEvents.current.PlayerMoveToTile(oldPosition, currentPosition);
             }
         }
 
@@ -67,9 +98,17 @@ namespace Split.Player {
             if ((x >= 0 && x < mapData.FieldSize.x) && (y >= 0 && y < mapData.FieldSize.y)) {
                 //Validates that there is a panel at that position
                 if (mapGenerator.Grid[x, y] != null) {
-                    //TODO: Somehow determine that there's not a wall there in the future
+                    Tile tile = mapGenerator.Grid[x, y];
+                    bool output = true;
+                    
+                    //Testing Special Tiles
+                    if (tile is BridgeTile) {
+                        BridgeTile bridge = tile as BridgeTile;
+                        output = bridge.Activated;
+                    }
+
                     worldPos = mapGenerator.Grid[x,y].TileObject.position;
-                    return true;
+                    return output;
                 }
             }
 
