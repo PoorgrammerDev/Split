@@ -8,7 +8,7 @@ namespace Split.Player {
 
         // Start is called before the first frame update
         void Start() {
-            Vector3 spawnPosition = mapGenerator.Grid[mapData.SpawnPosition.x, mapData.SpawnPosition.y].position;
+            Vector3 spawnPosition = mapGenerator.Grid[mapData.SpawnPosition.x, mapData.SpawnPosition.y].TileObject.position;
             spawnPosition.y = this.transform.localScale.y;
 
             this.transform.position = spawnPosition;

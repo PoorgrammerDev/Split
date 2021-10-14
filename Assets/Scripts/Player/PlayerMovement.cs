@@ -68,7 +68,7 @@ namespace Split.Player {
                 //Validates that there is a panel at that position
                 if (mapGenerator.Grid[x, y] != null) {
                     //TODO: Somehow determine that there's not a wall there in the future
-                    worldPos = mapGenerator.Grid[x,y].position;
+                    worldPos = mapGenerator.Grid[x,y].TileObject.position;
                     return true;
                 }
             }
