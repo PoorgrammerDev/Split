@@ -16,8 +16,9 @@ namespace Split.Map {
         [Range(0, 1)]
         public float tileOutlinePercent;
 
-        public Array2DBool holeGrid;
         public Vector2Int SpawnPosition;
+
+        public Array2DInt gridData;
         public ButtonTileData[] buttonTileData;
 
 
@@ -26,7 +27,7 @@ namespace Split.Map {
          *********************/
         public Vector2Int FieldSize {
             get {
-                return holeGrid.GridSize;
+                return gridData.GridSize;
             }
         }
 

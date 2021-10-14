@@ -15,6 +15,7 @@ namespace Split.Map {
         [SerializeField] private Transform regularTile;
         [SerializeField] private Transform buttonTile;
         [SerializeField] private Transform bridgeTile;        
+        [SerializeField] private Transform brokenTile;        
 
         public Tile[,] Grid {get; private set;}
 
@@ -30,7 +31,7 @@ namespace Split.Map {
             ClearMap();
 
             //------------------------------------
-            // Create Special Tiles first
+            // Create Data-holding Tiles first
             //------------------------------------
 
             //Button and Bridge Tiles
@@ -50,14 +51,14 @@ namespace Split.Map {
             }
 
             //------------------------------------
-            // Create Normal Tiles
+            // Create Other Special Tiles and Normal Tiles
             //------------------------------------
             for (int x = 0; x < mapData.FieldSize.x; ++x) {
                 for (int y = 0; y < mapData.FieldSize.y; ++y) {
-                    if (mapData.holeGrid.GetCell(x, y)) continue;
+                    if (mapData.gridData.GetCell(x, y) == (int) TileType.HOLE) continue;
                     if (specialTiles.Contains(new Vector2Int(x, y))) continue;
 
-                    Grid[x, y] = CreateTile(TileType.NORMAL, x, y);
+                    Grid[x, y] = CreateTile((TileType) mapData.gridData.GetCell(x, y), x, y);
                 }
             }
         }
@@ -86,12 +87,20 @@ namespace Split.Map {
                 case TileType.BRIDGE:
                     newTile = new BridgeTile(bridgeTile, tilePosition, this, mapData, x, y);
                     break;
+                case TileType.BROKEN:
+                    newTile = new BrokenTile(brokenTile, tilePosition, this, mapData, x, y);
+                    break;
                 default:
                     newTile = new Tile(regularTile, tilePosition, this, mapData, x, y);
                     break;
             }
 
             return newTile;
+        }
+
+        public void DeleteTile(int x, int y) {
+            Destroy(Grid[x, y].TileObject.gameObject);
+            Grid[x, y] = null;
         }
 
     }
