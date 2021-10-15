@@ -8,7 +8,7 @@ namespace Split {
 
     [RequireComponent(typeof(Camera))]
     public class CameraFollow : MonoBehaviour {
-        [SerializeField] private Transform target;
+        public Transform target;
         
         [Range(0.0f, 1.0f)]
         [SerializeField] private float smoothSpeed;

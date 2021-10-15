@@ -2,11 +2,11 @@
     "name": "PlayerControls",
     "maps": [
         {
-            "name": "Movement",
+            "name": "PlayerControls Default",
             "id": "7ecc5614-e878-4701-b6c7-b2815621b577",
             "actions": [
                 {
-                    "name": "Forward",
+                    "name": "Move Forward",
                     "type": "Button",
                     "id": "642070b6-f1e1-48df-93c2-a0ace6ac9b48",
                     "expectedControlType": "Button",
@@ -14,7 +14,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Backward",
+                    "name": "Move Backward",
                     "type": "Button",
                     "id": "31ee257e-d610-4268-919e-6b7ef47904cf",
                     "expectedControlType": "Button",
@@ -22,7 +22,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Left",
+                    "name": "Move Left",
                     "type": "Button",
                     "id": "cf126e4a-2b70-497a-aafa-0eda0976ff2a",
                     "expectedControlType": "Button",
@@ -30,9 +30,81 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Right",
+                    "name": "Move Right",
                     "type": "Button",
                     "id": "28b52763-f8de-4480-9e92-c6ac35ea22d4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Switch -> Player 1 (Main)",
+                    "type": "Button",
+                    "id": "f90f54a6-baf7-4d67-918e-469af3051c1e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Switch -> Player 2",
+                    "type": "Button",
+                    "id": "52e42b7d-b89a-4556-9f92-3e636f3efd41",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Switch -> Player 3",
+                    "type": "Button",
+                    "id": "2e93493f-da4c-4283-8c24-53a386209d45",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Switch -> Player 4",
+                    "type": "Button",
+                    "id": "ff89d54d-48b4-44d8-b816-b41d9943ec15",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Switch -> Player 5",
+                    "type": "Button",
+                    "id": "18d7dc4e-64ae-44aa-b33f-14cc900c6d01",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Switch -> Player 6",
+                    "type": "Button",
+                    "id": "e6feaf8d-5db0-4f22-a19d-15d9a1315c43",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Switch -> Player 7",
+                    "type": "Button",
+                    "id": "36617506-5797-45ce-89b4-bfab4a4e0ecc",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Switch -> Player 8",
+                    "type": "Button",
+                    "id": "ec6f1f1c-2052-4db1-a9bf-d44450f4df0f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Switch -> Player 9",
+                    "type": "Button",
+                    "id": "41ff93ad-e67d-49dd-aac6-57d9a85f3168",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -46,7 +118,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Forward",
+                    "action": "Move Forward",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -57,7 +129,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Forward",
+                    "action": "Move Forward",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -68,7 +140,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Backward",
+                    "action": "Move Backward",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -79,7 +151,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Backward",
+                    "action": "Move Backward",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -90,7 +162,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Left",
+                    "action": "Move Left",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -101,7 +173,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Left",
+                    "action": "Move Left",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -112,7 +184,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Right",
+                    "action": "Move Right",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -123,7 +195,205 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Right",
+                    "action": "Move Right",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7ab9db7d-f851-4630-b267-5ef7a85f37e7",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Switch -> Player 1 (Main)",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e5e6c577-add0-4a24-b5c7-a96431704035",
+                    "path": "<Keyboard>/numpad1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Switch -> Player 1 (Main)",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "31eabd32-e5e2-4e7b-b56c-9d7751e553f6",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Switch -> Player 2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "98618b98-25db-4f6d-b14e-ea599bcf932d",
+                    "path": "<Keyboard>/numpad2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Switch -> Player 2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e0d470de-d711-4900-9849-3b0879bb5fd2",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Switch -> Player 3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6cecb985-59f3-4328-b360-7b7a3b21e7ed",
+                    "path": "<Keyboard>/numpad3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Switch -> Player 3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "799eaf4f-0f53-4467-9a72-f318f595227b",
+                    "path": "<Keyboard>/4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Switch -> Player 4",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "77c85d63-d0c5-4686-8505-ea6bc0a8a769",
+                    "path": "<Keyboard>/5",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Switch -> Player 5",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d8d3d9b5-5063-4b88-a0f4-df8039c77196",
+                    "path": "<Keyboard>/6",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Switch -> Player 6",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ab6b7ec1-46d4-4d92-a1d8-dab9954939ae",
+                    "path": "<Keyboard>/7",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Switch -> Player 7",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5142c294-0bee-4834-9d37-bebc7062074e",
+                    "path": "<Keyboard>/8",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Switch -> Player 8",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b4340ba6-f996-418f-a2b0-ec8610d3da9f",
+                    "path": "<Keyboard>/9",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Switch -> Player 9",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e359ed99-5cb1-48a6-9370-3847ddf38f15",
+                    "path": "<Keyboard>/numpad4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Switch -> Player 4",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6d12a986-6722-4feb-ac04-dc4521b29036",
+                    "path": "<Keyboard>/numpad5",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Switch -> Player 5",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0e2f3d16-7d34-450d-9131-5ee4b187360e",
+                    "path": "<Keyboard>/numpad6",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Switch -> Player 6",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2702b8b5-7223-4d86-9d88-f27d151ddc29",
+                    "path": "<Keyboard>/numpad7",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Switch -> Player 7",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "14efc762-e617-4886-9f3d-b77a5004a104",
+                    "path": "<Keyboard>/numpad8",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Switch -> Player 8",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c9a6ae1b-5054-47f6-b546-7e605939b446",
+                    "path": "<Keyboard>/numpad9",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Switch -> Player 9",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

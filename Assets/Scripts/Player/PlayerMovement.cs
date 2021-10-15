@@ -13,50 +13,56 @@ namespace Split.Player {
         [Header("References")]
         [SerializeField] private MapGenerator mapGenerator;
         [SerializeField] private MapData mapData;
+        [SerializeField] private PlayerManager playerSwitcher;
 
         [Header("Settings")]
         [SerializeField] private float moveSpeed;
 
-        private Vector2Int currentPosition;
+        private Vector2Int[] currentPosition;
 
         // Start is called before the first frame update
         void Start() {
-            currentPosition = mapData.SpawnPosition;
+            playerSwitcher = GetComponent<PlayerManager>();
+            currentPosition = new Vector2Int[playerSwitcher.MaxCount];
+
+            for (int i = 0; i < currentPosition.Length; ++i) {
+                currentPosition[i] = mapData.SpawnPosition;
+            }
         }
 
         //NOTE: The directions on the Vectors don't match because the game is being viewed in a different angle
         public void MoveForward(InputAction.CallbackContext context) {
             if (!context.performed) return;
-            MoveToPosition(currentPosition + Vector2Int.right);
+            MoveToPosition(currentPosition[playerSwitcher.ActivePlayerIndex] + Vector2Int.right);
         }
 
         public void MoveBackward(InputAction.CallbackContext context) {
             if (!context.performed) return;
-            MoveToPosition(currentPosition + Vector2Int.left);
+            MoveToPosition(currentPosition[playerSwitcher.ActivePlayerIndex] + Vector2Int.left);
         }
 
         public void MoveLeft(InputAction.CallbackContext context) {
             if (!context.performed) return;
-            MoveToPosition(currentPosition + Vector2Int.down);
+            MoveToPosition(currentPosition[playerSwitcher.ActivePlayerIndex] + Vector2Int.down);
         }
 
         public void MoveRight(InputAction.CallbackContext context) {
             if (!context.performed) return;
-            MoveToPosition(currentPosition + Vector2Int.up);
+            MoveToPosition(currentPosition[playerSwitcher.ActivePlayerIndex] + Vector2Int.up);
         }
 
         private void MoveToPosition(Vector2Int newPosition) {
             Vector3 moveWorldPos;
             if (ValidateMovePosition(newPosition.x, newPosition.y, out moveWorldPos)) {
-                Vector2Int oldPosition = currentPosition;
+                Vector2Int oldPosition = currentPosition[playerSwitcher.ActivePlayerIndex];
 
                 //Update position and move player
-                currentPosition = newPosition;
-                moveWorldPos.y = this.transform.position.y;
-                LeanTween.move(this.gameObject, moveWorldPos, moveSpeed);
+                currentPosition[playerSwitcher.ActivePlayerIndex] = newPosition;
+                moveWorldPos.y = playerSwitcher.ActivePlayer.transform.position.y;
+                LeanTween.move(playerSwitcher.ActivePlayer, moveWorldPos, moveSpeed);
 
                 //Fire Move Event
-                GameEvents.current.PlayerMoveToTile(oldPosition, currentPosition);
+                GameEvents.current.PlayerMoveToTile(oldPosition, currentPosition[playerSwitcher.ActivePlayerIndex]);
             }
         }
 
@@ -66,16 +72,25 @@ namespace Split.Player {
                 //Validates that there is a panel at that position
                 if (mapGenerator.Grid[x, y] != null) {
                     Tile tile = mapGenerator.Grid[x, y];
-                    bool output = true;
+
+                    //Checking if there's already a player there
+                    foreach (Vector2Int pos in this.currentPosition) {
+                        if (pos.x == x && pos.y == y) {
+                            worldPos = Vector3.zero;
+                            return false;
+                        }
+                    }
                     
                     //Testing Special Tiles
                     if (tile is BridgeTile) {
                         BridgeTile bridge = tile as BridgeTile;
-                        output = bridge.Activated;
+
+                        worldPos = mapGenerator.Grid[x,y].TileObject.position;
+                        return bridge.Activated;
                     }
 
                     worldPos = mapGenerator.Grid[x,y].TileObject.position;
-                    return output;
+                    return true;
                 }
             }
 

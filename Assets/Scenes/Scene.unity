@@ -166,139 +166,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &492010459 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1062236745390994836, guid: 819940dec239709409b1d0482f8faf27, type: 3}
-  m_PrefabInstance: {fileID: 1062236745740242511}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &492010460
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 492010459}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58debd93613c97a4984c48ce9ba90756, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mapData: {fileID: 11400000, guid: 8199e84b0002144438b0ba77f6102fa6, type: 2}
-  mapGenerator: {fileID: 655879021}
---- !u!114 &492010461
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 492010459}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad9cf9643b4e1054891ae9c3498a2bca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mapGenerator: {fileID: 655879021}
-  mapData: {fileID: 11400000, guid: 8199e84b0002144438b0ba77f6102fa6, type: 2}
-  moveSpeed: 0.1
---- !u!114 &492010462
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 492010459}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: b325a29c5e6377446871efca14b4e7bb, type: 3}
-  m_NotificationBehavior: 2
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents:
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 492010461}
-        m_TargetAssemblyTypeName: Split.Player.PlayerMovement, Assembly-CSharp
-        m_MethodName: MoveForward
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 642070b6-f1e1-48df-93c2-a0ace6ac9b48
-    m_ActionName: Movement/Forward[/Keyboard/w]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 492010461}
-        m_TargetAssemblyTypeName: Split.Player.PlayerMovement, Assembly-CSharp
-        m_MethodName: MoveBackward
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 31ee257e-d610-4268-919e-6b7ef47904cf
-    m_ActionName: Movement/Backward[/Keyboard/s]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 492010461}
-        m_TargetAssemblyTypeName: Split.Player.PlayerMovement, Assembly-CSharp
-        m_MethodName: MoveLeft
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: cf126e4a-2b70-497a-aafa-0eda0976ff2a
-    m_ActionName: Movement/Left[/Keyboard/a]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 492010461}
-        m_TargetAssemblyTypeName: Split.Player.PlayerMovement, Assembly-CSharp
-        m_MethodName: MoveRight
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 28b52763-f8de-4480-9e92-c6ac35ea22d4
-    m_ActionName: Movement/Right[/Keyboard/d]
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: Movement
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
---- !u!4 &492010466 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1062236745390994832, guid: 819940dec239709409b1d0482f8faf27, type: 3}
-  m_PrefabInstance: {fileID: 1062236745740242511}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &655879020
 GameObject:
   m_ObjectHideFlags: 0
@@ -347,6 +214,311 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &896253136
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 896253137}
+  - component: {fileID: 896253140}
+  - component: {fileID: 896253138}
+  - component: {fileID: 896253139}
+  m_Layer: 0
+  m_Name: PlayerManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &896253137
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 896253136}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &896253138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 896253136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d64b46c5498d1d24f87db43d284da94d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerPrefab: {fileID: 1062236745390994836, guid: 819940dec239709409b1d0482f8faf27, type: 3}
+  cameraFollow: {fileID: 1465931228}
+  mapData: {fileID: 11400000, guid: 8199e84b0002144438b0ba77f6102fa6, type: 2}
+  mapGenerator: {fileID: 655879021}
+  maxCount: 5
+  deactivatedColor: {r: 0.2735849, g: 0.2735849, b: 0.2735849, a: 0}
+--- !u!114 &896253139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 896253136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: b325a29c5e6377446871efca14b4e7bb, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 896253140}
+        m_TargetAssemblyTypeName: Split.Player.PlayerMovement, Assembly-CSharp
+        m_MethodName: MoveForward
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 642070b6-f1e1-48df-93c2-a0ace6ac9b48
+    m_ActionName: Movement/Forward[/Keyboard/w,/Keyboard/upArrow]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 896253140}
+        m_TargetAssemblyTypeName: Split.Player.PlayerMovement, Assembly-CSharp
+        m_MethodName: MoveBackward
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 31ee257e-d610-4268-919e-6b7ef47904cf
+    m_ActionName: Movement/Backward[/Keyboard/s,/Keyboard/downArrow]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 896253140}
+        m_TargetAssemblyTypeName: Split.Player.PlayerMovement, Assembly-CSharp
+        m_MethodName: MoveLeft
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: cf126e4a-2b70-497a-aafa-0eda0976ff2a
+    m_ActionName: Movement/Left[/Keyboard/a,/Keyboard/leftArrow]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 896253140}
+        m_TargetAssemblyTypeName: Split.Player.PlayerMovement, Assembly-CSharp
+        m_MethodName: MoveRight
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 28b52763-f8de-4480-9e92-c6ac35ea22d4
+    m_ActionName: Movement/Right[/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 896253138}
+        m_TargetAssemblyTypeName: Split.Player.PlayerSwitcher, Assembly-CSharp
+        m_MethodName: SwitchToPlayer
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: f90f54a6-baf7-4d67-918e-469af3051c1e
+    m_ActionName: PlayerControls Default/Switch -> Player 1 (Main)[/Keyboard/1]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 896253138}
+        m_TargetAssemblyTypeName: Split.Player.PlayerSwitcher, Assembly-CSharp
+        m_MethodName: SwitchToPlayer
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 52e42b7d-b89a-4556-9f92-3e636f3efd41
+    m_ActionName: PlayerControls Default/Switch -> Player 2[/Keyboard/2]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 896253138}
+        m_TargetAssemblyTypeName: Split.Player.PlayerSwitcher, Assembly-CSharp
+        m_MethodName: SwitchToPlayer
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 2e93493f-da4c-4283-8c24-53a386209d45
+    m_ActionName: PlayerControls Default/Switch -> Player 3[/Keyboard/3,/Keyboard/numpad3]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 896253138}
+        m_TargetAssemblyTypeName: Split.Player.PlayerSwitcher, Assembly-CSharp
+        m_MethodName: SwitchToPlayer
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ff89d54d-48b4-44d8-b816-b41d9943ec15
+    m_ActionName: PlayerControls Default/Switch -> Player 4[/Keyboard/4,/Keyboard/numpad4]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 896253138}
+        m_TargetAssemblyTypeName: Split.Player.PlayerSwitcher, Assembly-CSharp
+        m_MethodName: SwitchToPlayer
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 4
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 18d7dc4e-64ae-44aa-b33f-14cc900c6d01
+    m_ActionName: PlayerControls Default/Switch -> Player 5[/Keyboard/5,/Keyboard/numpad5]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 896253138}
+        m_TargetAssemblyTypeName: Split.Player.PlayerSwitcher, Assembly-CSharp
+        m_MethodName: SwitchToPlayer
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 5
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: e6feaf8d-5db0-4f22-a19d-15d9a1315c43
+    m_ActionName: PlayerControls Default/Switch -> Player 6[/Keyboard/6,/Keyboard/numpad6]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 896253138}
+        m_TargetAssemblyTypeName: Split.Player.PlayerSwitcher, Assembly-CSharp
+        m_MethodName: SwitchToPlayer
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 6
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 36617506-5797-45ce-89b4-bfab4a4e0ecc
+    m_ActionName: PlayerControls Default/Switch -> Player 7[/Keyboard/7,/Keyboard/numpad7]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 896253138}
+        m_TargetAssemblyTypeName: Split.Player.PlayerSwitcher, Assembly-CSharp
+        m_MethodName: SwitchToPlayer
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 7
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ec6f1f1c-2052-4db1-a9bf-d44450f4df0f
+    m_ActionName: PlayerControls Default/Switch -> Player 8[/Keyboard/8,/Keyboard/numpad8]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 896253138}
+        m_TargetAssemblyTypeName: Split.Player.PlayerSwitcher, Assembly-CSharp
+        m_MethodName: SwitchToPlayer
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 8
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 41ff93ad-e67d-49dd-aac6-57d9a85f3168
+    m_ActionName: PlayerControls Default/Switch -> Player 9[/Keyboard/9,/Keyboard/numpad9]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: PlayerControls Default
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
+--- !u!114 &896253140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 896253136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad9cf9643b4e1054891ae9c3498a2bca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mapGenerator: {fileID: 655879021}
+  mapData: {fileID: 11400000, guid: 8199e84b0002144438b0ba77f6102fa6, type: 2}
+  playerSwitcher: {fileID: 896253138}
+  moveSpeed: 0.1
 --- !u!1 &1465931223
 GameObject:
   m_ObjectHideFlags: 0
@@ -476,7 +648,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa683c8f95a50a44c910411659602917, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 492010466}
+  target: {fileID: 0}
   smoothSpeed: 0.25
   offset: {x: 6, y: 4, z: -6}
 --- !u!1 &1685100255
@@ -572,76 +744,3 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!1001 &1062236745740242511
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1062236745390994832, guid: 819940dec239709409b1d0482f8faf27, type: 3}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1062236745390994832, guid: 819940dec239709409b1d0482f8faf27, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 1062236745390994832, guid: 819940dec239709409b1d0482f8faf27, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 1062236745390994832, guid: 819940dec239709409b1d0482f8faf27, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 1062236745390994832, guid: 819940dec239709409b1d0482f8faf27, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1062236745390994832, guid: 819940dec239709409b1d0482f8faf27, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1062236745390994832, guid: 819940dec239709409b1d0482f8faf27, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1062236745390994832, guid: 819940dec239709409b1d0482f8faf27, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1062236745390994832, guid: 819940dec239709409b1d0482f8faf27, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1062236745390994832, guid: 819940dec239709409b1d0482f8faf27, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1062236745390994832, guid: 819940dec239709409b1d0482f8faf27, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1062236745390994832, guid: 819940dec239709409b1d0482f8faf27, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1062236745390994832, guid: 819940dec239709409b1d0482f8faf27, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1062236745390994832, guid: 819940dec239709409b1d0482f8faf27, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1062236745390994836, guid: 819940dec239709409b1d0482f8faf27, type: 3}
-      propertyPath: m_Name
-      value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 1062236745390994836, guid: 819940dec239709409b1d0482f8faf27, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 819940dec239709409b1d0482f8faf27, type: 3}
