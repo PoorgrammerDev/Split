@@ -19,42 +19,60 @@ namespace Split.Player {
         [SerializeField] private float moveSpeed;
 
         private Vector2Int[] currentPosition;
+        private Vector2Int inactiveVector = new Vector2Int(-1, -1);
 
         // Start is called before the first frame update
         void Start() {
             playerSwitcher = GetComponent<PlayerManager>();
             currentPosition = new Vector2Int[playerSwitcher.MaxCount];
 
+            //Sets all players to inactive positions
             for (int i = 0; i < currentPosition.Length; ++i) {
-                currentPosition[i] = mapData.SpawnPosition;
+                currentPosition[i] = inactiveVector;
             }
+
+            //Sets main (starting) player to spawn
+            currentPosition[0] = mapData.SpawnPosition;
         }
 
         //NOTE: The directions on the Vectors don't match because the game is being viewed in a different angle
         public void MoveForward(InputAction.CallbackContext context) {
             if (!context.performed) return;
-            MoveToPosition(currentPosition[playerSwitcher.ActivePlayerIndex] + Vector2Int.right);
+            bool newlyInstantiated;
+            
+            MoveToPosition(GetCurrentPos(out newlyInstantiated) + Vector2Int.right, newlyInstantiated);
         }
 
         public void MoveBackward(InputAction.CallbackContext context) {
             if (!context.performed) return;
-            MoveToPosition(currentPosition[playerSwitcher.ActivePlayerIndex] + Vector2Int.left);
+            bool newlyInstantiated;
+
+            MoveToPosition(GetCurrentPos(out newlyInstantiated) + Vector2Int.left, newlyInstantiated);
         }
 
         public void MoveLeft(InputAction.CallbackContext context) {
             if (!context.performed) return;
-            MoveToPosition(currentPosition[playerSwitcher.ActivePlayerIndex] + Vector2Int.down);
+            bool newlyInstantiated;
+
+            MoveToPosition(GetCurrentPos(out newlyInstantiated) + Vector2Int.down, newlyInstantiated);
         }
 
         public void MoveRight(InputAction.CallbackContext context) {
             if (!context.performed) return;
-            MoveToPosition(currentPosition[playerSwitcher.ActivePlayerIndex] + Vector2Int.up);
+            bool newlyInstantiated;
+
+            MoveToPosition(GetCurrentPos(out newlyInstantiated) + Vector2Int.up, newlyInstantiated);
         }
 
-        private void MoveToPosition(Vector2Int newPosition) {
+        private void MoveToPosition(Vector2Int newPosition, bool newlyInstantiated) {
             Vector3 moveWorldPos;
             if (ValidateMovePosition(newPosition.x, newPosition.y, out moveWorldPos)) {
                 Vector2Int oldPosition = currentPosition[playerSwitcher.ActivePlayerIndex];
+
+                //Newly instantiated
+                if (newlyInstantiated) {
+                    playerSwitcher.NewPlayerMoved();
+                }
 
                 //Update position and move player
                 currentPosition[playerSwitcher.ActivePlayerIndex] = newPosition;
@@ -96,6 +114,18 @@ namespace Split.Player {
 
             worldPos = Vector3.zero;
             return false;
+        }
+
+        private Vector2Int GetCurrentPos(out bool newlyInstantiated) {
+            newlyInstantiated = currentPosition[playerSwitcher.ActivePlayerIndex].Equals(inactiveVector);
+
+            //Check if it's a newly instantiated player
+            if (newlyInstantiated) {
+                return currentPosition[playerSwitcher.OldPlayer];
+            }
+            else {
+                return currentPosition[playerSwitcher.ActivePlayerIndex];
+            }
         }
     }
 }

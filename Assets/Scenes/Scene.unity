@@ -265,6 +265,8 @@ MonoBehaviour:
   mapGenerator: {fileID: 655879021}
   maxCount: 5
   deactivatedColor: {r: 0.2735849, g: 0.2735849, b: 0.2735849, a: 0}
+  waitingColor: {r: 0, g: 0.44425678, b: 1, a: 0}
+  waitFlashSpeed: 1.75
 --- !u!114 &896253139
 MonoBehaviour:
   m_ObjectHideFlags: 0
