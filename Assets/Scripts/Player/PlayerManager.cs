@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Split.Map;
 
 namespace Split.Player {
 
@@ -13,8 +12,6 @@ namespace Split.Player {
         [Header("References")]
         [SerializeField] private GameObject playerPrefab;
         [SerializeField] private CameraFollow cameraFollow;
-        [SerializeField] private MapData mapData;
-        [SerializeField] private MapGenerator mapGenerator;
 
         [Header("Settings")]
         [Min(1)]
@@ -51,7 +48,7 @@ namespace Split.Player {
             foreach (GameObject obj in playerObjects) {
 
                 //Set Spawn Position for each Player
-                Vector3 spawnPosition = mapGenerator.Grid[mapData.SpawnPosition.x, mapData.SpawnPosition.y].TileObject.position;
+                Vector3 spawnPosition = Vector3.down; //FIXME: //mapGenerator.Grid[mapData.SpawnPosition.x, mapData.SpawnPosition.y].TileObject.position;
                 spawnPosition.y = obj.transform.localScale.y;
                 obj.transform.position = spawnPosition;
             }

@@ -1,4 +1,4 @@
-namespace Split.Map.Tiles {
+namespace Split.Tiles {
     public enum TileType {
         EMPTY = 0,
         BASIC = 1,

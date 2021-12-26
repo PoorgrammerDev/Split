@@ -1,5 +1,5 @@
 using UnityEngine;
-using Split.Map.Tiles;
+using Split.Tiles;
 
 namespace Split.LevelLoading {
     
