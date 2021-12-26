@@ -1,9 +1,13 @@
 namespace Split.Map.Tiles {
     public enum TileType {
-        NORMAL = 0,
-        HOLE = 1,
-        BROKEN = 2,
-        BUTTON = 3,
-        BRIDGE = 4
+        EMPTY = 0,
+        BASIC = 1,
+        START = 2,
+        END = 3,
+        BROKEN = 4,
+        BUTTON = 5,
+        BRIDGE = 6,
+        BRIDGE_BROKEN = 7,
+        BRIDGE_BUTTON = 8,
     }
 }
