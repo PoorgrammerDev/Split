@@ -9,19 +9,23 @@ namespace Split.Tiles {
      * and as a normal tile when activated
      */
      
-    public class BridgeTile : TileEntity {
+    public class BridgeTile : TileEntity, IBridgeTile {
         private float deactivatedAlpha;
         private LevelData mapData;
-        public bool Activated {get; protected set;}
+        public bool active;
 
         public BridgeTile(float deactivatedAlpha, LevelData mapData, GameObject gameObject, int gridX, int gridY) : base(gameObject, gridX, gridY) {
             this.mapData = mapData;
             this.deactivatedAlpha = deactivatedAlpha;
-            this.Activated = false;
+            this.active = false;
 
             //Subscribe activate and deactivate
             GameEvents.current.onButtonActivate += OnButtonActivate;
             GameEvents.current.onButtonDeactivate += OnButtonDeactivate;
+        }
+
+        public bool IsActive() {
+            return active;
         }
         
         //Step on button - activate tiles

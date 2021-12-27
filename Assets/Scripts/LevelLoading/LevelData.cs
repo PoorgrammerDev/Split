@@ -9,6 +9,8 @@ namespace Split.LevelLoading {
      */
     
     public class LevelData {
+        public Vector2Int startPosition;
+        public Vector2Int endPosition;
         public TileType[,] gridData;
         public ButtonTileData[] buttonTileData;
     }

@@ -19,27 +19,15 @@ namespace Split.LevelLoading
         [SerializeField] private GameObject bridgeBrokenTile;
         [SerializeField] private GameObject bridgeButtonTile;
 
+        public LevelData LevelData {get; set;}
         public Tile[,] Grid {get; private set;}
         private List<MeshCombineData> basicMesh;
-
         private MeshFilter basicMeshFilter;
 
-        public void Start() {
-            LevelData data = new LevelData();
-            data.gridData = new TileType[,]{
-                    {TileType.BASIC,TileType.BASIC,TileType.BASIC,TileType.BASIC,TileType.BASIC},
-                    {TileType.BASIC,TileType.BASIC,TileType.BASIC,TileType.BASIC,TileType.BASIC},
-                    {TileType.BASIC,TileType.EMPTY,TileType.EMPTY,TileType.EMPTY,TileType.BASIC},
-                    {TileType.BASIC,TileType.BASIC,TileType.BASIC,TileType.BROKEN,TileType.BASIC},
-                    {TileType.BASIC,TileType.BASIC,TileType.BROKEN,TileType.BROKEN,TileType.BASIC},
-                };
+        public void Generate() {
+            if (this.LevelData == null) return;
 
-            Generate(data);
-        }
-
-
-        public void Generate(LevelData data) {
-            Grid = new Tile[data.gridData.GetLength(0), data.gridData.GetLength(1)];
+            Grid = new Tile[this.LevelData.gridData.GetLength(0), this.LevelData.gridData.GetLength(1)];
             basicMesh = new List<MeshCombineData>();
             basicMesh.Add(new MeshCombineData());
 
@@ -51,9 +39,9 @@ namespace Split.LevelLoading
             //Create tiles based on data in 2D array
             for (int x = 0; x < Grid.GetLength(0); ++x) {
                 for (int y = 0; y < Grid.GetLength(1); ++y) {
-                    if (data.gridData[x, y] == TileType.EMPTY) continue;
+                    if (this.LevelData.gridData[x, y] == TileType.EMPTY) continue;
 
-                    Grid[x, y] = CreateTile(data, data.gridData[x, y], x, y);
+                    Grid[x, y] = CreateTile(this.LevelData.gridData[x, y], x, y);
                 }
             }
 
@@ -63,8 +51,8 @@ namespace Split.LevelLoading
             basicTile.transform.position = origBasicPos;
         }
 
-        private Tile CreateTile(LevelData data, TileType type, int x, int y) {
-            Vector3 worldPos = new Vector3(-Grid.GetLength(0) / 2 + 0.5f + y, -basicTile.transform.localScale.y / 2, -Grid.GetLength(1) / 2 + 0.5f + x); //TODO: I have no idea what this does and why it does it
+        private Tile CreateTile(TileType type, int x, int y) {
+            Vector3 worldPos = GridToWorldPos(x, y);
             GameObject tileGO;
             Tile newTile;
 
@@ -95,7 +83,7 @@ namespace Split.LevelLoading
 
                 case TileType.BRIDGE:
                     tileGO = GameObject.Instantiate(bridgeTile, worldPos, Quaternion.identity);
-                    newTile = new BridgeTile(0.25f, data, tileGO, x, y);
+                    newTile = new BridgeTile(0.25f, this.LevelData, tileGO, x, y);
                     break;
 
                 case TileType.BRIDGE_BROKEN:
@@ -116,9 +104,6 @@ namespace Split.LevelLoading
         }
 
         private void AddToBasicMesh(Vector3 worldPos) {
-            if (this.basicMesh.Last().vertexCount > MAX_MESH_VERTICIES) {
-                this.basicMesh.Add(new MeshCombineData());
-            }
             //Set basic tile position to desired pos
             basicTile.transform.position = worldPos;
 
@@ -126,6 +111,11 @@ namespace Split.LevelLoading
             CombineInstance combine = new CombineInstance();
             combine.mesh = basicMeshFilter.sharedMesh;
             combine.transform = basicTile.transform.localToWorldMatrix;
+
+            //If verticies are over max, make new mesh
+            if (this.basicMesh.Last().vertexCount + combine.mesh.vertexCount > MAX_MESH_VERTICIES) {
+                this.basicMesh.Add(new MeshCombineData());
+            }
             
             //Add combine instance to the list
             this.basicMesh.Last().combineInstances.Add(combine);
@@ -136,7 +126,7 @@ namespace Split.LevelLoading
             Renderer prefabRenderer = basicTile.GetComponent<Renderer>();
 
             foreach (MeshCombineData data in this.basicMesh) {
-                GameObject obj = new GameObject("BasicMesh");
+                GameObject obj = new GameObject("Basic Tile Mesh");
 
                 MeshFilter filter = obj.AddComponent<MeshFilter>();
                 MeshRenderer rend = obj.AddComponent<MeshRenderer>();
@@ -145,6 +135,15 @@ namespace Split.LevelLoading
                 filter.mesh.CombineMeshes(data.combineInstances.ToArray());
                 filter.mesh.RecalculateNormals();
             }
+        }
+
+        public Vector3? GetSpawnWorldPos() {
+            if (LevelData == null) return null;
+            return GridToWorldPos(LevelData.startPosition.x, LevelData.startPosition.y);
+        }
+
+        public Vector3 GridToWorldPos(int x, int y) {
+            return new Vector3(-Grid.GetLength(0) / 2 + 0.5f + y, -basicTile.transform.localScale.y / 2, -Grid.GetLength(1) / 2 + 0.5f + x);
         }
     
     }

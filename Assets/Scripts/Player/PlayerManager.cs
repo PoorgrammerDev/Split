@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Split.LevelLoading;
 
 namespace Split.Player {
 
@@ -10,6 +11,7 @@ namespace Split.Player {
 
     public class PlayerManager : MonoBehaviour {
         [Header("References")]
+        [SerializeField] private LevelGenerator levelGenerator;
         [SerializeField] private GameObject playerPrefab;
         [SerializeField] private CameraFollow cameraFollow;
 
@@ -45,11 +47,14 @@ namespace Split.Player {
 
         // Start is called before the first frame update
         private void Start() {
-            foreach (GameObject obj in playerObjects) {
+            Vector3? retVal = levelGenerator.GetSpawnWorldPos();
+            if (!retVal.HasValue) throw new System.Exception("Spawn Position empty: level data not loaded!");
 
+            Vector3 spawnPosition = retVal.Value;
+            spawnPosition.y = playerObjects[0].transform.localScale.y;
+
+            foreach (GameObject obj in playerObjects) {
                 //Set Spawn Position for each Player
-                Vector3 spawnPosition = Vector3.down; //FIXME: //mapGenerator.Grid[mapData.SpawnPosition.x, mapData.SpawnPosition.y].TileObject.position;
-                spawnPosition.y = obj.transform.localScale.y;
                 obj.transform.position = spawnPosition;
             }
         }
