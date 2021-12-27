@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace Split.Player.State {
     public abstract class PlayerState {
         protected Player player;
@@ -7,7 +9,7 @@ namespace Split.Player.State {
         }
 
         public virtual void Start() {}
-        public virtual void Move() {}
+        public virtual void Move(Vector2Int to) {}
         public virtual void Activate() {}
         public virtual void Deactivate() {}
         public virtual void Lock() {}

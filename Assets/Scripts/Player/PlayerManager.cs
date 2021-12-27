@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Split.LevelLoading;
+using Split.Tiles;
 
 namespace Split.Player {
 
@@ -28,6 +29,8 @@ namespace Split.Player {
 
         private bool newPlayerMoved;
         public int OldPlayer{get; private set;}
+
+        public LevelGenerator LevelGenerator => levelGenerator;
 
         private void Awake() {
             this.playerObjects = new GameObject[maxCount];
@@ -113,6 +116,37 @@ namespace Split.Player {
 
             playerObjects[OldPlayer].GetComponent<Renderer>().enabled = true;
             LeanTween.color(playerObjects[ply], normalColor, 0.5f);
+        }
+
+        public bool ValidateMovePosition(Vector2Int pos) {
+            //Check that it's in bounds
+            if ((pos.x >= 0 && pos.x < levelGenerator.Grid.GetLength(0)) && (pos.y >= 0 && pos.y < levelGenerator.Grid.GetLength(1))) {
+                //Check that there's a panel there
+                if (levelGenerator.Grid[pos.x, pos.y] != null) {
+                    Tile tile = levelGenerator.Grid[pos.x, pos.y];
+
+                    //TODO: any way to make this more efficient?
+                    //TODO: finsih implementaiton
+                    // foreach (Player player in players) {
+                    //     if (player.Position.x == pos.x && player.Position.y == pos.y) {
+                    //         return false;
+                    //     }
+                    // }
+
+
+                    //Checking if bridge tile
+                    IBridgeTile bridge = tile as IBridgeTile;
+                    if (bridge != null) {
+                        return bridge.IsActive();
+                    }
+
+                    //Passes all checks - no abnormalities
+                    return true;
+                }
+            }
+
+            //Fails check
+            return false;
         }
 
 
