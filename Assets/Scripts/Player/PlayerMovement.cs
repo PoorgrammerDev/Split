@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Split.Map;
-using Split.Map.Tiles;
+using Split.Tiles;
 
 namespace Split.Player {
 
@@ -11,8 +10,6 @@ namespace Split.Player {
 
     public class PlayerMovement : MonoBehaviour {
         [Header("References")]
-        [SerializeField] private MapGenerator mapGenerator;
-        [SerializeField] private MapData mapData;
         [SerializeField] private PlayerManager playerSwitcher;
 
         [Header("Settings")]
@@ -32,7 +29,7 @@ namespace Split.Player {
             }
 
             //Sets main (starting) player to spawn
-            currentPosition[0] = mapData.SpawnPosition;
+            //currentPosition[0] = mapData.SpawnPosition;
         }
 
         //NOTE: The directions on the Vectors don't match because the game is being viewed in a different angle
@@ -85,32 +82,32 @@ namespace Split.Player {
         }
 
         private bool ValidateMovePosition(int x, int y, out Vector3 worldPos) {
-            //Validates that specified position is in bounds of the board
-            if ((x >= 0 && x < mapData.FieldSize.x) && (y >= 0 && y < mapData.FieldSize.y)) {
-                //Validates that there is a panel at that position
-                if (mapGenerator.Grid[x, y] != null) {
-                    Tile tile = mapGenerator.Grid[x, y];
+            // //Validates that specified position is in bounds of the board
+            // if ((x >= 0 && x < mapData.FieldSize.x) && (y >= 0 && y < mapData.FieldSize.y)) {
+            //     //Validates that there is a panel at that position
+            //     if (mapGenerator.Grid[x, y] != null) {
+            //         Tile tile = mapGenerator.Grid[x, y];
 
-                    //Checking if there's already a player there
-                    foreach (Vector2Int pos in this.currentPosition) {
-                        if (pos.x == x && pos.y == y) {
-                            worldPos = Vector3.zero;
-                            return false;
-                        }
-                    }
+            //         //Checking if there's already a player there
+            //         foreach (Vector2Int pos in this.currentPosition) {
+            //             if (pos.x == x && pos.y == y) {
+            //                 worldPos = Vector3.zero;
+            //                 return false;
+            //             }
+            //         }
                     
-                    //Testing Special Tiles
-                    if (tile is BridgeTile) {
-                        BridgeTile bridge = tile as BridgeTile;
+            //         //Testing Special Tiles
+            //         if (tile is BridgeTile) {
+            //             BridgeTile bridge = tile as BridgeTile;
 
-                        worldPos = mapGenerator.Grid[x,y].TileObject.position;
-                        return bridge.Activated;
-                    }
+            //             worldPos = mapGenerator.Grid[x,y].TileObject.position;
+            //             return bridge.Activated;
+            //         }
 
-                    worldPos = mapGenerator.Grid[x,y].TileObject.position;
-                    return true;
-                }
-            }
+            //         worldPos = mapGenerator.Grid[x,y].TileObject.position;
+            //         return true;
+            //     }
+            // }
 
             worldPos = Vector3.zero;
             return false;

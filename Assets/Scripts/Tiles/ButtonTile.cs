@@ -1,13 +1,13 @@
 using UnityEngine;
 
-namespace Split.Map.Tiles {
+namespace Split.Tiles {
     /*
      * This class represents a special tile that detects a Player's movement
      */
      
-    public class ButtonTile : Tile {
+    public class ButtonTile : TileEntity {
 
-        public ButtonTile(Transform tilePrefab, Vector3 tilePosition, MapGenerator parent, MapData mapData, int gridX, int gridY) : base(tilePrefab, tilePosition, parent, mapData, gridX, gridY) {
+        public ButtonTile(GameObject gameObject, int gridX, int gridY) : base(gameObject, gridX, gridY) {
             GameEvents.current.playerMoveToTile += OnPlayerPressButton;
         }
 
