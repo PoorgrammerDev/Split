@@ -195,6 +195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78a84ae9a55294e1eb51cec52654754e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerManager: {fileID: 896253138}
   basicTile: {fileID: 1612332020403020982, guid: f1aa10ca16248a34b8f4eea35d38ff58, type: 3}
   startTile: {fileID: 1612332020403020982, guid: b8d2c0c53da464c2ea88acc59417dd5c, type: 3}
   endTile: {fileID: 1612332020403020982, guid: b8d2c0c53da464c2ea88acc59417dd5c, type: 3}

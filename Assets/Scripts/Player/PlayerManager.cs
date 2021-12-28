@@ -40,12 +40,15 @@ namespace Split.Player {
             //Sets Player 0 as starting player
             cameraFollow.target = players[0].transform;
             this.activePlayerIndex = 0;
+
+            GameEvents.current.onBridgeDeactivate += OnBridgeDeactivate;
         }
 
         // Start is called before the first frame update
         private void Start() {
             //Activates Starting Player (0)
             players[0].SetState(new State.Active(players[0]));
+            players[0].Position = levelGenerator.LevelData.startPosition;
             
             Vector3? retVal = levelGenerator.GetSpawnWorldPos();
             if (!retVal.HasValue) throw new System.Exception("Spawn Position empty: level data not loaded!");
@@ -76,14 +79,7 @@ namespace Split.Player {
                 if (levelGenerator.Grid[pos.x, pos.y] != null) {
                     Tile tile = levelGenerator.Grid[pos.x, pos.y];
 
-                    //TODO: any way to make this more efficient?
-                    //Checks if there's already a player there
-                    foreach (Player player in players) {
-                        if (player.Position.x == pos.x && player.Position.y == pos.y) {
-                            return false;
-                        }
-                    }
-
+                    if (GetPlayerAtPosition(pos) != null) return false;
 
                     //Checking if bridge tile
                     IBridgeTile bridge = tile as IBridgeTile;
@@ -100,6 +96,23 @@ namespace Split.Player {
             return false;
         }
 
+        public Player GetPlayerAtPosition(Vector2Int pos) {
+            //TODO: any way to make this more efficient?
+            //Checks if there's already a player there
+            foreach (Player player in players) {
+                if (player.Position.x == pos.x && player.Position.y == pos.y && !(player.GetState() is State.Uninitialized)) {
+                    return player;
+                }
+            }
+            return null;
+        }
+
+        private void OnBridgeDeactivate(Vector2Int pos) {
+            Player player = GetPlayerAtPosition(pos);
+            if (player != null) {
+                player.SetState(new State.Locked(player));
+            }
+        }
 
         //------------------------
         // Accessors

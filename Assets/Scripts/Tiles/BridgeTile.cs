@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using Split.LevelLoading;
@@ -12,12 +13,16 @@ namespace Split.Tiles {
     public class BridgeTile : TileEntity, IBridgeTile {
         private float deactivatedAlpha;
         private LevelData mapData;
-        public bool active;
+        private bool active;
+        private List<ButtonTileData> activators;
 
         public BridgeTile(float deactivatedAlpha, LevelData mapData, GameObject gameObject, int gridX, int gridY) : base(gameObject, gridX, gridY) {
             this.mapData = mapData;
             this.deactivatedAlpha = deactivatedAlpha;
             this.active = false;
+
+            this.activators = new List<ButtonTileData>();
+            PopulateActivators();
 
             //Subscribe activate and deactivate
             GameEvents.current.onButtonActivate += OnButtonActivate;
@@ -25,31 +30,53 @@ namespace Split.Tiles {
         }
 
         public bool IsActive() {
-            return active;
+            return this.active;
+        }
+
+        private void SetActive(bool enabled) {
+            this.active = enabled;
+
+            LeanTween.alpha(this.GameObject.gameObject, (enabled ? 1.0f : deactivatedAlpha), 0.25f);
         }
         
-        //Step on button - activate tiles
         private void OnButtonActivate(Vector2Int buttonPosition) {
-            // ButtonTileData buttonTileData = mapData.GetButtonByCoord(buttonPosition);
+            ButtonTileData buttonTileData = GetButtonByCoord(buttonPosition);
 
-            // if (buttonTileData != null && buttonTileData.activateBridgeTiles && buttonTileData.ContainsBridgeTile(this.GridPosition)) {
-            //     TileActivate(true);
-            // }
+            if (buttonTileData != null) {
+                SetActive(true);
+            }
         }
 
-        //Step off button - deactivate tiles
         private void OnButtonDeactivate(Vector2Int buttonPosition) {
-            // ButtonTileData buttonTileData = mapData.GetButtonByCoord(buttonPosition);
+            ButtonTileData buttonTileData = GetButtonByCoord(buttonPosition);
 
-            // if (buttonTileData != null && buttonTileData.activateBridgeTiles && buttonTileData.ContainsBridgeTile(this.GridPosition)) {
-            //     TileActivate(false);
-            // }
+            if (buttonTileData != null) {
+                SetActive(false);
+                GameEvents.current.BridgeDeactivate(GridPosition); //fire bridge deactivate event
+            }
         }
 
-        private void TileActivate(bool enabled) {
-            // Activated = enabled;
+        private void PopulateActivators() {
+            foreach (ButtonTileData button in mapData.buttonTileData) {
+                if (button == null) continue;
+                
+                foreach (Vector2Int target in button.bridgeTiles) {
+                    if (target == GridPosition) {
+                        this.activators.Add(button);
+                        break; //TODO: not sure if this works
+                    }
+                }
+            }
+        }
 
-            // LeanTween.alpha(this.TileObject.gameObject, (enabled ? 1.0f : deactivatedAlpha), 0.25f);
+        private ButtonTileData GetButtonByCoord(Vector2Int position) {
+            foreach (ButtonTileData button in this.activators) {
+                if (button.tilePosition == position) {
+                    return button;
+                }
+            }
+
+            return null;
         }
 
     }

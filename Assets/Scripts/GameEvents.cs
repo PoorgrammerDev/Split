@@ -35,5 +35,12 @@ namespace Split {
                 onButtonDeactivate(buttonPosition);
             }
         }
+
+        public event Action<Vector2Int> onBridgeDeactivate; 
+        public void BridgeDeactivate(Vector2Int bridgePosition) {
+            if (onBridgeDeactivate != null) {
+                onBridgeDeactivate(bridgePosition);
+            }
+        }
     }
 }

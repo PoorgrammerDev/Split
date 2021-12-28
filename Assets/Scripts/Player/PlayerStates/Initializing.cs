@@ -52,6 +52,15 @@ namespace Split.Player.State {
             float t = 0.0f;
             bool flip = false;
 
+            //First, fade from old player color to activated new color
+            while (t < 1.0f) {
+                plyMat.color = Color.Lerp(lastPlayer.Colors.ActiveColor, player.Colors.ActiveColor, t);
+                t = Mathf.Clamp(t + (Time.deltaTime * 5f), 0, 1);
+                yield return null;
+            }
+
+            //Then reset t to start and begin lerping cycle
+            t = 0.0f;
             while (!finishAnimation) {
                 plyMat.color = Color.Lerp(player.Colors.ActiveColor, player.Colors.InitializingColor, t);
 
@@ -67,7 +76,6 @@ namespace Split.Player.State {
             //restore last player's visibility
             lastRend.enabled = true;
         }
-
 
     }
 }

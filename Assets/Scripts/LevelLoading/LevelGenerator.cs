@@ -2,12 +2,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using Split.Tiles;
 using System.Linq;
+using Split.Player;
 
 namespace Split.LevelLoading
 {
     public class LevelGenerator : MonoBehaviour
     {
         private const int MAX_MESH_VERTICIES = 65535;
+
+        [Header("References")]
+        [SerializeField] private PlayerManager playerManager;
 
         [Header("Tile Prefabs")]
         [SerializeField] private GameObject basicTile;
@@ -30,16 +34,31 @@ namespace Split.LevelLoading
 
             const int a = 100;
 
-
             levelData.gridData = new TileType[a, a];
             levelData.startPosition = Vector2Int.zero;
             for (int x = 0; x < a; x++) {
                 for (int y = 0; y < a; y++) {
-                    levelData.gridData[x, y] = (TileType) Random.Range(0, 8);
+                    levelData.gridData[x, y] = TileType.BASIC;//(TileType) Random.Range(0, 8);
                 }
             }
 
-            levelData.gridData[0,0] = TileType.BASIC;
+            levelData.gridData[1,1] = TileType.BUTTON;
+
+            levelData.gridData[3,1] = TileType.BRIDGE;
+            levelData.gridData[3,2] = TileType.BRIDGE;
+            levelData.gridData[3,3] = TileType.BRIDGE;
+
+            levelData.buttonTileData = new ButtonTileData[1];
+
+            ButtonTileData abc = new ButtonTileData();
+            abc.tilePosition = new Vector2Int(1, 1);
+            abc.bridgeTiles = new Vector2Int[3];
+            abc.bridgeTiles[0] = new Vector2Int(3, 1);
+            abc.bridgeTiles[1] = new Vector2Int(3, 2);
+            abc.bridgeTiles[2] = new Vector2Int(3, 3);
+
+            levelData.buttonTileData[0] = abc;
+            levelData.startPosition = Vector2Int.right;
 
             this.LevelData = levelData;
             Generate();
@@ -99,7 +118,7 @@ namespace Split.LevelLoading
 
                 case TileType.BUTTON:
                     tileGO = GameObject.Instantiate(buttonTile, worldPos, Quaternion.identity);
-                    newTile = new ButtonTile(tileGO, x, y);
+                    newTile = new ButtonTile(tileGO, playerManager, x, y);
                     break;
 
                 case TileType.BRIDGE:
