@@ -7,17 +7,19 @@ namespace Split.Player.State {
 
         public override void Start() {
             //Color
-            LeanTween.color(player.gameObject, player.DeactivatedColor, 0.5f);
+            LeanTween.color(player.gameObject, player.Colors.DeactivatedColor, 0.5f);
         }
 
-        public override void Activate() {
+        public override bool Activate() {
             //Change this player's state to active
             player.SetState(new Active(player));
+            return true;
         }
 
-        public override void Lock() {
+        public override bool Lock() {
             //Change state to locked
             player.SetState(new Locked(player));
+            return true;
         }
 
     }

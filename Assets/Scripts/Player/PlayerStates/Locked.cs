@@ -13,11 +13,11 @@ namespace Split.Player.State {
 
         public override void Start() {
             //Color
-            LeanTween.color(player.gameObject, player.LockedColor, 0.5f);
+            LeanTween.color(player.gameObject, player.Colors.LockedColor, 0.5f);
         }
 
-        public override void Activate() {
-            if (levelGenerator == null) return;
+        public override bool Activate() {
+            if (levelGenerator == null) return false;
 
             Tile tile = levelGenerator.Grid[player.Position.x, player.Position.y];
 
@@ -26,9 +26,11 @@ namespace Split.Player.State {
 
                 if (bridgeTile.IsActive()) {
                     player.SetState(new Active(player));
+                    return true;
                 }
             }
 
+            return false;
         }
 
     }

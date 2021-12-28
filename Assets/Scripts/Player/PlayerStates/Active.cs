@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace Split.Player.State {
@@ -6,10 +7,11 @@ namespace Split.Player.State {
         }
 
         public override void Start() {
-            LeanTween.color(player.gameObject, player.ActiveColor, 0.5f);
+            player.gameObject.SetActive(true);
+            LeanTween.color(player.gameObject, player.Colors.ActiveColor, 0.5f);
         }
         
-        public override void Move(Vector2Int to) {
+        public override bool Move(Vector2Int to) {
             if (player.Manager.ValidateMovePosition(to)) {
                 Vector2Int oldPosition = player.Position;
 
@@ -19,21 +21,24 @@ namespace Split.Player.State {
                 //Move player object
                 Vector3 worldPos = player.Manager.LevelGenerator.GridToWorldPos(to.x, to.y);
                 worldPos.y = player.transform.position.y; //Keep vertical position 
-                LeanTween.move(player.gameObject, worldPos, 0.5f);
+                LeanTween.move(player.gameObject, worldPos, 0.125f);
 
                 //Fire Move Event
                 GameEvents.current.PlayerMoveToTile(oldPosition, to);
+                return true;
             }
+            return false;
         }
 
-        public override void Deactivate() {
+        public override bool Deactivate() {
             player.SetState(new Unselected(player));
+            return true;
         }
 
-        public override void Lock() {
+        public override bool Lock() {
             player.SetState(new Locked(player));
             //TODO: transfer control to a different player?
+            return true;
         }
-
     }
 }

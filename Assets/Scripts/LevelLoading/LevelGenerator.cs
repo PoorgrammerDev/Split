@@ -24,6 +24,27 @@ namespace Split.LevelLoading
         private List<MeshCombineData> basicMesh;
         private MeshFilter basicMeshFilter;
 
+        //TODO: testing, remove
+        void Start() {
+            LevelData levelData = new LevelData();
+
+            const int a = 100;
+
+
+            levelData.gridData = new TileType[a, a];
+            levelData.startPosition = Vector2Int.zero;
+            for (int x = 0; x < a; x++) {
+                for (int y = 0; y < a; y++) {
+                    levelData.gridData[x, y] = (TileType) Random.Range(0, 8);
+                }
+            }
+
+            levelData.gridData[0,0] = TileType.BASIC;
+
+            this.LevelData = levelData;
+            Generate();
+        }
+
         public void Generate() {
             if (this.LevelData == null) return;
 

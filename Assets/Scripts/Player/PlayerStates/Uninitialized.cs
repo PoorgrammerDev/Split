@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace Split.Player.State {
     public class Uninitialized : PlayerState {
 
@@ -8,8 +10,9 @@ namespace Split.Player.State {
             player.gameObject.SetActive(false);
         }
 
-        public override void Activate() {
+        public override bool Activate() {
             player.SetState(new Initializing(player));
+            return true;
         }
 
     }

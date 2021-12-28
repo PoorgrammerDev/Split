@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 882023841}
   - component: {fileID: 882023840}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: LevelGenerator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -215,7 +215,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &896253136
 GameObject:
@@ -226,7 +226,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 896253137}
-  - component: {fileID: 896253140}
   - component: {fileID: 896253138}
   - component: {fileID: 896253139}
   m_Layer: 0
@@ -248,7 +247,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &896253138
 MonoBehaviour:
@@ -262,12 +261,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d64b46c5498d1d24f87db43d284da94d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelGenerator: {fileID: 882023840}
   playerPrefab: {fileID: 1062236745390994836, guid: 819940dec239709409b1d0482f8faf27, type: 3}
   cameraFollow: {fileID: 1465931228}
+  colors:
+  - ActiveColor: {r: 0.8396226, g: 0.10693307, b: 0.10693307, a: 0}
+    InitializingColor: {r: 1, g: 0, b: 0.44892502, a: 0}
+    DeactivatedColor: {r: 0.4339623, g: 0.16171236, b: 0.16171236, a: 0}
+    LockedColor: {r: 0.5566038, g: 0.3589344, b: 0.33343717, a: 0}
+  - ActiveColor: {r: 0.062077243, g: 0.4218705, b: 0.8773585, a: 0}
+    InitializingColor: {r: 0.10679956, g: 0.8292056, b: 0.9056604, a: 0}
+    DeactivatedColor: {r: 0.20225169, g: 0.23782964, b: 0.4245283, a: 0}
+    LockedColor: {r: 0.37793696, g: 0.40408587, b: 0.5377358, a: 0}
+  - ActiveColor: {r: 0.9150943, g: 0.85423326, b: 0.09927912, a: 0}
+    InitializingColor: {r: 0.88987565, g: 1, b: 0, a: 0}
+    DeactivatedColor: {r: 0.5, g: 0.4062945, b: 0, a: 0}
+    LockedColor: {r: 0.4811321, g: 0.46351346, b: 0.32453722, a: 0}
+  defaultColor:
+    ActiveColor: {r: 1, g: 1, b: 1, a: 0}
+    InitializingColor: {r: 1, g: 0.870023, b: 0, a: 0}
+    DeactivatedColor: {r: 0.3207547, g: 0.3207547, b: 0.3207547, a: 0}
+    LockedColor: {r: 0.15841937, g: 0.19583406, b: 0.3773585, a: 0}
   maxCount: 5
-  deactivatedColor: {r: 0.2735849, g: 0.2735849, b: 0.2735849, a: 0}
-  waitingColor: {r: 0, g: 0.44425678, b: 1, a: 0}
-  waitFlashSpeed: 1.75
 --- !u!114 &896253139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -295,8 +310,8 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 896253140}
-        m_TargetAssemblyTypeName: Split.Player.PlayerMovement, Assembly-CSharp
+      - m_Target: {fileID: 896253138}
+        m_TargetAssemblyTypeName: Split.Player.PlayerManager, Assembly-CSharp
         m_MethodName: MoveForward
         m_Mode: 0
         m_Arguments:
@@ -311,8 +326,8 @@ MonoBehaviour:
     m_ActionName: Movement/Forward[/Keyboard/w,/Keyboard/upArrow]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 896253140}
-        m_TargetAssemblyTypeName: Split.Player.PlayerMovement, Assembly-CSharp
+      - m_Target: {fileID: 896253138}
+        m_TargetAssemblyTypeName: Split.Player.PlayerManager, Assembly-CSharp
         m_MethodName: MoveBackward
         m_Mode: 0
         m_Arguments:
@@ -327,8 +342,8 @@ MonoBehaviour:
     m_ActionName: Movement/Backward[/Keyboard/s,/Keyboard/downArrow]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 896253140}
-        m_TargetAssemblyTypeName: Split.Player.PlayerMovement, Assembly-CSharp
+      - m_Target: {fileID: 896253138}
+        m_TargetAssemblyTypeName: Split.Player.PlayerManager, Assembly-CSharp
         m_MethodName: MoveLeft
         m_Mode: 0
         m_Arguments:
@@ -343,8 +358,8 @@ MonoBehaviour:
     m_ActionName: Movement/Left[/Keyboard/a,/Keyboard/leftArrow]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 896253140}
-        m_TargetAssemblyTypeName: Split.Player.PlayerMovement, Assembly-CSharp
+      - m_Target: {fileID: 896253138}
+        m_TargetAssemblyTypeName: Split.Player.PlayerManager, Assembly-CSharp
         m_MethodName: MoveRight
         m_Mode: 0
         m_Arguments:
@@ -506,20 +521,6 @@ MonoBehaviour:
   m_DefaultActionMap: PlayerControls Default
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &896253140
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 896253136}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad9cf9643b4e1054891ae9c3498a2bca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerSwitcher: {fileID: 896253138}
-  moveSpeed: 0.1
 --- !u!1 &1465931223
 GameObject:
   m_ObjectHideFlags: 0
@@ -603,7 +604,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 30, y: -45, z: 0}
 --- !u!114 &1465931227
 MonoBehaviour:
@@ -744,5 +745,5 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}

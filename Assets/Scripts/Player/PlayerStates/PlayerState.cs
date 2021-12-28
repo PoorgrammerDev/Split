@@ -9,9 +9,22 @@ namespace Split.Player.State {
         }
 
         public virtual void Start() {}
-        public virtual void Move(Vector2Int to) {}
-        public virtual void Activate() {}
-        public virtual void Deactivate() {}
-        public virtual void Lock() {}
+        public virtual void End() {}
+
+        public virtual bool Move(Vector2Int to) {
+            return false;
+        }
+
+        public virtual bool Activate() {
+            return false;
+        }
+
+        public virtual bool Deactivate() {
+            return false;
+        }
+
+        public virtual bool Lock() {
+            return false;
+        }
     }
 }
