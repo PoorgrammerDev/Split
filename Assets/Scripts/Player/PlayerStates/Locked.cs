@@ -21,8 +21,8 @@ namespace Split.Player.State {
 
             Tile tile = levelGenerator.Grid[player.Position.x, player.Position.y];
 
-            if (tile is IBridgeTile) {
-                IBridgeTile bridgeTile = tile as IBridgeTile;
+            if (tile is IToggleable) {
+                IToggleable bridgeTile = tile as IToggleable;
 
                 if (bridgeTile.IsActive()) {
                     player.SetState(new Active(player));

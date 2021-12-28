@@ -82,7 +82,7 @@ namespace Split.Player {
                     if (GetPlayerAtPosition(pos) != null) return false;
 
                     //Checking if bridge tile
-                    IBridgeTile bridge = tile as IBridgeTile;
+                    IToggleable bridge = tile as IToggleable;
                     if (bridge != null) {
                         return bridge.IsActive();
                     }

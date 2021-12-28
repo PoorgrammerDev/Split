@@ -43,12 +43,19 @@ namespace Split.LevelLoading
             }
 
             levelData.gridData[1,1] = TileType.BUTTON;
+            levelData.gridData[0,5] = TileType.BUTTON;
 
-            levelData.gridData[3,1] = TileType.BRIDGE;
+            levelData.gridData[3,1] = TileType.BRIDGE_BROKEN;
             levelData.gridData[3,2] = TileType.BRIDGE;
-            levelData.gridData[3,3] = TileType.BRIDGE;
+            levelData.gridData[3,3] = TileType.BRIDGE_BUTTON;
 
-            levelData.buttonTileData = new ButtonTileData[1];
+            levelData.gridData[5, 1] = TileType.BRIDGE;
+            levelData.gridData[5, 2] = TileType.BRIDGE;
+            levelData.gridData[5, 3] = TileType.BRIDGE;
+
+            levelData.gridData[10, 0] = TileType.BROKEN;
+
+            levelData.buttonTileData = new ButtonTileData[3];
 
             ButtonTileData abc = new ButtonTileData();
             abc.tilePosition = new Vector2Int(1, 1);
@@ -57,7 +64,22 @@ namespace Split.LevelLoading
             abc.bridgeTiles[1] = new Vector2Int(3, 2);
             abc.bridgeTiles[2] = new Vector2Int(3, 3);
 
+            ButtonTileData bcd = new ButtonTileData();
+            bcd.tilePosition = new Vector2Int(0, 5);
+            bcd.bridgeTiles = new Vector2Int[1];
+            bcd.bridgeTiles[0] = new Vector2Int(3, 2);
+
+            ButtonTileData cgg = new ButtonTileData();
+            cgg.tilePosition = new Vector2Int(3, 3);
+            cgg.bridgeTiles = new Vector2Int[]{
+                new Vector2Int(5, 1),
+                new Vector2Int(5, 2),
+                new Vector2Int(5, 3),
+            };
+
             levelData.buttonTileData[0] = abc;
+            levelData.buttonTileData[1] = bcd;
+            levelData.buttonTileData[2] = cgg;
             levelData.startPosition = Vector2Int.right;
 
             this.LevelData = levelData;
@@ -118,22 +140,22 @@ namespace Split.LevelLoading
 
                 case TileType.BUTTON:
                     tileGO = GameObject.Instantiate(buttonTile, worldPos, Quaternion.identity);
-                    newTile = new ButtonTile(tileGO, playerManager, x, y);
+                    newTile = new ButtonTile(tileGO, this.playerManager, x, y);
                     break;
 
                 case TileType.BRIDGE:
                     tileGO = GameObject.Instantiate(bridgeTile, worldPos, Quaternion.identity);
-                    newTile = new BridgeTile(0.25f, this.LevelData, tileGO, x, y);
+                    newTile = new BridgeTile(0.25f, this.playerManager, this.LevelData, tileGO, x, y);
                     break;
 
                 case TileType.BRIDGE_BROKEN:
                     tileGO = GameObject.Instantiate(bridgeBrokenTile, worldPos, Quaternion.identity);
-                    newTile = new BridgeBrokenTile(tileGO, x, y);
+                    newTile = new BridgeBrokenTile(0.25f, this.playerManager, this.LevelData, tileGO, x, y);
                     break;
 
                 case TileType.BRIDGE_BUTTON:
                     tileGO = GameObject.Instantiate(bridgeButtonTile, worldPos, Quaternion.identity);
-                    newTile = new BridgeButtonTile(tileGO, x, y);
+                    newTile = new BridgeButtonTile(0.25f, this.playerManager, this.LevelData, tileGO, x, y);
                     break;
 
                 default:
