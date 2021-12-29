@@ -30,59 +30,59 @@ namespace Split.LevelLoading
 
         //TODO: testing, remove
         void Start() {
-            LevelData levelData = new LevelData();
+            // LevelData levelData = new LevelData();
 
-            const int a = 100;
+            // const int a = 100;
 
-            levelData.gridData = new TileType[a, a];
-            levelData.startPosition = Vector2Int.zero;
-            for (int x = 0; x < a; x++) {
-                for (int y = 0; y < a; y++) {
-                    levelData.gridData[x, y] = TileType.BASIC;//(TileType) Random.Range(0, 8);
-                }
-            }
+            // levelData.gridData = new TileGrid(a, a);
+            // for (int x = 0; x < a; x++) {
+            //     for (int y = 0; y < a; y++) {
+            //         levelData.gridData[x, y] = TileType.BASIC;//(TileType) Random.Range(0, 8);
+            //     }
+            // }
 
-            levelData.gridData[1,1] = TileType.BUTTON;
-            levelData.gridData[0,5] = TileType.BUTTON;
+            // levelData.gridData[1,1] = TileType.BUTTON;
+            // levelData.gridData[0,5] = TileType.BUTTON;
 
-            levelData.gridData[3,1] = TileType.BRIDGE_BROKEN;
-            levelData.gridData[3,2] = TileType.BRIDGE;
-            levelData.gridData[3,3] = TileType.BRIDGE_BUTTON;
+            // levelData.gridData[3,1] = TileType.BRIDGE_BROKEN;
+            // levelData.gridData[3,2] = TileType.BRIDGE;
+            // levelData.gridData[3,3] = TileType.BRIDGE_BUTTON;
 
-            levelData.gridData[5, 1] = TileType.BRIDGE;
-            levelData.gridData[5, 2] = TileType.BRIDGE;
-            levelData.gridData[5, 3] = TileType.BRIDGE;
+            // levelData.gridData[5, 1] = TileType.BRIDGE;
+            // levelData.gridData[5, 2] = TileType.BRIDGE;
+            // levelData.gridData[5, 3] = TileType.BRIDGE;
 
-            levelData.gridData[10, 0] = TileType.BROKEN;
+            // levelData.gridData[10, 0] = TileType.BROKEN;
 
-            levelData.buttonTileData = new ButtonTileData[3];
+            // levelData.buttonTileData = new ButtonTileData[3];
 
-            ButtonTileData abc = new ButtonTileData();
-            abc.tilePosition = new Vector2Int(1, 1);
-            abc.bridgeTiles = new Vector2Int[3];
-            abc.bridgeTiles[0] = new Vector2Int(3, 1);
-            abc.bridgeTiles[1] = new Vector2Int(3, 2);
-            abc.bridgeTiles[2] = new Vector2Int(3, 3);
+            // ButtonTileData abc = new ButtonTileData();
+            // abc.tilePosition = new Vector2Int(1, 1);
+            // abc.bridgeTiles = new Vector2Int[3];
+            // abc.bridgeTiles[0] = new Vector2Int(3, 1);
+            // abc.bridgeTiles[1] = new Vector2Int(3, 2);
+            // abc.bridgeTiles[2] = new Vector2Int(3, 3);
 
-            ButtonTileData bcd = new ButtonTileData();
-            bcd.tilePosition = new Vector2Int(0, 5);
-            bcd.bridgeTiles = new Vector2Int[1];
-            bcd.bridgeTiles[0] = new Vector2Int(3, 2);
+            // ButtonTileData bcd = new ButtonTileData();
+            // bcd.tilePosition = new Vector2Int(0, 5);
+            // bcd.bridgeTiles = new Vector2Int[1];
+            // bcd.bridgeTiles[0] = new Vector2Int(3, 2);
 
-            ButtonTileData cgg = new ButtonTileData();
-            cgg.tilePosition = new Vector2Int(3, 3);
-            cgg.bridgeTiles = new Vector2Int[]{
-                new Vector2Int(5, 1),
-                new Vector2Int(5, 2),
-                new Vector2Int(5, 3),
-            };
+            // ButtonTileData cgg = new ButtonTileData();
+            // cgg.tilePosition = new Vector2Int(3, 3);
+            // cgg.bridgeTiles = new Vector2Int[]{
+            //     new Vector2Int(5, 1),
+            //     new Vector2Int(5, 2),
+            //     new Vector2Int(5, 3),
+            // };
 
-            levelData.buttonTileData[0] = abc;
-            levelData.buttonTileData[1] = bcd;
-            levelData.buttonTileData[2] = cgg;
-            levelData.startPosition = Vector2Int.right;
+            // levelData.buttonTileData[0] = abc;
+            // levelData.buttonTileData[1] = bcd;
+            // levelData.buttonTileData[2] = cgg;
+            // levelData.startPosition = Vector2Int.right;
 
-            new LevelSerializer().Save(levelData, "level.json", true);
+            LevelData levelData;
+            new LevelSerializer().Load(out levelData, "level.json");
 
             this.LevelData = levelData;
             Generate();
@@ -91,7 +91,7 @@ namespace Split.LevelLoading
         public void Generate() {
             if (this.LevelData == null) return;
 
-            Grid = new Tile[this.LevelData.gridData.GetLength(0), this.LevelData.gridData.GetLength(1)];
+            Grid = new Tile[this.LevelData.gridData.x, this.LevelData.gridData.y];
             basicMesh = new List<MeshCombineData>();
             basicMesh.Add(new MeshCombineData());
 
