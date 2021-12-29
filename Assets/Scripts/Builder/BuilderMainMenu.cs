@@ -12,15 +12,14 @@ namespace Split.Builder {
         [SerializeField] private LevelEntry levelListPrefab;
 
         private LevelSerializer levelSerializer;
-        private List<LevelData> levels;
         private List<LevelEntry> levelEntries;
 
         private void Awake() {
             this.levelSerializer = new LevelSerializer();
-            this.levels = new List<LevelData>();
             this.levelEntries = new List<LevelEntry>();
 
             PopulateLevelEntries();
+            openingMenu.SetActive(true);
         }
 
         private void PopulateLevelEntries() {
@@ -30,12 +29,13 @@ namespace Split.Builder {
                 foreach (string filePath in Directory.GetFiles(levelSerializer.GetDefaultDirectoryPath(), "*.json")) {
                     LevelData data;
                     if (levelSerializer.Load(out data, filePath)) {
-                        levels.Add(data);
-
                         LevelEntry entry = Instantiate(levelListPrefab.gameObject, Vector3.zero, Quaternion.identity, levelsContent.transform).GetComponent<LevelEntry>();
+
                         entry.SetFileName(Path.GetFileName(filePath));
-                        entry.SetTitle(data.levelName);
+                        entry.SetTitle(!string.IsNullOrEmpty(data.levelName) ? data.levelName : Path.GetFileNameWithoutExtension(filePath));
                         entry.SetDescription(data.levelDescription);
+                        entry.Data = data;
+                        entry.Manager = this;
 
                         levelEntries.Add(entry);
 
