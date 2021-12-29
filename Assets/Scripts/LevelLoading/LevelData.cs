@@ -8,7 +8,10 @@ namespace Split.LevelLoading {
      * to be fed into the MapGenerator
      */
     
+    [System.Serializable]
     public class LevelData {
+        public string levelName;
+        public string levelDescription;
         public Vector2Int startPosition;
         public Vector2Int endPosition;
         public TileType[,] gridData;

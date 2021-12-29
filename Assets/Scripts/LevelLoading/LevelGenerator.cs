@@ -82,6 +82,8 @@ namespace Split.LevelLoading
             levelData.buttonTileData[2] = cgg;
             levelData.startPosition = Vector2Int.right;
 
+            new LevelSerializer().Save(levelData, "level.json", true);
+
             this.LevelData = levelData;
             Generate();
         }
