@@ -20,7 +20,7 @@ namespace Split.Tiles.Properties {
 
                 this.Active = false;
                 this.gameObject.SetActive(false);
-                //TODO: add tile break event
+                GameEvents.current.BridgeDeactivate(this.position); //fire bridge deactivate event
             }
         }
     }
