@@ -9,6 +9,7 @@ using Split.LevelLoading;
 namespace Split.Builder {
     public class BuilderLevelLoader : MonoBehaviour {
         [Header("Tile Prefabs")]
+        [SerializeField] private MeshFilter emptyTile;
         [SerializeField] private MeshFilter basicTile;
         [SerializeField] private MeshFilter startTile;
         [SerializeField] private MeshFilter endTile;
@@ -74,7 +75,7 @@ namespace Split.Builder {
         }
 
         public void RecalculateRowByType(int row, TileType type) {
-            if (this.levelData == null || type == TileType.EMPTY) return;
+            if (this.levelData == null) return;
 
             this.rows[row].data[type] = CalculateMCD(this.levelData, row, type);
             RenderRowByType(this.rows[row], type);
@@ -82,14 +83,12 @@ namespace Split.Builder {
 
         private void RenderRow(Row row) {
             foreach (TileType type in Enum.GetValues(typeof(TileType))) {
-                if (type == TileType.EMPTY || row.data[type].IsEmpty()) continue;
+                if (row.data[type].IsEmpty()) continue;
                 RenderRowByType(row, type);
             }
         }
 
         private void RenderRowByType(Row row, TileType type) {
-            if (type == TileType.EMPTY) return;
-
             GameObject obj = (row.objects.ContainsKey(type) ? row.objects[type] : new GameObject($"Row | {type}"));
             
             MeshFilter filter = obj.GetComponent<MeshFilter>();
@@ -111,8 +110,6 @@ namespace Split.Builder {
             Row row = new Row();
 
             foreach (TileType type in Enum.GetValues(typeof(TileType))) {
-                if (type == TileType.EMPTY) continue;
-                
                 row.data[type] = CalculateMCD(levelData, index, type);
             }
 
@@ -120,7 +117,6 @@ namespace Split.Builder {
         }
 
         private MeshCombineData CalculateMCD(BuilderLevelData levelData, int row, TileType type) {
-            if (type == TileType.EMPTY) return null;
             MeshCombineData data = new MeshCombineData();
             
             for (int i = 0; i < levelData.gridData[row].Count; ++i) {
@@ -155,6 +151,8 @@ namespace Split.Builder {
 
         private MeshFilter GetObjectByType(TileType type) {
             switch (type) {
+                case TileType.EMPTY:
+                    return emptyTile;
                 case TileType.BASIC:
                     return basicTile;
                 case TileType.START:
@@ -186,9 +184,6 @@ namespace Split.Builder {
             objects = new Dictionary<TileType, GameObject>();
 
             foreach (TileType type in Enum.GetValues(typeof(TileType))) {
-                //Skip empty
-                if (type == TileType.EMPTY) continue;
-
                 data[type] = new MeshCombineData();
             }
         }
