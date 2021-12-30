@@ -19,8 +19,12 @@ public class FileNameMirror : MonoBehaviour
         MirrorNameField();
     }
 
-    public void Edited() {
-        this.edited = true;
+    public bool IsEdited() {
+        return edited;
+    }
+
+    public void SetEdited(bool edited) {
+        this.edited = edited;
     }
 
     public void MirrorNameField() {

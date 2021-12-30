@@ -11,11 +11,12 @@ namespace Split.Builder {
         [SerializeField] private Button button;
         [SerializeField] private Image icon;
 
-        public LevelData Data {get; set;}
+        public BuilderLevelData Data {get; set;}
         public BuilderMainMenu Manager {get; set;}
+        public BuilderLevelLoader Loader {get; set;}
 
         public void OnClick() {
-
+            Loader.Generate(Data);
         }
 
         public void SetTitle(string str) {

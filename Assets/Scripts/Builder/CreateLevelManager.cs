@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Split.Tiles;
+using Split.LevelLoading;
 
 namespace Split.Builder {
     public class CreateLevelManager : MonoBehaviour {
@@ -22,33 +23,90 @@ namespace Split.Builder {
         [SerializeField] private Slider progressBar;
         [SerializeField] private Image background;
         [SerializeField] private TextMeshProUGUI createButtonText;
+        [SerializeField] private GameObject createMenu;
+        [SerializeField] private GameObject builderHUD;
+
+        [Header("Other References")]
+        [SerializeField] private BuilderLevelLoader levelLoader;
 
         [Header("Settings")]
         [SerializeField] private Color buttonRegular;
         [SerializeField] private Color buttonError;
 
-        private WaitForSecondsRealtime wait3sRT = new WaitForSecondsRealtime(3);
+        private WaitForSecondsRealtime wait;
+        private LevelSerializer serializer;
+
+        private void Awake() {
+            this.wait = new WaitForSecondsRealtime(1.5f);
+            this.serializer = new LevelSerializer();
+        }
 
         public void OnClick() {
+            int x, y;
+            if (int.TryParse(gridX.text, out x) & int.TryParse(gridY.text, out y)) {
+                //Check if file name is valid
+                
+                string path = Path.Combine(serializer.GetDefaultDirectoryPath(), fileName.text);
+                FileStream stream = null;
+                bool passedFileCheck = false;
+
+                //File already exists
+                if (File.Exists(path)) {
+                    StartCoroutine(DisplayError("File Already Exists"));
+                }
+
+                //File does not exist
+                else {
+                    //Create the file to see if it's legal to exist
+                    //TODO: find a better way to do this
+                    try {
+                        stream = File.Create(path);
+                    }
+                    catch {
+                        //If it fails to create then show error
+                        StartCoroutine(DisplayError("Invalid File Name"));
+                    }
+                    finally {
+                        //If it creates successfully then delete the file
+                        if (File.Exists(path) && stream != null) {
+                            stream.Close();
+                            File.Delete(path);
+                            passedFileCheck = true;
+                        }
+                    }
+                    
+                    //Passed file check
+                    if (passedFileCheck) {
+                        BeginCreatingStage(x, y);
+                    }
+                    
+                }
+            }
+            else {
+                StartCoroutine(DisplayError("Grid Size Invalid"));
+            }
+
+        }
+
+        private void BeginCreatingStage(int x, int y) {
             BuilderLevelData data = new BuilderLevelData();
             data.levelName = levelName.text;
             data.levelDescription = levelDescription.text;
-            
-            int x, y;
-            if (int.TryParse(gridX.text, out x) & int.TryParse(gridY.text, out y)) {
-                //TODO: maybe add a warning for grid sizes over 100
+            data.fileName = fileName.text;
+            data.maxPlayers = (int) maxPlayers.value;
 
-                data.gridData = new List<List<TileType>>(x);
-                for (int i = 0; i < x; ++i) {
-                    data.gridData[i] = new List<TileType>(y);
-                }
-
-
-            }
-            else {
-                StartCoroutine(DisplayError("ERROR: Grid Size Invalid"));
+            //Create the list
+            data.gridData = new List<List<TileType>>(x);
+            for (int i = 0; i < x; ++i) {
+                data.gridData.Add(new List<TileType>(y));
             }
 
+            //Disable Menu UI and enable builder UI
+            this.createMenu.SetActive(false);
+            this.builderHUD.SetActive(true);
+
+            //Generate level
+            this.levelLoader.Generate(data);
         }
 
         private IEnumerator DisplayError(string msg) {
@@ -63,7 +121,7 @@ namespace Split.Builder {
             }
 
             createButtonText.text = msg;
-            yield return wait3sRT;
+            yield return wait;
 
             t = 0.0f;
             while (t <= 1) {

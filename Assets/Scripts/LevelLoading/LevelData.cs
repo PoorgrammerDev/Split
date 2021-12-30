@@ -12,10 +12,14 @@ namespace Split.LevelLoading {
     public class LevelData {
         public string levelName;
         public string levelDescription;
+
         public Vector2Int startPosition;
         public Vector2Int endPosition;
+
         public TileGrid gridData;
         public ButtonTileData[] buttonTileData;
+
+        public int maxPlayers;
     }
 
     [System.Serializable]

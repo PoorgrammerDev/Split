@@ -8,8 +8,6 @@ namespace Split.LevelLoading
 {
     public class LevelGenerator : MonoBehaviour
     {
-        private const int MAX_MESH_VERTICIES = 65535;
-
         [Header("References")]
         [SerializeField] private PlayerManager playerManager;
 
@@ -28,63 +26,17 @@ namespace Split.LevelLoading
         private List<MeshCombineData> basicMesh;
         private MeshFilter basicMeshFilter;
 
-        //TODO: testing, remove
         void Start() {
-            // LevelData levelData = new LevelData();
-
-            // const int a = 100;
-
-            // levelData.gridData = new TileGrid(a, a);
-            // for (int x = 0; x < a; x++) {
-            //     for (int y = 0; y < a; y++) {
-            //         levelData.gridData[x, y] = TileType.BASIC;//(TileType) Random.Range(0, 8);
-            //     }
-            // }
-
-            // levelData.gridData[1,1] = TileType.BUTTON;
-            // levelData.gridData[0,5] = TileType.BUTTON;
-
-            // levelData.gridData[3,1] = TileType.BRIDGE_BROKEN;
-            // levelData.gridData[3,2] = TileType.BRIDGE;
-            // levelData.gridData[3,3] = TileType.BRIDGE_BUTTON;
-
-            // levelData.gridData[5, 1] = TileType.BRIDGE;
-            // levelData.gridData[5, 2] = TileType.BRIDGE;
-            // levelData.gridData[5, 3] = TileType.BRIDGE;
-
-            // levelData.gridData[10, 0] = TileType.BROKEN;
-
-            // levelData.buttonTileData = new ButtonTileData[3];
-
-            // ButtonTileData abc = new ButtonTileData();
-            // abc.tilePosition = new Vector2Int(1, 1);
-            // abc.bridgeTiles = new Vector2Int[3];
-            // abc.bridgeTiles[0] = new Vector2Int(3, 1);
-            // abc.bridgeTiles[1] = new Vector2Int(3, 2);
-            // abc.bridgeTiles[2] = new Vector2Int(3, 3);
-
-            // ButtonTileData bcd = new ButtonTileData();
-            // bcd.tilePosition = new Vector2Int(0, 5);
-            // bcd.bridgeTiles = new Vector2Int[1];
-            // bcd.bridgeTiles[0] = new Vector2Int(3, 2);
-
-            // ButtonTileData cgg = new ButtonTileData();
-            // cgg.tilePosition = new Vector2Int(3, 3);
-            // cgg.bridgeTiles = new Vector2Int[]{
-            //     new Vector2Int(5, 1),
-            //     new Vector2Int(5, 2),
-            //     new Vector2Int(5, 3),
-            // };
-
-            // levelData.buttonTileData[0] = abc;
-            // levelData.buttonTileData[1] = bcd;
-            // levelData.buttonTileData[2] = cgg;
-            // levelData.startPosition = Vector2Int.right;
-
+            this.basicTile = Instantiate(basicTile, Vector3.zero, Quaternion.identity);
+            this.basicMeshFilter = basicTile.GetComponent<MeshFilter>();
+            this.basicTile.SetActive(false);
+            
+            //TODO: testing, remove
             LevelData levelData;
             new LevelSerializer().Load(out levelData, "level.json");
-
             this.LevelData = levelData;
+
+            
             Generate();
         }
 
@@ -94,11 +46,6 @@ namespace Split.LevelLoading
             Grid = new Tile[this.LevelData.gridData.x, this.LevelData.gridData.y];
             basicMesh = new List<MeshCombineData>();
             basicMesh.Add(new MeshCombineData());
-
-            basicMeshFilter = basicTile.GetComponent<MeshFilter>();
-
-            //Save original position of basic prefab
-            Vector3 origBasicPos = basicTile.transform.position;
 
             //Create tiles based on data in 2D array
             for (int x = 0; x < Grid.GetLength(0); ++x) {
@@ -110,9 +57,6 @@ namespace Split.LevelLoading
             }
 
             RenderBasicMesh();
-
-            //Restore original position
-            basicTile.transform.position = origBasicPos;
         }
 
         private Tile CreateTile(TileType type, int x, int y) {
@@ -177,13 +121,12 @@ namespace Split.LevelLoading
             combine.transform = basicTile.transform.localToWorldMatrix;
 
             //If verticies are over max, make new mesh
-            if (this.basicMesh.Last().vertexCount + combine.mesh.vertexCount > MAX_MESH_VERTICIES) {
+            if (!this.basicMesh.Last().HasSpace(combine)) {
                 this.basicMesh.Add(new MeshCombineData());
             }
             
             //Add combine instance to the list
-            this.basicMesh.Last().combineInstances.Add(combine);
-            this.basicMesh.Last().vertexCount += combine.mesh.vertexCount;
+            this.basicMesh.Last().Add(combine);
         }
 
         private void RenderBasicMesh() {
@@ -196,7 +139,7 @@ namespace Split.LevelLoading
                 MeshRenderer rend = obj.AddComponent<MeshRenderer>();
 
                 rend.material = prefabRenderer.sharedMaterial;
-                filter.mesh.CombineMeshes(data.combineInstances.ToArray());
+                filter.mesh.CombineMeshes(data.ToArray());
                 filter.mesh.RecalculateNormals();
             }
         }
@@ -210,16 +153,6 @@ namespace Split.LevelLoading
             return new Vector3(-Grid.GetLength(0) / 2 + 0.5f + y, -basicTile.transform.localScale.y / 2, -Grid.GetLength(1) / 2 + 0.5f + x);
         }
     
-    }
-
-    public class MeshCombineData {
-        public List<CombineInstance> combineInstances;
-        public int vertexCount;
-
-        public MeshCombineData() {
-            combineInstances = new List<CombineInstance>();
-            vertexCount = 0;
-        }
     }
 }
 

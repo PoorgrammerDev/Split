@@ -11,6 +11,9 @@ namespace Split.Builder {
         [SerializeField] private GameObject levelsContent;
         [SerializeField] private LevelEntry levelListPrefab;
 
+        [Header("Other References")]
+        [SerializeField] private BuilderLevelLoader levelLoader;
+
         private LevelSerializer levelSerializer;
         private List<LevelEntry> levelEntries;
 
@@ -27,18 +30,35 @@ namespace Split.Builder {
             if (Directory.Exists(levelSerializer.GetDefaultDirectoryPath())) {
                 //TODO: do something with regex here to make .json case insensitive
                 foreach (string filePath in Directory.GetFiles(levelSerializer.GetDefaultDirectoryPath(), "*.json")) {
-                    LevelData data;
-                    if (levelSerializer.Load(out data, filePath)) {
-                        LevelEntry entry = Instantiate(levelListPrefab.gameObject, Vector3.zero, Quaternion.identity, levelsContent.transform).GetComponent<LevelEntry>();
+                    LevelEntry entry = null;
+                    try {
+                        LevelData data;
+                        if (levelSerializer.Load(out data, filePath)) {
+                            entry = Instantiate(levelListPrefab.gameObject, Vector3.zero, Quaternion.identity, levelsContent.transform).GetComponent<LevelEntry>();
 
-                        entry.SetFileName(Path.GetFileName(filePath));
-                        entry.SetTitle(!string.IsNullOrEmpty(data.levelName) ? data.levelName : Path.GetFileNameWithoutExtension(filePath));
-                        entry.SetDescription(data.levelDescription);
-                        entry.Data = data;
-                        entry.Manager = this;
+                            entry.SetFileName(Path.GetFileName(filePath));
+                            entry.SetTitle(
+                                !string.IsNullOrEmpty(data.levelName) ? 
+                                data.levelName : 
+                                Path.GetFileNameWithoutExtension(filePath)
+                            );
 
-                        levelEntries.Add(entry);
+                            entry.SetDescription(data.levelDescription);
+                            entry.Loader = this.levelLoader;
+                            entry.Data = new BuilderLevelData(data, Path.GetFileName(filePath));
+                            entry.Manager = this;
 
+                            levelEntries.Add(entry);
+                        }
+                    }
+                    catch (System.Exception e) {
+                        Debug.Log(e.StackTrace);
+
+                        if (entry != null) {
+                            Destroy(entry.gameObject);
+                        }
+
+                        continue;
                     }
                 }
             }
