@@ -52,13 +52,17 @@ namespace Split.Builder {
                 int x = UnityEngine.Random.Range(0, levelData.gridData.Count);
                 int y = UnityEngine.Random.Range(0, levelData.gridData[0].Count);
 
-                TileType oldType = levelData.gridData[x][y];
-                levelData.gridData[x][y] = TileType.EMPTY;
-
-                RecalculateRowByType(x, oldType);
-
+                SetTile(x, y, TileType.EMPTY);
                 yield return wait;
             }
+        }
+
+        public void SetTile(int x, int y, TileType type) {
+            TileType old = levelData.gridData[x][y];
+            levelData.gridData[x][y] = type;
+
+            RecalculateRowByType(x, old);
+            RecalculateRowByType(x, type);
         }
 
         public void Generate(BuilderLevelData data) {
@@ -70,8 +74,6 @@ namespace Split.Builder {
                 RenderRow(row);
                 rows.Add(row);
             }
-
-             StartCoroutine(test());
         }
 
         public void RecalculateRowByType(int row, TileType type) {
@@ -145,7 +147,7 @@ namespace Split.Builder {
         }
 
         //The formula used here is different from the one in LevelGenerator
-        private Vector3 GridToWorldPos(int x, int y) {
+        public Vector3 GridToWorldPos(int x, int y) {
             return new Vector3(0.5f + y, 0, 0.5f + x);
         }
 

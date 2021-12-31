@@ -8,11 +8,13 @@ namespace Split.Builder {
         [Header("UI References")]
         [SerializeField] private GameObject createMenu;
         [SerializeField] private GameObject openingMenu;
+        [SerializeField] private GameObject builderHUD;
         [SerializeField] private GameObject levelsContent;
         [SerializeField] private LevelEntry levelListPrefab;
 
         [Header("Other References")]
         [SerializeField] private BuilderLevelLoader levelLoader;
+        [SerializeField] private GameObject target;
 
         private LevelSerializer levelSerializer;
         private List<LevelEntry> levelEntries;
@@ -44,7 +46,6 @@ namespace Split.Builder {
                             );
 
                             entry.SetDescription(data.levelDescription);
-                            entry.Loader = this.levelLoader;
                             entry.Data = new BuilderLevelData(data, Path.GetFileName(filePath));
                             entry.Manager = this;
 
@@ -64,7 +65,7 @@ namespace Split.Builder {
             }
         }
 
-        //TODO: Works on Mac, haven't tested Windowws or Linux yet
+        //TODO: Works on Mac and Windows, haven't tested Linux yet
         public void OpenFolder() {
             Application.OpenURL("file://" + levelSerializer.GetDefaultDirectoryPath());
         }
@@ -77,6 +78,16 @@ namespace Split.Builder {
         public void CloseCreateMenu() {
             openingMenu.SetActive(true);
             createMenu.SetActive(false);
+        }
+
+        public void OpenLevel(BuilderLevelData data) {
+            //Generate the level based on the data
+            levelLoader.Generate(data);
+
+            //Update the HUD accordingly
+            openingMenu.SetActive(false);
+            createMenu.SetActive(false);
+            builderHUD.SetActive(true);
         }
 
 

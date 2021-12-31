@@ -13,10 +13,9 @@ namespace Split.Builder {
 
         public BuilderLevelData Data {get; set;}
         public BuilderMainMenu Manager {get; set;}
-        public BuilderLevelLoader Loader {get; set;}
 
         public void OnClick() {
-            Loader.Generate(Data);
+            Manager.OpenLevel(Data);
         }
 
         public void SetTitle(string str) {

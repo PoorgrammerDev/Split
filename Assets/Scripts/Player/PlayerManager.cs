@@ -38,7 +38,7 @@ namespace Split.Player {
             }
 
             //Sets Player 0 as starting player
-            cameraFollow.target = players[0].transform;
+            cameraFollow.Target = players[0].transform;
             this.activePlayerIndex = 0;
 
             GameEvents.current.onBridgeDeactivate += OnBridgeDeactivate;
@@ -67,7 +67,7 @@ namespace Split.Player {
             if (this.players[index].GetState().Activate()) {
                 this.players[activePlayerIndex].GetState().Deactivate();
 
-                cameraFollow.target = players[index].transform;
+                cameraFollow.Target = players[index].transform;
                 this.activePlayerIndex = index;
             }
         }

@@ -26,17 +26,25 @@ namespace Split.LevelLoading
         private List<MeshCombineData> basicMesh;
         private MeshFilter basicMeshFilter;
 
+        private float bridgeTileAlpha;
+        private float bridgeBrokenTileAlpha;
+        private float bridgeButtonTileAlpha;
+
         void Start() {
             this.basicTile = Instantiate(basicTile, Vector3.zero, Quaternion.identity);
             this.basicMeshFilter = basicTile.GetComponent<MeshFilter>();
             this.basicTile.SetActive(false);
             
+            this.bridgeTileAlpha = bridgeTile.GetComponent<Renderer>().sharedMaterial.color.a;
+            this.bridgeBrokenTileAlpha = bridgeBrokenTile.GetComponent<Renderer>().sharedMaterial.color.a;
+            this.bridgeButtonTileAlpha = bridgeButtonTile.GetComponent<Renderer>().sharedMaterial.color.a;
+
             //TODO: testing, remove
             LevelData levelData;
             new LevelSerializer().Load(out levelData, "level.json");
             this.LevelData = levelData;
 
-            
+
             Generate();
         }
 
@@ -91,17 +99,17 @@ namespace Split.LevelLoading
 
                 case TileType.BRIDGE:
                     tileGO = GameObject.Instantiate(bridgeTile, worldPos, Quaternion.identity);
-                    newTile = new BridgeTile(0.25f, this.playerManager, this.LevelData, tileGO, x, y);
+                    newTile = new BridgeTile(bridgeTileAlpha, this.playerManager, this.LevelData, tileGO, x, y);
                     break;
 
                 case TileType.BRIDGE_BROKEN:
                     tileGO = GameObject.Instantiate(bridgeBrokenTile, worldPos, Quaternion.identity);
-                    newTile = new BridgeBrokenTile(0.25f, this.playerManager, this.LevelData, tileGO, x, y);
+                    newTile = new BridgeBrokenTile(bridgeBrokenTileAlpha, this.playerManager, this.LevelData, tileGO, x, y);
                     break;
 
                 case TileType.BRIDGE_BUTTON:
                     tileGO = GameObject.Instantiate(bridgeButtonTile, worldPos, Quaternion.identity);
-                    newTile = new BridgeButtonTile(0.25f, this.playerManager, this.LevelData, tileGO, x, y);
+                    newTile = new BridgeButtonTile(bridgeButtonTileAlpha, this.playerManager, this.LevelData, tileGO, x, y);
                     break;
 
                 default:

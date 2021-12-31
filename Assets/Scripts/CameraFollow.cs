@@ -8,21 +8,28 @@ namespace Split {
 
     [RequireComponent(typeof(Camera))]
     public class CameraFollow : MonoBehaviour {
-        public Transform target;
+
+        public bool Active {get; set;}
+        public Transform Target {get; set;}
+        public Vector3 Offset {get; set;}
         
         [Range(0.0f, 1.0f)]
         [SerializeField] private float smoothSpeed;
-
-        [SerializeField] private Vector3 offset;
 
         private Vector3 velocity = Vector3.zero;
 
         //Makes camera follow target smoothly
         void LateUpdate() {
-            Vector3 desiredPosition = target.position + offset;
+            if (!Active) return;
+
+            Vector3 desiredPosition = Target.position + Offset;
             Vector3 smoothedPosition = Vector3.SmoothDamp(this.transform.position, desiredPosition, ref this.velocity, this.smoothSpeed);
 
             this.transform.position = smoothedPosition;
+        }
+
+        public void TeleportToPosition() {
+            this.transform.position = Target.position + Offset;
         }
 
 

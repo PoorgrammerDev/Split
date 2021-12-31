@@ -23,11 +23,9 @@ namespace Split.Builder {
         [SerializeField] private Slider progressBar;
         [SerializeField] private Image background;
         [SerializeField] private TextMeshProUGUI createButtonText;
-        [SerializeField] private GameObject createMenu;
-        [SerializeField] private GameObject builderHUD;
 
         [Header("Other References")]
-        [SerializeField] private BuilderLevelLoader levelLoader;
+        [SerializeField] private BuilderMainMenu builderMainMenu;
 
         [Header("Settings")]
         [SerializeField] private Color buttonRegular;
@@ -99,14 +97,13 @@ namespace Split.Builder {
             data.gridData = new List<List<TileType>>(x);
             for (int i = 0; i < x; ++i) {
                 data.gridData.Add(new List<TileType>(y));
+
+                for (int j = 0; j < y; ++j) {
+                    data.gridData[i].Add(TileType.EMPTY);
+                }
             }
 
-            //Disable Menu UI and enable builder UI
-            this.createMenu.SetActive(false);
-            this.builderHUD.SetActive(true);
-
-            //Generate level
-            this.levelLoader.Generate(data);
+            builderMainMenu.OpenLevel(data);
         }
 
         private IEnumerator DisplayError(string msg) {
