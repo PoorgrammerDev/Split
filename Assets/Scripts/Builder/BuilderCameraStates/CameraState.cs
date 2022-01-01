@@ -1,16 +1,21 @@
 using UnityEngine;
-using System.Collections;
 
 namespace Split.Builder.CameraStates {
     public abstract class CameraState {
-        protected Camera camera;
+        protected CameraController controller;
 
-        public CameraState(Camera camera) {
-            this.camera = camera;
+        public CameraState(CameraController controller) {
+            this.controller = controller;
         }
 
         public virtual void Start() {}
         public virtual void End() {}
-        public virtual void Move(Vector2 vec) {}
+
+        
+        public virtual void MoveForward() {}
+        public virtual void MoveBackwards() {}
+        public virtual void MoveLeft() {}
+        public virtual void MoveRight() {}
+        public virtual void MoveFreely(Vector2 vec) {}
     }
 }

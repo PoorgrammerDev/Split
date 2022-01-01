@@ -15,6 +15,7 @@ namespace Split.Builder {
         [Header("Other References")]
         [SerializeField] private BuilderLevelLoader levelLoader;
         [SerializeField] private GameObject target;
+        [SerializeField] private BuilderManager builderManager;
 
         private LevelSerializer levelSerializer;
         private List<LevelEntry> levelEntries;
@@ -80,6 +81,7 @@ namespace Split.Builder {
             createMenu.SetActive(false);
         }
 
+        //TODO: this might be better placed somewhere else
         public void OpenLevel(BuilderLevelData data) {
             //Generate the level based on the data
             levelLoader.Generate(data);
@@ -88,6 +90,8 @@ namespace Split.Builder {
             openingMenu.SetActive(false);
             createMenu.SetActive(false);
             builderHUD.SetActive(true);
+
+            builderManager.LevelLoaded(data);
         }
 
 

@@ -42,10 +42,19 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "FreeMove",
+                    "name": "Free Move",
                     "type": "PassThrough",
                     "id": "7bcb9e87-5d03-411e-8120-1bcd6434c4fd",
                     "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Activate Free Move",
+                    "type": "Button",
+                    "id": "f8c5fe4b-c2d1-465b-80ba-ed522ea7324c",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -147,7 +156,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "FreeMove",
+                    "action": "Free Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1efdad50-cebe-410e-ab3f-87ffef487438",
+                    "path": "<Mouse>/middleButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Activate Free Move",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

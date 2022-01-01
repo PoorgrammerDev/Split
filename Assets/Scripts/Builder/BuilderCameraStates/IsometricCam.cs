@@ -2,9 +2,12 @@ using UnityEngine;
 
 namespace Split.Builder.CameraStates {
     public abstract class IsometricCam : CameraState {
+        protected Camera camera;
         protected CameraFollow follow;
-        public IsometricCam(Camera camera, CameraFollow follow) : base(camera) {
-            this.follow = follow;
+
+        public IsometricCam(CameraController controller) : base(controller) {
+            this.camera = controller.Camera;
+            this.follow = controller.Follow;
         }
         
         public override void Start() {
