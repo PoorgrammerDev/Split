@@ -4,6 +4,11 @@ using Split.Tiles;
 using Split.LevelLoading;
 
 namespace Split.Builder {
+    /// <summary>
+    /// Representation of LevelData for the Builder.
+    /// Notable differences from LevelData include the usage of List<> instead of array[].
+    /// This is due to the fact that the level can expand in the builder.
+    /// </summary>
     public class BuilderLevelData {
         public string levelName;
         public string levelDescription;
@@ -16,9 +21,20 @@ namespace Split.Builder {
         public List<ButtonTileData> buttonTileData;
 
         public int maxPlayers;
+        
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        public BuilderLevelData() {
+            this.gridData = new List<List<TileType>>();
+            this.buttonTileData = new List<ButtonTileData>();
+        }
 
-        public BuilderLevelData() {}
-
+        /// <summary>
+        /// Constructor that converts regular LevelData to BuilderLevelData
+        /// </summary>
+        /// <param name="levelData">Regular Level Data</param>
+        /// <param name="fileName">File Name: additional data not included</param>
         public BuilderLevelData(LevelData levelData, string fileName) {
             this.levelName = levelData.levelName;
             this.levelDescription = levelData.levelDescription;

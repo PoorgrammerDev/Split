@@ -1,12 +1,13 @@
 using System;
-using System.Threading;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Split.Tiles;
 using Split.LevelLoading;
 
 namespace Split.Builder {
+    /// <summary>
+    /// Generates the tile objects/meshes for the level in the Builder
+    /// </summary>
     public class BuilderLevelLoader : MonoBehaviour {
         [Header("Tile Prefabs")]
         [SerializeField] private MeshFilter emptyTile;
@@ -19,50 +20,18 @@ namespace Split.Builder {
         [SerializeField] private MeshFilter bridgeBrokenTile;
         [SerializeField] private MeshFilter bridgeButtonTile;
 
+        private Dictionary<TileType, MeshFilter> typeToTile;
         private List<Row> rows;
         private BuilderLevelData levelData;
+        private Array allTiles;
 
         // Start is called before the first frame update
         private void Start() {
             this.rows = new List<Row>();
+            this.allTiles = Enum.GetValues(typeof(TileType));
 
-            this.basicTile = Instantiate(basicTile.gameObject, Vector3.zero, Quaternion.identity).GetComponent<MeshFilter>();
-            this.startTile = Instantiate(startTile.gameObject, Vector3.zero, Quaternion.identity).GetComponent<MeshFilter>();
-            this.endTile = Instantiate(endTile.gameObject, Vector3.zero, Quaternion.identity).GetComponent<MeshFilter>();
-            this.brokenTile = Instantiate(brokenTile.gameObject, Vector3.zero, Quaternion.identity).GetComponent<MeshFilter>();
-            this.buttonTile = Instantiate(buttonTile.gameObject, Vector3.zero, Quaternion.identity).GetComponent<MeshFilter>();
-            this.bridgeTile = Instantiate(bridgeTile.gameObject, Vector3.zero, Quaternion.identity).GetComponent<MeshFilter>();
-            this.bridgeBrokenTile = Instantiate(bridgeBrokenTile.gameObject, Vector3.zero, Quaternion.identity).GetComponent<MeshFilter>();
-            this.bridgeButtonTile = Instantiate(bridgeButtonTile.gameObject, Vector3.zero, Quaternion.identity).GetComponent<MeshFilter>();
-
-            this.basicTile.gameObject.SetActive(false);
-            this.startTile.gameObject.SetActive(false);
-            this.endTile.gameObject.SetActive(false);
-            this.brokenTile.gameObject.SetActive(false);
-            this.buttonTile.gameObject.SetActive(false);
-            this.bridgeTile.gameObject.SetActive(false);
-            this.bridgeBrokenTile.gameObject.SetActive(false);
-            this.bridgeButtonTile.gameObject.SetActive(false);
-        }
-
-        public IEnumerator test() {
-            WaitForSecondsRealtime wait = new WaitForSecondsRealtime(0.25f);
-
-            while (true) {
-                int x = UnityEngine.Random.Range(0, levelData.gridData.Count);
-                int y = UnityEngine.Random.Range(0, levelData.gridData[0].Count);
-
-                SetTile(x, y, TileType.EMPTY);
-                yield return wait;
-            }
-        }
-
-        public void SetTile(int x, int y, TileType type) {
-            TileType old = levelData.gridData[x][y];
-            levelData.gridData[x][y] = type;
-
-            RecalculateRowByType(x, old);
-            RecalculateRowByType(x, type);
+            this.typeToTile = new Dictionary<TileType, MeshFilter>();
+            PopulateDictionary();
         }
 
         public void Generate(BuilderLevelData data) {
@@ -76,15 +45,20 @@ namespace Split.Builder {
             }
         }
 
-        public void RecalculateRowByType(int row, TileType type) {
-            if (this.levelData == null) return;
+        public void SetTile(int x, int y, TileType type) {
+            TileType old = levelData.gridData[x][y];
+            levelData.gridData[x][y] = type;
 
-            this.rows[row].data[type] = CalculateMCD(this.levelData, row, type);
-            RenderRowByType(this.rows[row], type);
+            RecalculateRowByType(x, old);
+            RecalculateRowByType(x, type);
         }
 
+        /**************************
+        *        RENDERING        *
+        **************************/
+
         private void RenderRow(Row row) {
-            foreach (TileType type in Enum.GetValues(typeof(TileType))) {
+            foreach (TileType type in allTiles) {
                 if (row.data[type].IsEmpty()) continue;
                 RenderRowByType(row, type);
             }
@@ -100,18 +74,28 @@ namespace Split.Builder {
             if (rend == null) rend = obj.AddComponent<MeshRenderer>();
 
             filter.mesh.Clear();
-            rend.material = GetObjectByType(type).GetComponent<Renderer>().sharedMaterial;
+            rend.material = this.typeToTile[type].GetComponent<Renderer>().sharedMaterial;
             filter.mesh.CombineMeshes(row.data[type].ToArray());
             filter.mesh.RecalculateNormals();
 
             row.objects[type] = obj;
         }
 
+        /**************************
+        *       CALCULATING       *
+        **************************/
+
+        private void RecalculateRowByType(int row, TileType type) {
+            if (this.levelData == null) return;
+
+            this.rows[row].data[type] = CalculateMCD(this.levelData, row, type);
+            RenderRowByType(this.rows[row], type);
+        }
 
         private Row CalculateEntireRow(BuilderLevelData levelData, int index) {
             Row row = new Row();
 
-            foreach (TileType type in Enum.GetValues(typeof(TileType))) {
+            foreach (TileType type in allTiles) {
                 row.data[type] = CalculateMCD(levelData, index, type);
             }
 
@@ -123,7 +107,7 @@ namespace Split.Builder {
             
             for (int i = 0; i < levelData.gridData[row].Count; ++i) {
                 if (levelData.gridData[row][i] == type) {
-                    CombineInstance combine = GetCombineInstance(GetObjectByType(type), row, i);
+                    CombineInstance combine = GetCombineInstance(this.typeToTile[type], row, i);
 
                     if (!data.Add(combine)) {
                         Debug.LogError($"Row {row} in Level \"{levelData.levelName}\" has reached the maximum vertex count!");
@@ -146,9 +130,20 @@ namespace Split.Builder {
             return combine;
         }
 
+        /**************************
+        *          OTHER          *
+        **************************/
+
         //The formula used here is different from the one in LevelGenerator
         public Vector3 GridToWorldPos(int x, int y) {
             return new Vector3(0.5f + y, 0, 0.5f + x);
+        }
+
+        private void PopulateDictionary() {
+            foreach (TileType type in allTiles) {
+                this.typeToTile[type] = Instantiate(GetObjectByType(type).gameObject, Vector3.zero, Quaternion.identity).GetComponent<MeshFilter>();
+                this.typeToTile[type].gameObject.SetActive(false);
+            }
         }
 
         private MeshFilter GetObjectByType(TileType type) {

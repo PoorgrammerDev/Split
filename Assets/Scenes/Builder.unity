@@ -2161,12 +2161,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   createMenu: {fileID: 47546056}
   openingMenu: {fileID: 311940106}
-  builderHUD: {fileID: 365706159}
   levelsContent: {fileID: 1052981470}
   levelListPrefab: {fileID: 4812054924941268915, guid: ed3b503e6b5d94ddd863bad263a6cef4, type: 3}
-  levelLoader: {fileID: 948639865}
-  target: {fileID: 352659941}
-  builderManager: {fileID: 472899247}
+  sceneManager: {fileID: 472899247}
 --- !u!4 &400178280
 Transform:
   m_ObjectHideFlags: 0
@@ -2363,6 +2360,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraController: {fileID: 1465931229}
   levelLoader: {fileID: 948639865}
+  mainMenuManager: {fileID: 400178279}
+  builderHUD: {fileID: 365706159}
 --- !u!4 &472899248
 Transform:
   m_ObjectHideFlags: 0
@@ -4572,7 +4571,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 695779208}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b87e9759f93ea4305860a1bcc7680731, type: 3}
+  m_Script: {fileID: 11500000, guid: 7696ac799d8994848920ca323abda369, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   gridX: {fileID: 1408302055}
@@ -4582,11 +4581,11 @@ MonoBehaviour:
   fileName: {fileID: 309163367}
   levelDescription: {fileID: 1372539253}
   progressBar: {fileID: 836655057}
-  background: {fileID: 1606796904}
+  createButtonBackground: {fileID: 1606796904}
   createButtonText: {fileID: 1889574669}
-  builderMainMenu: {fileID: 400178279}
-  buttonRegular: {r: 0.23921569, g: 0.23137255, b: 0.5568628, a: 1}
-  buttonError: {r: 0.922, g: 0.20929399, b: 0.3787076, a: 1}
+  sceneManager: {fileID: 472899247}
+  buttonRegular: {r: 0.2392157, g: 0.23137257, b: 0.5568628, a: 1}
+  buttonError: {r: 0.8, g: 0.25120002, b: 0.38165238, a: 1}
 --- !u!4 &695779210
 Transform:
   m_ObjectHideFlags: 0
@@ -8298,7 +8297,7 @@ GameObject:
   - component: {fileID: 1452896223}
   - component: {fileID: 1452896222}
   m_Layer: 5
-  m_Name: Scroll View
+  m_Name: Levels Scroll View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8991,7 +8990,7 @@ GameObject:
   - component: {fileID: 1529666091}
   - component: {fileID: 1529666090}
   m_Layer: 5
-  m_Name: TitleText
+  m_Name: Create Menu Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10613,7 +10612,7 @@ GameObject:
   - component: {fileID: 1795048193}
   - component: {fileID: 1795048192}
   m_Layer: 5
-  m_Name: TitleText
+  m_Name: Menu Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

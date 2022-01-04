@@ -4,18 +4,18 @@ using UnityEngine;
 using Split.LevelLoading;
 
 namespace Split.Builder {
+    /// <summary>
+    /// Handles functionality in the main tab of the Builder opening menu
+    /// </summary>
     public class BuilderMainMenu : MonoBehaviour {
         [Header("UI References")]
         [SerializeField] private GameObject createMenu;
         [SerializeField] private GameObject openingMenu;
-        [SerializeField] private GameObject builderHUD;
         [SerializeField] private GameObject levelsContent;
         [SerializeField] private LevelEntry levelListPrefab;
 
         [Header("Other References")]
-        [SerializeField] private BuilderLevelLoader levelLoader;
-        [SerializeField] private GameObject target;
-        [SerializeField] private BuilderManager builderManager;
+        [SerializeField] private BuilderManager sceneManager;
 
         private LevelSerializer levelSerializer;
         private List<LevelEntry> levelEntries;
@@ -31,7 +31,6 @@ namespace Split.Builder {
         private void PopulateLevelEntries() {
             //Check if directory exists
             if (Directory.Exists(levelSerializer.GetDefaultDirectoryPath())) {
-                //TODO: do something with regex here to make .json case insensitive
                 foreach (string filePath in Directory.GetFiles(levelSerializer.GetDefaultDirectoryPath(), "*.json")) {
                     LevelEntry entry = null;
                     try {
@@ -48,7 +47,7 @@ namespace Split.Builder {
 
                             entry.SetDescription(data.levelDescription);
                             entry.Data = new BuilderLevelData(data, Path.GetFileName(filePath));
-                            entry.Manager = this;
+                            entry.Manager = this.sceneManager;
 
                             levelEntries.Add(entry);
                         }
@@ -81,17 +80,10 @@ namespace Split.Builder {
             createMenu.SetActive(false);
         }
 
-        //TODO: this might be better placed somewhere else
-        public void OpenLevel(BuilderLevelData data) {
-            //Generate the level based on the data
-            levelLoader.Generate(data);
-
+        public void CloseAllMenus() {
             //Update the HUD accordingly
             openingMenu.SetActive(false);
             createMenu.SetActive(false);
-            builderHUD.SetActive(true);
-
-            builderManager.LevelLoaded(data);
         }
 
 

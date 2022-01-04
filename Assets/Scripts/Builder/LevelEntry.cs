@@ -12,7 +12,7 @@ namespace Split.Builder {
         [SerializeField] private Image icon;
 
         public BuilderLevelData Data {get; set;}
-        public BuilderMainMenu Manager {get; set;}
+        public BuilderManager Manager {get; set;}
 
         public void OnClick() {
             Manager.OpenLevel(Data);

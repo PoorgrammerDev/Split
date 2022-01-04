@@ -8,7 +8,7 @@ using Split.Tiles;
 using Split.LevelLoading;
 
 namespace Split.Builder {
-    public class CreateLevelManager : MonoBehaviour {
+    public class CreateMenuManager : MonoBehaviour {
         const string BUTTON_TEXT = "Create";
 
         [Header("UI Inputs")]
@@ -21,11 +21,11 @@ namespace Split.Builder {
 
         [Header("Other UI References")]
         [SerializeField] private Slider progressBar;
-        [SerializeField] private Image background;
+        [SerializeField] private Image createButtonBackground;
         [SerializeField] private TextMeshProUGUI createButtonText;
 
         [Header("Other References")]
-        [SerializeField] private BuilderMainMenu builderMainMenu;
+        [SerializeField] private BuilderManager sceneManager;
 
         [Header("Settings")]
         [SerializeField] private Color buttonRegular;
@@ -83,7 +83,6 @@ namespace Split.Builder {
             else {
                 StartCoroutine(DisplayError("Grid Size Invalid"));
             }
-
         }
 
         private void BeginCreatingStage(int x, int y) {
@@ -94,7 +93,7 @@ namespace Split.Builder {
             data.maxPlayers = (int) maxPlayers.value;
 
             //Create the list
-            data.gridData = new List<List<TileType>>(x);
+            data.gridData.Capacity = x;
             for (int i = 0; i < x; ++i) {
                 data.gridData.Add(new List<TileType>(y));
 
@@ -103,7 +102,7 @@ namespace Split.Builder {
                 }
             }
 
-            builderMainMenu.OpenLevel(data);
+            sceneManager.OpenLevel(data);
         }
 
         private IEnumerator DisplayError(string msg) {
@@ -112,7 +111,7 @@ namespace Split.Builder {
 
             while (t <= 1) {
                 progressBar.value = Mathf.Lerp(progVal, 0, t);
-                background.color = Color.Lerp(buttonRegular, buttonError, t);
+                createButtonBackground.color = Color.Lerp(buttonRegular, buttonError, t);
                 t += 0.0375f;
                 yield return null;
             }
@@ -122,7 +121,7 @@ namespace Split.Builder {
 
             t = 0.0f;
             while (t <= 1) {
-                background.color = Color.Lerp(buttonError, buttonRegular, t);
+                createButtonBackground.color = Color.Lerp(buttonError, buttonRegular, t);
                 t += 0.025f;
                 yield return null;
             }

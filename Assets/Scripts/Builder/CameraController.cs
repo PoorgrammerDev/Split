@@ -26,9 +26,9 @@ namespace Split.Builder {
             SetState(new Inactive(this));
         }
 
-        /*******
-         MOVING
-        *******/
+        /*************************
+        *         MOVING         *
+        *************************/
     
         public void MoveForward(InputAction.CallbackContext context) {
             if (!context.performed) return;
@@ -65,7 +65,9 @@ namespace Split.Builder {
             }
         }
 
-
+        /**************************
+        *      CAMERA STATES      *
+        **************************/
 
         public CameraState GetState() {
             return state;
