@@ -12,7 +12,7 @@ namespace Split.Builder.CameraStates {
         public IsoTilebound(CameraController controller, BuilderLevelLoader loader) : base(controller) {
             this.loader = loader;
             this.position = Vector2Int.zero;
-            this.highlighter = controller.TileHighlighter;
+            this.highlighter = follow.Target.gameObject;
 
             highlighter.transform.position = loader.GridToWorldPos(0, 0);
         }
@@ -51,16 +51,8 @@ namespace Split.Builder.CameraStates {
                 //Set position to the new position
                 position = newPos;
 
-                Vector3 targetWorldPos = follow.Target.transform.position;
-                float height = targetWorldPos.y;
-
-                //TODO: remove the camera target entirely and just set highlighter as the target
                 //Set camera target position and highlighter position to new location
-                targetWorldPos = loader.GridToWorldPos(position.x, position.y);
-                highlighter.transform.position = targetWorldPos;
-
-                targetWorldPos.y = height;
-                follow.Target.transform.position = targetWorldPos;
+                highlighter.transform.position = loader.GridToWorldPos(position.x, position.y);
             }
         }
     }

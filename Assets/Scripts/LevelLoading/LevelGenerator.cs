@@ -9,8 +9,7 @@ namespace Split.LevelLoading
     /// <summary>
     /// Generates tiles/level from LevelData.
     /// </summary>
-    public class LevelGenerator : MonoBehaviour
-    {
+    public class LevelGenerator : MonoBehaviour {
         [Header("References")]
         [SerializeField] private PlayerManager playerManager;
 

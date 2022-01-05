@@ -2,10 +2,9 @@ using UnityEngine;
 using Split.Player;
 
 namespace Split.Tiles {
-    /*
-     * This class represents a special tile that detects a Player's movement
-     */
-     
+    /// <summary>
+    /// Tile that holds the button property (activates Bridge tiles once stepped on)
+    /// </summary>
     public class ButtonTile : TileEntity {
         private Properties.ButtonProperty buttonProperty;
 

@@ -1,19 +1,14 @@
 using UnityEngine;
 
 namespace Split {
-
-    /*
-     * This class handles the smooth movement of the Camera
-     */
-
+    /// <summary>
+    /// This class handles the smooth movement of the Camera
+    /// </summary>
     [RequireComponent(typeof(Camera))]
     public class CameraFollow : MonoBehaviour {
         [SerializeField] private Transform target;
         [SerializeField] private bool active;
         [SerializeField] private Vector3 offset;
-
-        
-        
         
         [Range(0.0f, 1.0f)]
         [SerializeField] private float smoothSpeed;
@@ -34,7 +29,7 @@ namespace Split {
             this.transform.position = smoothedPosition;
         }
 
-        public void TeleportToPosition() {
+        public void TeleportToTarget() {
             this.transform.position = target.position + offset;
         }
 

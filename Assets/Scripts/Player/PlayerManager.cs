@@ -26,12 +26,7 @@ namespace Split.Player {
         *********************/
 
         public LevelGenerator LevelGenerator => levelGenerator;
-        
-        public Player ActivePlayer {
-            get {
-                return this.players[this.activePlayerIndex];
-            }
-        }
+        public Player ActivePlayer => this.players[this.activePlayerIndex];
 
         /******************
         *     METHODS     *
@@ -54,7 +49,8 @@ namespace Split.Player {
             cameraFollow.Target = players[0].transform;
             this.activePlayerIndex = 0;
 
-            GameEvents.current.onBridgeDeactivate += OnBridgeDeactivate;
+            GameEvents.current.onBridgeActivate += UnlockPlayer;
+            GameEvents.current.onBridgeDeactivate += LockPlayer;
         }
 
         // Start is called before the first frame update
@@ -120,8 +116,7 @@ namespace Split.Player {
         /// <param name="pos"></param>
         /// <returns></returns>
         public Player GetPlayerAtPosition(Vector2Int pos) {
-            //TODO: any way to make this more efficient?
-            //Checks if there's already a player there
+            //Searches all players and tests their positions
             foreach (Player player in players) {
                 if (player.Position.x == pos.x && player.Position.y == pos.y && !(player.GetState() is State.Uninitialized)) {
                     return player;
@@ -130,11 +125,25 @@ namespace Split.Player {
             return null;
         }
 
-        //TODO: Why is this function here?
-        private void OnBridgeDeactivate(Vector2Int pos) {
+        /// <summary>
+        /// Triggered by Bridge Deactivate Event: locks any players on top of it
+        /// </summary>
+        /// <param name="pos"></param>
+        private void LockPlayer(Vector2Int pos) {
             Player player = GetPlayerAtPosition(pos);
             if (player != null) {
-                player.SetState(new State.Locked(player));
+                player.GetState().Lock();
+            }
+        }
+
+        /// <summary>
+        /// Triggered by Bridge Activate Event: unlocks any locked players on top of it
+        /// </summary>
+        /// <param name="pos"></param>
+        private void UnlockPlayer(Vector2Int pos) {
+            Player player = GetPlayerAtPosition(pos);
+            if (player != null) {
+                player.GetState().Unlock();
             }
         }
 

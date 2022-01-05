@@ -35,7 +35,7 @@ namespace Split.Player.State {
             PlayerState active = new Active(player);
             bool output = active.Move(to);
 
-            player.SetState(active);
+            if (output) player.SetState(active);
             return output;
         }
 
@@ -52,6 +52,7 @@ namespace Split.Player.State {
             lastRend.enabled = false;
 
             //TODO: Can probably be replaced with LeanTween
+
             //Flashes colors while waiting for player to move --- --- ---
             Material plyMat = player.GetComponent<Renderer>().material;
             float t = 0.0f;

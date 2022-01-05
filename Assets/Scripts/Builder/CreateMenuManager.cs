@@ -64,7 +64,6 @@ namespace Split.Builder {
                 //File does not exist
                 else {
                     //Create the file to see if it's legal to exist
-                    //TODO: find a better way to do this
                     try {
                         stream = File.Create(path);
                     }

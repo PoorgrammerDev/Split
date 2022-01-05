@@ -39,7 +39,7 @@ namespace Split.Player.State {
 
         public override bool Lock() {
             player.SetState(new Locked(player));
-            //TODO: transfer control to a different player?
+            //TODO: play lock screen animation and transfer control to another player
             return true;
         }
     }

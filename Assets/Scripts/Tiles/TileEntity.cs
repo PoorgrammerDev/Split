@@ -1,6 +1,9 @@
 using UnityEngine;
 
 namespace Split.Tiles {
+    /// <summary>
+    /// Represents a Tile with data contained within it
+    /// </summary>
     public abstract class TileEntity : Tile {
         public Vector2Int GridPosition {get; protected set;}
         public GameObject GameObject {get; protected set;}

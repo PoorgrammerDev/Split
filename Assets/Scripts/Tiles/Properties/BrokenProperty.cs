@@ -1,6 +1,9 @@
 using UnityEngine;
 
 namespace Split.Tiles.Properties {
+    /// <summary>
+    /// Property for a tile that deactivates once stepped off of, and will not reactivate for the entirety of the game
+    /// </summary>
     public class BrokenProperty : ITileProperty {
         private Vector2Int position;
         private GameObject gameObject;

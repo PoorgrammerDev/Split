@@ -11,14 +11,18 @@ namespace Split.Builder {
     public class CameraController : MonoBehaviour {
         [Header("References")]
         [SerializeField] private BuilderLevelLoader loader;
-        [SerializeField] private GameObject tileHighlighter;
+
+        [Header("Options")]
+        [SerializeField] private Vector3 isometricOffset;
+        [SerializeField] private Vector3 topDownOffset;
 
         private CameraState state;
         private bool freeMoveActivated;
 
         public Camera Camera {get; private set;}
         public CameraFollow Follow {get; private set;}
-        public GameObject TileHighlighter => tileHighlighter;
+        public Vector3 IsometricOffset => isometricOffset;
+        public Vector3 TopDownOffset => topDownOffset;
 
         private void Awake() {
             this.Camera = GetComponent<Camera>();

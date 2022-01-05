@@ -11,8 +11,7 @@ namespace Split.Player.State {
         private LevelGenerator levelGenerator;
 
         public Locked(Player player) : base(player) {
-            //TODO: fix bad solution
-            levelGenerator = GameObject.FindObjectOfType<LevelGenerator>();
+            levelGenerator = player.Manager.LevelGenerator;
         }
 
         public override void Start() {
@@ -20,16 +19,14 @@ namespace Split.Player.State {
             LeanTween.color(player.gameObject, player.Colors.LockedColor, 0.5f);
         }
 
-        public override bool Activate() {
-            if (levelGenerator == null) return false;
-
+        public override bool Unlock() {
             Tile tile = levelGenerator.Grid[player.Position.x, player.Position.y];
 
             if (tile is IToggleable) {
                 IToggleable bridgeTile = tile as IToggleable;
 
                 if (bridgeTile.IsActive()) {
-                    player.SetState(new Active(player));
+                    player.SetState(new Unselected(player));
                     return true;
                 }
             }

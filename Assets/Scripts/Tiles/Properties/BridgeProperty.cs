@@ -4,15 +4,18 @@ using Split.Player;
 using Split.LevelLoading;
 
 namespace Split.Tiles.Properties {
+    /// <summary>
+    /// Property allows this tile to be deactivated and reactivated by a different "Button" tile
+    /// </summary>
     public class BridgeProperty : ITileProperty {
         private Vector2Int position;
         private float deactivatedAlpha;
         private LevelData mapData;
         private PlayerManager playerManager;
         private GameObject gameObject;
-        public bool Active {get; private set;}
-
         private List<ButtonTileData> activators;
+
+        public bool Active {get; private set;}
 
         public BridgeProperty(float deactivatedAlpha, PlayerManager playerManager, LevelData mapData, Vector2Int position, GameObject gameObject) {
             this.gameObject = gameObject;
@@ -55,6 +58,7 @@ namespace Split.Tiles.Properties {
 
             if (buttonTileData != null) {
                 SetActive(true);
+                GameEvents.current.BridgeActivate(this.position); //fire bridge activation event
             }
         }
 

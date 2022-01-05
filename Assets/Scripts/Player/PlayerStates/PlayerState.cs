@@ -32,5 +32,9 @@ namespace Split.Player.State {
         public virtual bool Lock() {
             return false;
         }
+
+        public virtual bool Unlock() {
+            return false;
+        }
     }
 }

@@ -15,8 +15,8 @@ namespace Split.Builder.CameraStates {
 
         public override void Start() {
             camera.transform.rotation = Quaternion.Euler(90, 0, 0);
-            follow.Offset = new Vector3(0, 10, 0);
-            follow.TeleportToPosition();
+            follow.Offset = controller.TopDownOffset;
+            follow.TeleportToTarget();
         }
         
     }
