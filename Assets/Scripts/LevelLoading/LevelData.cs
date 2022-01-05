@@ -2,12 +2,11 @@ using UnityEngine;
 using Split.Tiles;
 
 namespace Split.LevelLoading {
-    
-    /*
-     * This class holds data for a map or stage in the game
-     * to be fed into the MapGenerator
-     */
-    
+
+     /// <summary>
+     /// This class holds data for a map or stage in the game
+     /// Loaded using LevelGenerator. Can be serialized using JSON.
+     /// </summary>
     [System.Serializable]
     public class LevelData {
         public string levelName;
@@ -44,6 +43,7 @@ namespace Split.LevelLoading {
             }
         }
 
+        // Indexer [x, y]
         public TileType this[int x, int y] {
             get {
                 return rows[x].cols[y];

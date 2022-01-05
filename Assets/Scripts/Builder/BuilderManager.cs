@@ -1,9 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Split.Builder.CameraStates;
 
 namespace Split.Builder {
+    /// <summary>
+    /// Manages the Builder Game Scene, aside from the Menus
+    /// </summary>
     public class BuilderManager : MonoBehaviour {
         [Header("References")]
         [SerializeField] private CameraController cameraController;
@@ -14,9 +15,6 @@ namespace Split.Builder {
         [SerializeField] private GameObject builderHUD;
 
         private BuilderLevelData data;
-
-        private void Awake() {
-        }
         
         public void OpenLevel(BuilderLevelData data) {
             this.data = data;

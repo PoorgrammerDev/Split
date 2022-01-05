@@ -3,6 +3,9 @@ using System.Text;
 using UnityEngine;
 
 namespace Split.LevelLoading {
+    /// <summary>
+    /// Saves and loads LevelData objects to/from JSON files
+    /// </summary>
     public class LevelSerializer {
         public const string DEFAULT_DIRECTORY = "SplitLevels";
         
@@ -53,7 +56,6 @@ namespace Split.LevelLoading {
         public bool CheckFileExists(string directoryName, string fileName) {
             return File.Exists(Path.Combine(directoryName, fileName));
         }
-
 
         public string GetDefaultDirectoryPath() {
             return Path.Combine(Application.dataPath, DEFAULT_DIRECTORY);

@@ -1,15 +1,12 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Split.LevelLoading;
 using Split.Tiles;
 
 namespace Split.Player {
-
-    /*
-     * This class handles the multiple instances of the player, specifically switching between them 
-     */
-
+    /// <summary>
+    /// This class handles the multiple instances of the player, specifically switching between them 
+    /// </summary>
     public class PlayerManager : MonoBehaviour {
         [Header("References")]
         [SerializeField] private LevelGenerator levelGenerator;
@@ -23,6 +20,22 @@ namespace Split.Player {
 
         private Player[] players;
         private int activePlayerIndex;
+
+        /*********************
+        *     ACCESSSORS     *
+        *********************/
+
+        public LevelGenerator LevelGenerator => levelGenerator;
+        
+        public Player ActivePlayer {
+            get {
+                return this.players[this.activePlayerIndex];
+            }
+        }
+
+        /******************
+        *     METHODS     *
+        ******************/
 
         private void Awake() {
             this.players = new Player[this.maxCount];
@@ -58,9 +71,10 @@ namespace Split.Player {
             players[0].transform.position = spawnPosition;
         }
 
-        /*
-            Input: Switching between player instances
-        */
+        /// <summary>
+        /// Input: Switching between player instances
+        /// </summary>
+        /// <param name="index">Player Number to switch to</param>
         public void SwitchToPlayer(int index) {
             if (index < 0 || index >= maxCount || index == activePlayerIndex) return;
 
@@ -72,6 +86,10 @@ namespace Split.Player {
             }
         }
 
+        /// <summary>
+        /// Checks if the desired position is a valid spot for the player to be in
+        /// </summary>
+        /// <param name="pos">Grid Position</param>
         public bool ValidateMovePosition(Vector2Int pos) {
             //Check that it's in bounds
             if ((pos.x >= 0 && pos.x < levelGenerator.Grid.GetLength(0)) && (pos.y >= 0 && pos.y < levelGenerator.Grid.GetLength(1))) {
@@ -96,6 +114,11 @@ namespace Split.Player {
             return false;
         }
 
+        /// <summary>
+        /// Returns the player standing on the specified position
+        /// </summary>
+        /// <param name="pos"></param>
+        /// <returns></returns>
         public Player GetPlayerAtPosition(Vector2Int pos) {
             //TODO: any way to make this more efficient?
             //Checks if there's already a player there
@@ -107,6 +130,7 @@ namespace Split.Player {
             return null;
         }
 
+        //TODO: Why is this function here?
         private void OnBridgeDeactivate(Vector2Int pos) {
             Player player = GetPlayerAtPosition(pos);
             if (player != null) {
@@ -114,20 +138,8 @@ namespace Split.Player {
             }
         }
 
-        //------------------------
-        // Accessors
-        //------------------------
-
-        public LevelGenerator LevelGenerator => levelGenerator;
-        
-        public Player ActivePlayer {
-            get {
-                return this.players[this.activePlayerIndex];
-            }
-        }
-
         /*********************
-        * ----- MOVING ----- *
+        *       MOVING       *
         *********************/
         //NOTE: The directions on the Vectors don't match because the game is being viewed in a different angle
         public void MoveForward(InputAction.CallbackContext context) {

@@ -6,6 +6,9 @@ using Split.Player;
 
 namespace Split.LevelLoading
 {
+    /// <summary>
+    /// Generates tiles/level from LevelData.
+    /// </summary>
     public class LevelGenerator : MonoBehaviour
     {
         [Header("References")]
@@ -23,14 +26,14 @@ namespace Split.LevelLoading
 
         public LevelData LevelData {get; set;}
         public Tile[,] Grid {get; private set;}
+
         private List<MeshCombineData> basicMesh;
         private MeshFilter basicMeshFilter;
-
         private float bridgeTileAlpha;
         private float bridgeBrokenTileAlpha;
         private float bridgeButtonTileAlpha;
 
-        void Start() {
+        private void Start() {
             this.basicTile = Instantiate(basicTile, Vector3.zero, Quaternion.identity);
             this.basicMeshFilter = basicTile.GetComponent<MeshFilter>();
             this.basicTile.SetActive(false);
@@ -44,10 +47,12 @@ namespace Split.LevelLoading
             new LevelSerializer().Load(out levelData, "level.json");
             this.LevelData = levelData;
 
-
             Generate();
         }
 
+        /// <summary>
+        /// Main mechanism of the class. Reads the level data and generates the tiles.
+        /// </summary>
         public void Generate() {
             if (this.LevelData == null) return;
 
@@ -67,12 +72,22 @@ namespace Split.LevelLoading
             RenderBasicMesh();
         }
 
+        /// <summary>
+        /// Creates a new Tile Object that holds a newly instaniated GameObject.
+        /// (Except for Basic Tiles, in which it is added to a large Mesh)
+        /// </summary>
+        /// <param name="type">Desired TileType at grid position (x,y)</param>
+        /// <param name="x">Grid Position X</param>
+        /// <param name="y">Grid Position Y</param>
+        /// <returns>Newly instantiated Tile object</returns>
         private Tile CreateTile(TileType type, int x, int y) {
             Vector3 worldPos = GridToWorldPos(x, y);
             GameObject tileGO;
             Tile newTile;
 
             switch (type) {
+                //NOTE: Only the basic tile is combined into a mesh, the rest of the tiles are simply instantiated by themselves
+                //This is due to the fact that the basic tile never changes, whereas the other tiles can disappear, vary in opacity, glow, etc.
                 case TileType.BASIC:
                     newTile = new Tile();
                     AddToBasicMesh(worldPos);
@@ -119,6 +134,11 @@ namespace Split.LevelLoading
             return newTile;
         }
 
+        /// <summary>
+        /// Adds a basic tile at specified world position to the combined mesh data.
+        /// If the vertex count exceeds the max, it creates a new one.
+        /// </summary>
+        /// <param name="worldPos">World Position of Basic Tile (NOT Grid Position)</param>
         private void AddToBasicMesh(Vector3 worldPos) {
             //Set basic tile position to desired pos
             basicTile.transform.position = worldPos;
@@ -137,6 +157,10 @@ namespace Split.LevelLoading
             this.basicMesh.Last().Add(combine);
         }
 
+        /// <summary>
+        /// Takes the combined mesh data (Stored as a list of MeshCombineData objects)
+        /// and creates GameObjects off of them.
+        /// </summary>
         private void RenderBasicMesh() {
             Renderer prefabRenderer = basicTile.GetComponent<Renderer>();
 

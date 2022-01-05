@@ -1,9 +1,8 @@
 using UnityEngine;
-using System.Collections;
 
 namespace Split.Builder.CameraStates {
     /// <summary>
-    /// This type of Builder camera is bound to target a tile
+    /// Camera is in the isometric angle and its movement bound to target a tile
     /// </summary>
     public class IsoTilebound : IsometricCam {
         private BuilderLevelLoader loader;

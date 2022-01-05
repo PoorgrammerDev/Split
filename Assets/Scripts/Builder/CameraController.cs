@@ -1,9 +1,11 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Split.Builder.CameraStates;
 
 namespace Split.Builder {
+    /// <summary>
+    /// Controls the movement of the camera
+    /// </summary>
     [RequireComponent(typeof(Camera))]
     [RequireComponent(typeof(CameraFollow))]
     public class CameraController : MonoBehaviour {

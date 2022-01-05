@@ -1,7 +1,9 @@
-using System.Collections;
 using UnityEngine;
 
 namespace Split.Player.State {
+    /// <summary>
+    /// "Normal Operating" state. Player instance is currently selected and being controlled.
+    /// </summary>
     public class Active : PlayerState {
         public Active(Player player) : base(player) {
         }

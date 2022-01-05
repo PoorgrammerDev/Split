@@ -3,6 +3,10 @@ using Split.LevelLoading;
 using Split.Tiles;
 
 namespace Split.Player.State {
+    /// <summary>
+    /// Player instance is residing on a deactivated panel. This player cannot move,
+    /// cannot be switched/controlled, etc. until the panel is reactivated.
+    /// </summary>
     public class Locked : PlayerState {
         private LevelGenerator levelGenerator;
 

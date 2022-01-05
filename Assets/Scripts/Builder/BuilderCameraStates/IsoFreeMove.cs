@@ -1,6 +1,9 @@
 using UnityEngine;
 
 namespace Split.Builder.CameraStates {
+    /// <summary>
+    /// Camera is in the isometric angle and the movement is not bound to any tiles.
+    /// </summary>
     public class IsoFreeMove : IsometricCam {
         private const int KEY_MULTIPLIER = 100;
 

@@ -6,9 +6,10 @@ using Split.LevelLoading;
 
 namespace Split.Builder {
     /// <summary>
-    /// Generates the tile objects/meshes for the level in the Builder
+    /// Generates the tile objects/meshes for the level in the Builder. Each Row contains a separate mesh (and object) for each Tile Type.
     /// </summary>
     public class BuilderLevelLoader : MonoBehaviour {
+        //NOTE: These prefabs are not to be used directly, other than creating instances from them. These instances are stored in the Dictionary typeToTile.
         [Header("Tile Prefabs")]
         [SerializeField] private MeshFilter emptyTile;
         [SerializeField] private MeshFilter basicTile;
@@ -25,8 +26,7 @@ namespace Split.Builder {
         private BuilderLevelData levelData;
         private Array allTiles;
 
-        // Start is called before the first frame update
-        private void Start() {
+        private void Awake() {
             this.rows = new List<Row>();
             this.allTiles = Enum.GetValues(typeof(TileType));
 
@@ -34,29 +34,46 @@ namespace Split.Builder {
             PopulateDictionary();
         }
 
+        /// <summary>
+        /// Creates the tile objects/meshes for the specified input level data.
+        /// </summary>
+        /// <param name="data">Data for the level layout to generate</param>
         public void Generate(BuilderLevelData data) {
             this.levelData = data;
 
             for (int i = 0; i < data.gridData.Count; ++i) {
-                Row row = CalculateEntireRow(data, i);            
-                
-                RenderRow(row);
-                rows.Add(row);
+                rows.Add(new Row());
+                CalculateEntireRow(i);
+                RenderRow(rows[i]);
             }
         }
 
+        /// <summary>
+        /// Modifies the tile at a specific grid location
+        /// </summary>
+        /// <param name="x">Grid coordinate X</param>
+        /// <param name="y">Grid coordinate Y</param>
+        /// <param name="type">TileType to change (x,y) to</param>
         public void SetTile(int x, int y, TileType type) {
             TileType old = levelData.gridData[x][y];
             levelData.gridData[x][y] = type;
 
-            RecalculateRowByType(x, old);
-            RecalculateRowByType(x, type);
+            //Recalculates mesh data for both types
+            CalculateRowByType(x, old);
+            CalculateRowByType(x, type);
+
+            //Renders new mesh data for both types
+            RenderRowByType(this.rows[x], old);
+            RenderRowByType(this.rows[x], type);
         }
 
         /**************************
         *        RENDERING        *
         **************************/
 
+        /// <summary>
+        /// Creates Tile Mesh GameObjects for every TileType in a specified row
+        /// </summary>
         private void RenderRow(Row row) {
             foreach (TileType type in allTiles) {
                 if (row.data[type].IsEmpty()) continue;
@@ -64,6 +81,9 @@ namespace Split.Builder {
             }
         }
 
+        /// <summary>
+        /// Creates Tile Mesh GameObjects for a specified TileType in a specified Row
+        /// </summary>
         private void RenderRowByType(Row row, TileType type) {
             GameObject obj = (row.objects.ContainsKey(type) ? row.objects[type] : new GameObject($"Row | {type}"));
             
@@ -85,24 +105,27 @@ namespace Split.Builder {
         *       CALCULATING       *
         **************************/
 
-        private void RecalculateRowByType(int row, TileType type) {
+        /// <summary>
+        /// Calculates the Mesh Data for every type in a specified row. Requires that the row is already created.
+        /// Directly edits the existing row with the new information.
+        /// </summary>
+        /// <param name="row">Index of row to access</param>
+        private void CalculateEntireRow(int row) {
             if (this.levelData == null) return;
 
-            this.rows[row].data[type] = CalculateMCD(this.levelData, row, type);
-            RenderRowByType(this.rows[row], type);
-        }
-
-        private Row CalculateEntireRow(BuilderLevelData levelData, int index) {
-            Row row = new Row();
-
             foreach (TileType type in allTiles) {
-                row.data[type] = CalculateMCD(levelData, index, type);
+                CalculateRowByType(row, type);
             }
-
-            return row;
         }
 
-        private MeshCombineData CalculateMCD(BuilderLevelData levelData, int row, TileType type) {
+        /// <summary>
+        /// Calculates the Mesh Data for a specified row and type. Requires that the row is already created.
+        /// Directly edits the existing row with the new information.
+        /// </summary>
+        /// <param name="row">Index of row to access</param>
+        /// <param name="type">Type of tile to calculate</param>
+        private void CalculateRowByType(int row, TileType type) {
+            if (this.levelData == null) return;
             MeshCombineData data = new MeshCombineData();
             
             for (int i = 0; i < levelData.gridData[row].Count; ++i) {
@@ -111,15 +134,22 @@ namespace Split.Builder {
 
                     if (!data.Add(combine)) {
                         Debug.LogError($"Row {row} in Level \"{levelData.levelName}\" has reached the maximum vertex count!");
-                        return data;
+                        break;
                     }
 
                 }
             }
 
-            return data;
+            this.rows[row].data[type] = data;
         }
 
+        /// <summary>
+        /// Creates a CombineInstance from a specified tile at position (x,y)
+        /// </summary>
+        /// <param name="tile">Tile Object to use</param>
+        /// <param name="x">Grid Position X</param>
+        /// <param name="y">Grid Position Y</param>
+        /// <returns></returns>
         private CombineInstance GetCombineInstance(MeshFilter tile, int x, int y) {
             CombineInstance combine = new CombineInstance();
 
@@ -172,6 +202,9 @@ namespace Split.Builder {
         }
     }
 
+    /// <summary>
+    /// Represents a row of tiles in the level editor/builder.
+    /// </summary>
     public class Row {
         public Dictionary<TileType, MeshCombineData> data;
         public Dictionary<TileType, GameObject> objects;

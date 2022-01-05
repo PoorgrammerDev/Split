@@ -1,6 +1,9 @@
 using UnityEngine;
 
 namespace Split.Builder.CameraStates {
+    /// <summary>
+    /// [Abstract] Represents the different movement and viewing states the Builder camera can be in
+    /// </summary>
     public abstract class CameraState {
         protected CameraController controller;
 
@@ -10,7 +13,6 @@ namespace Split.Builder.CameraStates {
 
         public virtual void Start() {}
         public virtual void End() {}
-
         
         public virtual void MoveForward() {}
         public virtual void MoveBackwards() {}

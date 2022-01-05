@@ -36,13 +36,18 @@ namespace Split.Builder {
         /// <param name="levelData">Regular Level Data</param>
         /// <param name="fileName">File Name: additional data not included</param>
         public BuilderLevelData(LevelData levelData, string fileName) {
+            //All the data that is directly transferrable is assigned
             this.levelName = levelData.levelName;
             this.levelDescription = levelData.levelDescription;
             this.fileName = fileName;
-
             this.startPosition = levelData.startPosition;
             this.endPosition = levelData.endPosition;
+            this.maxPlayers = levelData.maxPlayers;
 
+            //Uses List<> ctor to convert 1D arr[] to 1D List<>
+            this.buttonTileData = new List<ButtonTileData>(levelData.buttonTileData);
+
+            //Converts TileGrid (2D arr[]) to 2D List<>
             this.gridData = new List<List<TileType>>(levelData.gridData.x);
             for (int x = 0; x < levelData.gridData.x; ++x) {
                 this.gridData.Add(new List<TileType>(levelData.gridData.y));
@@ -51,9 +56,7 @@ namespace Split.Builder {
                     this.gridData[x].Add(levelData.gridData[x, y]);
                 }
             }
-
-            this.buttonTileData = new List<ButtonTileData>(levelData.buttonTileData);
-            this.maxPlayers = levelData.maxPlayers;
+            
         }
     }
 }

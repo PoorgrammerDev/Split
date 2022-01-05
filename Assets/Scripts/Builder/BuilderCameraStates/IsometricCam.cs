@@ -1,6 +1,9 @@
 using UnityEngine;
 
 namespace Split.Builder.CameraStates {
+    /// <summary>
+    /// [Abstract] Represents all camera states that hold the isometric angle.
+    /// </summary>
     public abstract class IsometricCam : CameraState {
         protected Camera camera;
         protected CameraFollow follow;

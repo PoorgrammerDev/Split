@@ -1,6 +1,9 @@
 using UnityEngine;
 
 namespace Split.Builder.CameraStates {
+    /// <summary>
+    /// [Abstract] Represents all camera states with the flat Top-Down angle
+    /// </summary>
     public abstract class TopDownCam : CameraState {
         protected Camera camera;
         protected CameraFollow follow;

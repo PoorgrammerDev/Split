@@ -2,7 +2,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Split.LevelLoading {
-        public class MeshCombineData {
+    /// <summary>
+    /// Holds combined tile mesh data for one large mesh. Enforces the max vertex limit.
+    /// </summary>
+    public class MeshCombineData {
         private const int MAX_MESH_VERTICIES = 65535;
 
         private List<CombineInstance> combineInstances;
