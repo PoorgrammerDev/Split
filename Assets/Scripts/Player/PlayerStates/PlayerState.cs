@@ -17,6 +17,10 @@ namespace Split.Player.State {
         public virtual void End() {
         }
 
+        public virtual bool IsMoving() {
+            return false;
+        }
+
         public virtual bool Move(Vector2Int to) {
             return false;
         }

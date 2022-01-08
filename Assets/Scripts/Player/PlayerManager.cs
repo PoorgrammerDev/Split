@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 using Split.LevelLoading;
 using Split.Tiles;
 
@@ -145,30 +144,6 @@ namespace Split.Player {
             if (player != null) {
                 player.GetState().Unlock();
             }
-        }
-
-        /*********************
-        *       MOVING       *
-        *********************/
-        //NOTE: The directions on the Vectors don't match because the game is being viewed in a different angle
-        public void MoveForward(InputAction.CallbackContext context) {
-            if (!context.performed) return;
-            ActivePlayer.GetState().Move(ActivePlayer.Position + Vector2Int.right);
-        }
-
-        public void MoveBackward(InputAction.CallbackContext context) {
-            if (!context.performed) return;
-            ActivePlayer.GetState().Move(ActivePlayer.Position + Vector2Int.left);
-        }
-
-        public void MoveLeft(InputAction.CallbackContext context) {
-            if (!context.performed) return;
-            ActivePlayer.GetState().Move(ActivePlayer.Position + Vector2Int.down);
-        }
-
-        public void MoveRight(InputAction.CallbackContext context) {
-            if (!context.performed) return;
-            ActivePlayer.GetState().Move(ActivePlayer.Position + Vector2Int.up);
         }
 
     }
