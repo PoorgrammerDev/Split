@@ -2,11 +2,9 @@ using System;
 using UnityEngine;
 
 namespace Split {
-
-    /*
-     * This class handles game events
-     */
-
+    /// <summary>
+    /// Handles Events in the Game Scene
+    /// </summary>
     public class GameEvents : MonoBehaviour {
         //Singleton reference
         public static GameEvents current;
@@ -33,6 +31,13 @@ namespace Split {
         public void ButtonDeactivate(Vector2Int buttonPosition) {
             if (onButtonDeactivate != null) {
                 onButtonDeactivate(buttonPosition);
+            }
+        }
+
+        public event Action<Vector2Int> onBridgeActivate; 
+        public void BridgeActivate(Vector2Int bridgePosition) {
+            if (onBridgeActivate != null) {
+                onBridgeActivate(bridgePosition);
             }
         }
 

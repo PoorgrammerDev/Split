@@ -1,9 +1,11 @@
 using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
-using Split.LevelLoading;
 
 namespace Split.Builder {
+    /// <summary>
+    /// Represents a loaded Level inside of the Builder Main Menu UI
+    /// </summary>
     public class LevelEntry : MonoBehaviour {
         [SerializeField] private TextMeshProUGUI title;
         [SerializeField] private TextMeshProUGUI description;
@@ -12,8 +14,11 @@ namespace Split.Builder {
         [SerializeField] private Image icon;
 
         public BuilderLevelData Data {get; set;}
-        public BuilderMainMenu Manager {get; set;}
+        public BuilderManager Manager {get; set;}
 
+        /// <summary>
+        /// Calls the scene manager to load the specified level when clicked on
+        /// </summary>
         public void OnClick() {
             Manager.OpenLevel(Data);
         }

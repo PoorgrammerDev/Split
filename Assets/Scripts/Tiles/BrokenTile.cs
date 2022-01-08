@@ -1,11 +1,9 @@
 using UnityEngine;
-using Split.LevelLoading;
 
 namespace Split.Tiles {
-    /*
-     * This class represents a tile that becomes a hole once stepped off
-     */
-     
+    /// <summary>
+    /// Tile that holds the Broken property (disappears once stepped off of)
+    /// </summary>
     public class BrokenTile : TileEntity, IToggleable {
         private Properties.BrokenProperty brokenProperty;
 
@@ -16,9 +14,6 @@ namespace Split.Tiles {
         public bool IsActive() {
             return brokenProperty.Active;
         }
-
-
-
-     
+        
     }
 }

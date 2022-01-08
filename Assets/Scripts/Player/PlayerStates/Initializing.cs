@@ -2,6 +2,10 @@ using System.Collections;
 using UnityEngine;
 
 namespace Split.Player.State {
+    /// <summary>
+    /// The state that bridges Uninitialized and Active.
+    /// The player instance is being selected for the first time.
+    /// </summary>
     public class Initializing : PlayerState {
         private Player lastPlayer;
         private bool finishAnimation = false;
@@ -31,7 +35,7 @@ namespace Split.Player.State {
             PlayerState active = new Active(player);
             bool output = active.Move(to);
 
-            player.SetState(active);
+            if (output) player.SetState(active);
             return output;
         }
 
@@ -46,6 +50,8 @@ namespace Split.Player.State {
             //Since both the last player and the new player are in the same spot,
             //make the old player invisible to prevent clipping
             lastRend.enabled = false;
+
+            //TODO: Can probably be replaced with LeanTween
 
             //Flashes colors while waiting for player to move --- --- ---
             Material plyMat = player.GetComponent<Renderer>().material;
@@ -71,7 +77,7 @@ namespace Split.Player.State {
 
                 yield return null;
             }
-            //--- --- ---
+            //End flashing logic --- --- ---
 
             //restore last player's visibility
             lastRend.enabled = true;

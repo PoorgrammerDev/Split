@@ -4,12 +4,9 @@ using Split.LevelLoading;
 using Split.Player;
 
 namespace Split.Tiles {
-
-    /*
-     * This class represents a special tile that acts as a Hole when deactivated
-     * and as a normal tile when activated
-     */
-     
+    /// <summary>
+    /// Tile that holds the Bridge Property (Activated/Deactivated by button)
+    /// </summary>
     public class BridgeTile : TileEntity, IToggleable {
         private BridgeProperty bridgeProperty;
 

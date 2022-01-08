@@ -1,7 +1,9 @@
-using System.Collections;
 using UnityEngine;
 
 namespace Split.Player.State {
+    /// <summary>
+    /// "Normal Operating" state. Player instance is currently selected and being controlled.
+    /// </summary>
     public class Active : PlayerState {
         public Active(Player player) : base(player) {
         }
@@ -37,7 +39,7 @@ namespace Split.Player.State {
 
         public override bool Lock() {
             player.SetState(new Locked(player));
-            //TODO: transfer control to a different player?
+            //TODO: play lock screen animation and transfer control to another player
             return true;
         }
     }

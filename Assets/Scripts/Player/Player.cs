@@ -1,9 +1,10 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
-using System.Collections.Generic;
 using Split.Player.State;
 
 namespace Split.Player {
+    /// <summary>
+    /// Holds information for one player instance
+    /// </summary>
     public class Player : MonoBehaviour {
         public PlayerColors Colors {get; set;}
         public Vector2Int Position {get; set;}

@@ -8,7 +8,10 @@ using Split.Tiles;
 using Split.LevelLoading;
 
 namespace Split.Builder {
-    public class CreateLevelManager : MonoBehaviour {
+    /// <summary>
+    /// Handles functionality of the Create page of the opening menu 
+    /// </summary>
+    public class CreateMenuManager : MonoBehaviour {
         const string BUTTON_TEXT = "Create";
 
         [Header("UI Inputs")]
@@ -21,11 +24,11 @@ namespace Split.Builder {
 
         [Header("Other UI References")]
         [SerializeField] private Slider progressBar;
-        [SerializeField] private Image background;
+        [SerializeField] private Image createButtonBackground;
         [SerializeField] private TextMeshProUGUI createButtonText;
 
         [Header("Other References")]
-        [SerializeField] private BuilderMainMenu builderMainMenu;
+        [SerializeField] private BuilderManager sceneManager;
 
         [Header("Settings")]
         [SerializeField] private Color buttonRegular;
@@ -39,11 +42,16 @@ namespace Split.Builder {
             this.serializer = new LevelSerializer();
         }
 
+        /// <summary>
+        /// Handles all preliminary checks when the Create button is clicked.
+        /// If inputs are valid, passes control to BeginCreatingStage.
+        /// If not, displays an error message.
+        /// </summary>
         public void OnClick() {
             int x, y;
             if (int.TryParse(gridX.text, out x) & int.TryParse(gridY.text, out y)) {
                 //Check if file name is valid
-                
+
                 string path = Path.Combine(serializer.GetDefaultDirectoryPath(), fileName.text);
                 FileStream stream = null;
                 bool passedFileCheck = false;
@@ -56,7 +64,6 @@ namespace Split.Builder {
                 //File does not exist
                 else {
                     //Create the file to see if it's legal to exist
-                    //TODO: find a better way to do this
                     try {
                         stream = File.Create(path);
                     }
@@ -83,9 +90,13 @@ namespace Split.Builder {
             else {
                 StartCoroutine(DisplayError("Grid Size Invalid"));
             }
-
         }
 
+        /// <summary>
+        /// Creates a new BuilderLevelData with input info and calls scene manager to open the level
+        /// </summary>
+        /// <param name="x">Size of Grid: X</param>
+        /// <param name="y">Size of Grid: Y</param>
         private void BeginCreatingStage(int x, int y) {
             BuilderLevelData data = new BuilderLevelData();
             data.levelName = levelName.text;
@@ -94,7 +105,7 @@ namespace Split.Builder {
             data.maxPlayers = (int) maxPlayers.value;
 
             //Create the list
-            data.gridData = new List<List<TileType>>(x);
+            data.gridData.Capacity = x;
             for (int i = 0; i < x; ++i) {
                 data.gridData.Add(new List<TileType>(y));
 
@@ -103,29 +114,36 @@ namespace Split.Builder {
                 }
             }
 
-            builderMainMenu.OpenLevel(data);
+            sceneManager.OpenLevel(data);
         }
 
+        /// <summary>
+        /// Coroutine that changes the "Create" button to display an error message, and then reverts it.
+        /// </summary>
+        /// <param name="msg">Error message to display</param>
         private IEnumerator DisplayError(string msg) {
             float t = 0.0f;
             float progVal = progressBar.value;
 
+            //To error color
             while (t <= 1) {
                 progressBar.value = Mathf.Lerp(progVal, 0, t);
-                background.color = Color.Lerp(buttonRegular, buttonError, t);
-                t += 0.0375f;
+                createButtonBackground.color = Color.Lerp(buttonRegular, buttonError, t);
+                t += 0.0375f; //Time-scale independent
                 yield return null;
             }
 
             createButtonText.text = msg;
             yield return wait;
 
+            //Back to regular color
             t = 0.0f;
             while (t <= 1) {
-                background.color = Color.Lerp(buttonError, buttonRegular, t);
-                t += 0.025f;
+                createButtonBackground.color = Color.Lerp(buttonError, buttonRegular, t);
+                t += 0.025f; //Time-scale independent
                 yield return null;
-            }
+            }  
+
             createButtonText.text = BUTTON_TEXT;
         }
     }

@@ -2,6 +2,9 @@ using UnityEngine;
 using Split.Tiles.Properties;
 
 namespace Split.Tiles {
+    /// <summary>
+    /// Tile that holds both Bridge and Button properties
+    /// </summary>
     public class BridgeButtonTile : TileEntity, IToggleable {
         private BridgeProperty bridgeProperty;
         private ButtonProperty buttonProperty;

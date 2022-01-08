@@ -1,22 +1,28 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Split.Builder.CameraStates;
 
 namespace Split.Builder {
+    /// <summary>
+    /// Controls the movement of the camera
+    /// </summary>
     [RequireComponent(typeof(Camera))]
     [RequireComponent(typeof(CameraFollow))]
     public class CameraController : MonoBehaviour {
         [Header("References")]
         [SerializeField] private BuilderLevelLoader loader;
-        [SerializeField] private GameObject tileHighlighter;
+
+        [Header("Options")]
+        [SerializeField] private Vector3 isometricOffset;
+        [SerializeField] private Vector3 topDownOffset;
 
         private CameraState state;
         private bool freeMoveActivated;
 
         public Camera Camera {get; private set;}
         public CameraFollow Follow {get; private set;}
-        public GameObject TileHighlighter => tileHighlighter;
+        public Vector3 IsometricOffset => isometricOffset;
+        public Vector3 TopDownOffset => topDownOffset;
 
         private void Awake() {
             this.Camera = GetComponent<Camera>();
@@ -26,9 +32,9 @@ namespace Split.Builder {
             SetState(new Inactive(this));
         }
 
-        /*******
-         MOVING
-        *******/
+        /*************************
+        *         MOVING         *
+        *************************/
     
         public void MoveForward(InputAction.CallbackContext context) {
             if (!context.performed) return;
@@ -65,7 +71,9 @@ namespace Split.Builder {
             }
         }
 
-
+        /**************************
+        *      CAMERA STATES      *
+        **************************/
 
         public CameraState GetState() {
             return state;

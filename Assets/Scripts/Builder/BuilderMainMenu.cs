@@ -4,18 +4,18 @@ using UnityEngine;
 using Split.LevelLoading;
 
 namespace Split.Builder {
+    /// <summary>
+    /// Handles functionality in the main page of the Builder opening menu
+    /// </summary>
     public class BuilderMainMenu : MonoBehaviour {
         [Header("UI References")]
         [SerializeField] private GameObject createMenu;
         [SerializeField] private GameObject openingMenu;
-        [SerializeField] private GameObject builderHUD;
         [SerializeField] private GameObject levelsContent;
         [SerializeField] private LevelEntry levelListPrefab;
 
         [Header("Other References")]
-        [SerializeField] private BuilderLevelLoader levelLoader;
-        [SerializeField] private GameObject target;
-        [SerializeField] private BuilderManager builderManager;
+        [SerializeField] private BuilderManager sceneManager;
 
         private LevelSerializer levelSerializer;
         private List<LevelEntry> levelEntries;
@@ -28,17 +28,23 @@ namespace Split.Builder {
             openingMenu.SetActive(true);
         }
 
+        /// <summary>
+        /// Adds entries for the list of levels on the left side of the main page
+        /// </summary>
         private void PopulateLevelEntries() {
             //Check if directory exists
             if (Directory.Exists(levelSerializer.GetDefaultDirectoryPath())) {
-                //TODO: do something with regex here to make .json case insensitive
                 foreach (string filePath in Directory.GetFiles(levelSerializer.GetDefaultDirectoryPath(), "*.json")) {
                     LevelEntry entry = null;
                     try {
                         LevelData data;
+                        
+                        //Load the .json through the serializer into a level data object
                         if (levelSerializer.Load(out data, filePath)) {
+                            //Instantiate a new Level Entry UI object based on the prefab
                             entry = Instantiate(levelListPrefab.gameObject, Vector3.zero, Quaternion.identity, levelsContent.transform).GetComponent<LevelEntry>();
 
+                            //Set data accordingly
                             entry.SetFileName(Path.GetFileName(filePath));
                             entry.SetTitle(
                                 !string.IsNullOrEmpty(data.levelName) ? 
@@ -48,14 +54,14 @@ namespace Split.Builder {
 
                             entry.SetDescription(data.levelDescription);
                             entry.Data = new BuilderLevelData(data, Path.GetFileName(filePath));
-                            entry.Manager = this;
+                            entry.Manager = this.sceneManager;
 
+                            //Add entry to the list
                             levelEntries.Add(entry);
                         }
-                    }
-                    catch (System.Exception e) {
-                        Debug.Log(e.StackTrace);
-
+                    }   
+                    //If any level fails to load at any point, just delete the entry and move on to the next one
+                    catch {
                         if (entry != null) {
                             Destroy(entry.gameObject);
                         }
@@ -71,29 +77,29 @@ namespace Split.Builder {
             Application.OpenURL("file://" + levelSerializer.GetDefaultDirectoryPath());
         }
 
+        /// <summary>
+        /// Closes main page and opens Create page
+        /// </summary>
         public void CreateMenu() {
             openingMenu.SetActive(false);
             createMenu.SetActive(true);
         }
 
+        /// <summary>
+        /// Closes Create page and opens main page
+        /// </summary>
         public void CloseCreateMenu() {
             openingMenu.SetActive(true);
             createMenu.SetActive(false);
         }
 
-        //TODO: this might be better placed somewhere else
-        public void OpenLevel(BuilderLevelData data) {
-            //Generate the level based on the data
-            levelLoader.Generate(data);
-
-            //Update the HUD accordingly
+        /// <summary>
+        /// Closes all menus in the opening menus
+        /// </summary>
+        public void CloseAllMenus() {
             openingMenu.SetActive(false);
             createMenu.SetActive(false);
-            builderHUD.SetActive(true);
-
-            builderManager.LevelLoaded(data);
         }
-
 
 
     }

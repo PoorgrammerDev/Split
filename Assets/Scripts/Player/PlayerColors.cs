@@ -1,6 +1,9 @@
 using UnityEngine;
 
 namespace Split.Player {
+    /// <summary>
+    /// Different Colors for different states
+    /// </summary>
     [System.Serializable]
     public struct PlayerColors {
         public Color ActiveColor;

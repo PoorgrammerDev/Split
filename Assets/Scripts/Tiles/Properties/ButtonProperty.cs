@@ -1,6 +1,9 @@
 using UnityEngine;
 
 namespace Split.Tiles.Properties {
+    /// <summary>
+    /// Property for a tile that activates Bridge tiles when stepped over
+    /// </summary>
     public class ButtonProperty : ITileProperty {
         private Vector2Int position;
         private Player.PlayerManager playerManager;
