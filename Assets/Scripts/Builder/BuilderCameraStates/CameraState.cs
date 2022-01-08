@@ -14,10 +14,7 @@ namespace Split.Builder.CameraStates {
         public virtual void Start() {}
         public virtual void End() {}
         
-        public virtual void MoveForward() {}
-        public virtual void MoveBackwards() {}
-        public virtual void MoveLeft() {}
-        public virtual void MoveRight() {}
-        public virtual void MoveFreely(Vector2 vec) {}
+        public virtual void Move(Vector2Int vec) {}
+        public virtual void FreeMove(Vector2 vec) {}
     }
 }

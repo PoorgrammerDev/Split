@@ -1145,71 +1145,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1465931229}
         m_TargetAssemblyTypeName: Split.Builder.CameraController, Assembly-CSharp
-        m_MethodName: MoveForward
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 642070b6-f1e1-48df-93c2-a0ace6ac9b48
-    m_ActionName: BuilderControls Default/Move Forward[/Keyboard/w,/Keyboard/upArrow]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1465931229}
-        m_TargetAssemblyTypeName: Split.Builder.CameraController, Assembly-CSharp
-        m_MethodName: MoveBackwards
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 31ee257e-d610-4268-919e-6b7ef47904cf
-    m_ActionName: BuilderControls Default/Move Backward[/Keyboard/s,/Keyboard/downArrow]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1465931229}
-        m_TargetAssemblyTypeName: Split.Builder.CameraController, Assembly-CSharp
-        m_MethodName: MoveLeft
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: cf126e4a-2b70-497a-aafa-0eda0976ff2a
-    m_ActionName: BuilderControls Default/Move Left[/Keyboard/a,/Keyboard/leftArrow]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1465931229}
-        m_TargetAssemblyTypeName: Split.Builder.CameraController, Assembly-CSharp
-        m_MethodName: MoveRight
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 28b52763-f8de-4480-9e92-c6ac35ea22d4
-    m_ActionName: BuilderControls Default/Move Right[/Keyboard/d,/Keyboard/rightArrow]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1465931229}
-        m_TargetAssemblyTypeName: Split.Builder.CameraController, Assembly-CSharp
-        m_MethodName: Move
+        m_MethodName: FreeMove
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1237,6 +1173,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: f8c5fe4b-c2d1-465b-80ba-ed522ea7324c
     m_ActionName: BuilderControls Default/Activate Free Move[/Mouse/middleButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1465931229}
+        m_TargetAssemblyTypeName: Split.Builder.CameraController, Assembly-CSharp
+        m_MethodName: Move
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 215bbed4-3119-45e1-b1b2-35f3b6343f32
+    m_ActionName: BuilderControls Default/Key Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: BuilderControls Default
@@ -8511,8 +8463,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loader: {fileID: 948639865}
-  isometricOffset: {x: 24, y: 19.84375, z: -24}
+  isometricOffset: {x: 240, y: 196.3438, z: -240}
   topDownOffset: {x: 0, y: 0, z: 0}
+  tileMoveDelay: 0.175
 --- !u!1 &1469063271
 GameObject:
   m_ObjectHideFlags: 0

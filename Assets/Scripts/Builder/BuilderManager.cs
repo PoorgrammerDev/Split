@@ -30,6 +30,7 @@ namespace Split.Builder {
 
             //Activate camera
             cameraController.SetState(new IsoTilebound(cameraController, levelLoader));
+            // cameraController.SetState(new IsoFreeMove(cameraController, 10f));
         }
 
     }

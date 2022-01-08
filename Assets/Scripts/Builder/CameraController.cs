@@ -15,14 +15,18 @@ namespace Split.Builder {
         [Header("Options")]
         [SerializeField] private Vector3 isometricOffset;
         [SerializeField] private Vector3 topDownOffset;
-
-        private CameraState state;
-        private bool freeMoveActivated;
+        [SerializeField] private float tileMoveDelay;
 
         public Camera Camera {get; private set;}
         public CameraFollow Follow {get; private set;}
         public Vector3 IsometricOffset => isometricOffset;
         public Vector3 TopDownOffset => topDownOffset;
+
+        private CameraState state;
+        private bool freeMoveActivated;
+        private Vector2Int gridMoveVec;
+        private Vector2 freeMoveVec;
+        private float delayCounter;
 
         private void Awake() {
             this.Camera = GetComponent<Camera>();
@@ -32,32 +36,44 @@ namespace Split.Builder {
             SetState(new Inactive(this));
         }
 
+        private void Update() {
+            this.state.FreeMove(freeMoveVec);
+
+            //TODO: Find a better way to do this
+            if (this.state is IsoTilebound) {
+                if (delayCounter >= tileMoveDelay) {
+                    if (gridMoveVec != Vector2Int.zero) {
+                        this.state.Move(gridMoveVec);
+                        delayCounter = 0;
+                    }
+                }
+                else {
+                    delayCounter += Time.deltaTime;
+                }
+            }
+            else {
+                this.state.Move(gridMoveVec);
+            }
+        }
+
         /*************************
         *         MOVING         *
         *************************/
     
-        public void MoveForward(InputAction.CallbackContext context) {
-            if (!context.performed) return;
-            this.state.MoveForward();
-        }
-
-        public void MoveBackwards(InputAction.CallbackContext context) {
-            if (!context.performed) return;
-            this.state.MoveBackwards();
-        }
-
-        public void MoveLeft(InputAction.CallbackContext context) {
-            if (!context.performed) return;
-            this.state.MoveLeft();
-        } 
-
-        public void MoveRight(InputAction.CallbackContext context) {
-            if (!context.performed) return;
-            this.state.MoveRight();
-        } 
-
         public void Move(InputAction.CallbackContext context) {
-            if (freeMoveActivated && context.performed) this.state.MoveFreely(-context.ReadValue<Vector2>());
+            if (!context.performed) return;
+            Vector2 input = context.ReadValue<Vector2>();
+            this.gridMoveVec = new Vector2Int((int) input.x, (int) input.y);
+        }
+
+        public void FreeMove(InputAction.CallbackContext context) {
+            if (freeMoveActivated && context.performed) {
+                Debug.Log((-context.ReadValue<Vector2>()).ToString());
+                this.freeMoveVec = -context.ReadValue<Vector2>();
+            }
+            else {
+                this.freeMoveVec = Vector2.zero;
+            }
         } 
 
         public void ToggleFreeMove (InputAction.CallbackContext context) {

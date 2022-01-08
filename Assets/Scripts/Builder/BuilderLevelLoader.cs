@@ -26,6 +26,8 @@ namespace Split.Builder {
         private BuilderLevelData levelData;
         private Array allTiles;
 
+        public BuilderLevelData LevelData => levelData;
+
         private void Awake() {
             this.rows = new List<Row>();
             this.allTiles = Enum.GetValues(typeof(TileType));

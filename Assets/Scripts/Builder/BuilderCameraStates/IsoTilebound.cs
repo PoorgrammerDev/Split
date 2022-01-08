@@ -28,24 +28,10 @@ namespace Split.Builder.CameraStates {
             highlighter.SetActive(false);
         }
 
-        //NOTE: The directions on the Vectors don't match because the game is being viewed in a different angle
-        public override void MoveForward() {
-            Move(Vector2Int.right);
-        }
+        public override void Move(Vector2Int vec) {
+            //Flip X and Y for grid position
+            vec = new Vector2Int(vec.y, vec.x);
 
-        public override void MoveBackwards() {
-            Move(Vector2Int.left);
-        }
-
-        public override void MoveLeft() {
-            Move(Vector2Int.down);
-        }
-
-        public override void MoveRight() {
-            Move(Vector2Int.up);
-        }
-
-        private void Move(Vector2Int vec) {
             Vector2Int newPos = position + vec;
             if (newPos.x >= 0 && newPos.y >= 0) {
                 //Set position to the new position
@@ -53,6 +39,11 @@ namespace Split.Builder.CameraStates {
 
                 //Set camera target position and highlighter position to new location
                 highlighter.transform.position = loader.GridToWorldPos(position.x, position.y);
+
+                //Expand level
+                if (newPos.x >= loader.LevelData.gridData.Count || newPos.y >= loader.LevelData.gridData[0].Count) {
+                    Debug.Log("over");
+                }
             }
         }
     }

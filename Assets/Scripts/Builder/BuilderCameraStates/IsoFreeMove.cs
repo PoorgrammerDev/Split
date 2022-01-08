@@ -5,8 +5,6 @@ namespace Split.Builder.CameraStates {
     /// Camera is in the isometric angle and the movement is not bound to any tiles.
     /// </summary>
     public class IsoFreeMove : IsometricCam {
-        private const int KEY_MULTIPLIER = 100;
-
         private Vector3 velocity;
         private float speed;
 
@@ -20,23 +18,15 @@ namespace Split.Builder.CameraStates {
             follow.Active = false;
         }
 
-        public override void MoveForward() {
-            MoveFreely(Vector2Int.up * KEY_MULTIPLIER);
+        public override void Move(Vector2Int vec) {
+            FreeMove(vec);
         }
 
-        public override void MoveBackwards() {
-            MoveFreely(Vector2Int.down * KEY_MULTIPLIER);
-        }
+        public override void FreeMove(Vector2 vec) {
+            if (vec == Vector2.zero) return;
 
-        public override void MoveLeft() {
-            MoveFreely(Vector2Int.left * KEY_MULTIPLIER);
-        }
-
-        public override void MoveRight() {
-            MoveFreely(Vector2Int.right * KEY_MULTIPLIER);
-        }
-
-        public override void MoveFreely(Vector2 vec) {
+            //TODO: this will eventually go into the ground and clip through
+            //temporary fix right now is to set the camera really high, but this is a bad solution
             velocity = camera.transform.TransformDirection(new Vector3(vec.x, vec.y, 0f)) * speed * Time.deltaTime;
 
             camera.transform.position += velocity;
