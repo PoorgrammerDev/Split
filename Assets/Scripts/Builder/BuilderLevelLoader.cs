@@ -202,6 +202,10 @@ namespace Split.Builder {
                     return null;
             }
         }
+
+        public Color GetTileColor(TileType type) {
+            return this.typeToTile[type].GetComponent<Renderer>().sharedMaterial.color;
+        }
     }
 
     /// <summary>

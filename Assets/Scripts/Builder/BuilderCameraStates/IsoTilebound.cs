@@ -42,6 +42,7 @@ namespace Split.Builder.CameraStates {
 
                 //Expand level
                 if (newPos.x >= loader.LevelData.gridData.Count || newPos.y >= loader.LevelData.gridData[0].Count) {
+                    //TODO: Expand the level
                     Debug.Log("over");
                 }
             }
