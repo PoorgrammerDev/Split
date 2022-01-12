@@ -31,6 +31,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Tilebound: Place Tile",
+                    "type": "Button",
+                    "id": "0f5c39fd-6cb8-4fa7-8b6d-2e7b0113ab2c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -165,6 +174,17 @@
                     "action": "Key Move",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "ea725554-f12b-4d57-8406-e380307ef851",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Tilebound: Place Tile",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

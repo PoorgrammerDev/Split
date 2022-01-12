@@ -31,5 +31,9 @@ namespace Split.Builder.CameraStates {
 
             camera.transform.position += velocity;
         }
+
+        public override Vector2Int? GetPosition() {
+            throw new System.NotImplementedException();
+        }
     }
 }

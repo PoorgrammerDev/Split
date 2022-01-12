@@ -47,5 +47,9 @@ namespace Split.Builder.CameraStates {
                 }
             }
         }
+
+        public override Vector2Int? GetPosition() {
+            return position;
+        }
     }
 }

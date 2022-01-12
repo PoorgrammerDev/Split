@@ -16,5 +16,7 @@ namespace Split.Builder.CameraStates {
         
         public virtual void Move(Vector2Int vec) {}
         public virtual void FreeMove(Vector2 vec) {}
+
+        public abstract Vector2Int? GetPosition();
     }
 }

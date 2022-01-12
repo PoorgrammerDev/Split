@@ -10,6 +10,8 @@ namespace Split.Builder {
     public class BuilderManager : MonoBehaviour {
         [Header("Options")]
         [SerializeField] private float freeMoveSpeed;
+        [SerializeField] private Color inactiveCameraColor;
+        [SerializeField] private Color activeCameraColor;
 
         [Header("References")]
         [SerializeField] private CameraController cameraController;
@@ -18,7 +20,7 @@ namespace Split.Builder {
 
         [Header("UI")]
         [SerializeField] private GameObject builderHUD;
-        [SerializeField] private GameObject cameraModeMenu;
+        
 
         [Header("UI - Base Topbar")]
         [SerializeField] private GameObject normalTopbar;
@@ -28,12 +30,20 @@ namespace Split.Builder {
         [SerializeField] private GameObject tileTypeSelTopbar;
         [SerializeField] private Image selectedTileType;
 
+        [Header("UI - Camera Mode Menu")]
+        [SerializeField] private GameObject cameraModeMenu;
+        [SerializeField] private Image isoTileboundButton;
+        [SerializeField] private Image isoFreeMoveButton;
+        [SerializeField] private Image tdTileboundButton;
+        [SerializeField] private Image tdFreeMoveButton;
+
         [Header("UI - Data Mode")]
         [SerializeField] private GameObject dataModeTopbar;
 
         private BuilderLevelData data;
         private TileType currentType;
         private bool eraseMode;
+        private bool emptyVisibility;
 
         private void Awake() {
             this.currentType = TileType.BASIC;
@@ -62,6 +72,18 @@ namespace Split.Builder {
         }
 
         /*************
+        * INPUT KEYS *
+        *************/
+
+        public void PlaceTile() {
+            Vector2Int? vec = cameraController.GetState().GetPosition();
+            if (vec.HasValue) {
+                levelLoader.SetTile(vec.Value, (eraseMode ? TileType.EMPTY : currentType));
+            }
+        }
+
+
+        /*************
         *     UI     *
         *************/
 
@@ -73,8 +95,14 @@ namespace Split.Builder {
             tileTypeButton.color = levelLoader.GetTileColor(currentType);
         }
 
-        public void ToggleCameraModeMenu(bool active) {
+        
+        public void ToggleCameraModeMenu() {
+            bool active = !cameraModeMenu.activeInHierarchy;
             cameraModeMenu.SetActive(active);
+            
+            if (active) {
+                UpdateCameraMenu(cameraController.GetState());
+            }
         }
 
         public void ToggleEraseMode() {
@@ -107,7 +135,33 @@ namespace Split.Builder {
             }
 
             cameraController.SetState(state);
-            ToggleCameraModeMenu(false);
+            UpdateCameraMenu(state);
+        }
+
+        public void ToggleEmptyTileVisibility() {
+            emptyVisibility = !emptyVisibility;
+            levelLoader.SetTypeActive(TileType.EMPTY, emptyVisibility);
+        }
+
+        //TODO: kinda messy
+        private void UpdateCameraMenu(CameraState state) {
+            isoTileboundButton.color = inactiveCameraColor;
+            isoFreeMoveButton.color = inactiveCameraColor;
+            tdTileboundButton.color = inactiveCameraColor;
+            tdFreeMoveButton.color = inactiveCameraColor;
+
+            if (state is IsoTilebound) {
+                isoTileboundButton.color = activeCameraColor;
+            }
+            else if (state is IsoFreeMove) {
+                isoFreeMoveButton.color = activeCameraColor;
+            }
+            // else if (state is TopDownTilebound) {
+
+            // }
+            // else if (state is TopDownFreeMove) {
+
+            // }
         }
 
     }

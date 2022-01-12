@@ -1476,6 +1476,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 215bbed4-3119-45e1-b1b2-35f3b6343f32
     m_ActionName: BuilderControls Default/Key Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 472899247}
+        m_TargetAssemblyTypeName: Split.Builder.BuilderManager, Assembly-CSharp
+        m_MethodName: PlaceTile
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 0f5c39fd-6cb8-4fa7-8b6d-2e7b0113ab2c
+    m_ActionName: 'BuilderControls Default/Tilebound: Place Tile[/Keyboard/space]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: BuilderControls Default
@@ -2251,14 +2267,14 @@ MonoBehaviour:
       - m_Target: {fileID: 472899247}
         m_TargetAssemblyTypeName: Split.Builder.BuilderManager, Assembly-CSharp
         m_MethodName: ToggleCameraModeMenu
-        m_Mode: 6
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 1
+          m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &298618176
 MonoBehaviour:
@@ -3312,15 +3328,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   freeMoveSpeed: 7.5
+  inactiveCameraColor: {r: 0.3254902, g: 0.37254903, b: 0.6431373, a: 1}
+  activeCameraColor: {r: 0.105882354, g: 0.6, b: 0.54509807, a: 1}
   cameraController: {fileID: 1465931229}
   levelLoader: {fileID: 948639865}
   mainMenuManager: {fileID: 400178279}
   builderHUD: {fileID: 365706159}
-  cameraModeMenu: {fileID: 1275613307}
   normalTopbar: {fileID: 1553407233}
   tileTypeButton: {fileID: 2017948449}
   tileTypeSelTopbar: {fileID: 253126843}
   selectedTileType: {fileID: 577632923}
+  cameraModeMenu: {fileID: 1275613307}
+  isoTileboundButton: {fileID: 414042503}
+  isoFreeMoveButton: {fileID: 1926645136}
+  tdTileboundButton: {fileID: 1202253540}
+  tdFreeMoveButton: {fileID: 982145951}
   dataModeTopbar: {fileID: 852888233}
 --- !u!4 &472899248
 Transform:
@@ -9517,7 +9539,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1337555217}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 472899247}
+        m_TargetAssemblyTypeName: Split.Builder.BuilderManager, Assembly-CSharp
+        m_MethodName: ToggleEmptyTileVisibility
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1337555217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16717,7 +16751,7 @@ MonoBehaviour:
       - m_Target: {fileID: 472899247}
         m_TargetAssemblyTypeName: Split.Builder.BuilderManager, Assembly-CSharp
         m_MethodName: ToggleCameraModeMenu
-        m_Mode: 6
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

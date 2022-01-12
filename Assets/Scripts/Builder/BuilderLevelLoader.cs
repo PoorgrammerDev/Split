@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Split.Tiles;
@@ -53,20 +54,19 @@ namespace Split.Builder {
         /// <summary>
         /// Modifies the tile at a specific grid location
         /// </summary>
-        /// <param name="x">Grid coordinate X</param>
-        /// <param name="y">Grid coordinate Y</param>
+        /// <param name="pos">Grid coordinates</param>
         /// <param name="type">TileType to change (x,y) to</param>
-        public void SetTile(int x, int y, TileType type) {
-            TileType old = levelData.gridData[x][y];
-            levelData.gridData[x][y] = type;
+        public void SetTile(Vector2Int pos, TileType type) {
+            TileType old = levelData.gridData[pos.x][pos.y];
+            levelData.gridData[pos.x][pos.y] = type;
 
             //Recalculates mesh data for both types
-            CalculateRowByType(x, old);
-            CalculateRowByType(x, type);
+            CalculateRowByType(pos.x, old);
+            CalculateRowByType(pos.x, type);
 
             //Renders new mesh data for both types
-            RenderRowByType(this.rows[x], old);
-            RenderRowByType(this.rows[x], type);
+            RenderRowByType(this.rows[pos.x], old);
+            RenderRowByType(this.rows[pos.x], type);
         }
 
         /**************************
@@ -205,6 +205,16 @@ namespace Split.Builder {
 
         public Color GetTileColor(TileType type) {
             return this.typeToTile[type].GetComponent<Renderer>().sharedMaterial.color;
+        }
+
+        public void SetTypeActive(TileType type, bool active) {
+            GameObject obj;
+
+            foreach (Row row in rows) {
+                if (row.objects.TryGetValue(type, out obj)) {
+                    obj.SetActive(active);
+                }
+            }
         }
     }
 
