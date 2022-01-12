@@ -69,6 +69,33 @@ namespace Split.Builder {
             RenderRowByType(this.rows[pos.x], type);
         }
 
+        public IEnumerator Fill(Vector2Int pos1, Vector2Int pos2, TileType type) {
+            //Calculate all the new data
+            Vector2Int min = new Vector2Int(Math.Min(pos1.x, pos2.x), Math.Min(pos1.y, pos2.y));
+            Vector2Int max = new Vector2Int(Math.Max(pos1.x, pos2.x), Math.Max(pos1.y, pos2.y));
+
+            HashSet<TileType> affectedTypes = new HashSet<TileType>();
+            affectedTypes.Add(type);
+
+            //Update all internal type representations
+            for (int x = min.x; x <= max.x; ++x) {
+                for (int y = min.y; y <= max.y; ++y) {
+                    affectedTypes.Add(levelData.gridData[x][y]);
+                    levelData.gridData[x][y] = type;
+                }
+            }
+
+            //Recalculate all mesh data and re-render
+            for (int x = min.x; x <= max.x; ++x) {
+                foreach (TileType affectedType in affectedTypes) {
+                    CalculateRowByType(x, affectedType);
+                    RenderRowByType(this.rows[x], affectedType);
+
+                    yield return null;
+                }
+            }
+        }
+
         /**************************
         *        RENDERING        *
         **************************/

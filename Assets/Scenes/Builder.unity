@@ -1481,7 +1481,7 @@ MonoBehaviour:
       - m_Target: {fileID: 472899247}
         m_TargetAssemblyTypeName: Split.Builder.BuilderManager, Assembly-CSharp
         m_MethodName: PlaceTile
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1492,6 +1492,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 0f5c39fd-6cb8-4fa7-8b6d-2e7b0113ab2c
     m_ActionName: 'BuilderControls Default/Tilebound: Place Tile[/Keyboard/space]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 472899247}
+        m_TargetAssemblyTypeName: Split.Builder.BuilderManager, Assembly-CSharp
+        m_MethodName: SelectFillPosition
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: f31aefc7-33b4-45f4-95c7-2d394eb6fda0
+    m_ActionName: 'BuilderControls Default/Tilebound: Select Area[/Keyboard/shift,/Keyboard/space]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: BuilderControls Default
@@ -3330,9 +3346,11 @@ MonoBehaviour:
   freeMoveSpeed: 7.5
   inactiveCameraColor: {r: 0.3254902, g: 0.37254903, b: 0.6431373, a: 1}
   activeCameraColor: {r: 0.105882354, g: 0.6, b: 0.54509807, a: 1}
+  initialTileHighlighters: 10
   cameraController: {fileID: 1465931229}
   levelLoader: {fileID: 948639865}
   mainMenuManager: {fileID: 400178279}
+  tileHighlighterPrefab: {fileID: 3652352387168772964, guid: c4fbc09c36c644d76a6d9dc7a8069196, type: 3}
   builderHUD: {fileID: 365706159}
   normalTopbar: {fileID: 1553407233}
   tileTypeButton: {fileID: 2017948449}

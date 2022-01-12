@@ -40,6 +40,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Tilebound: Select Area",
+                    "type": "Button",
+                    "id": "f31aefc7-33b4-45f4-95c7-2d394eb6fda0",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -185,6 +194,39 @@
                     "action": "Tilebound: Place Tile",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "Shift + Space",
+                    "id": "557634ac-5a6a-452e-bd00-85d224e452e7",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Tilebound: Select Area",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "657f2b48-9f3e-4672-8495-4c65eacc1d60",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Tilebound: Select Area",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "81702745-7c87-4502-807e-cfb177b25251",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Tilebound: Select Area",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }

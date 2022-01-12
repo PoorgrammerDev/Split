@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 using Split.Builder.CameraStates;
 using Split.Tiles;
 
@@ -12,11 +14,13 @@ namespace Split.Builder {
         [SerializeField] private float freeMoveSpeed;
         [SerializeField] private Color inactiveCameraColor;
         [SerializeField] private Color activeCameraColor;
+        [SerializeField] private int initialTileHighlighters;
 
         [Header("References")]
         [SerializeField] private CameraController cameraController;
         [SerializeField] private BuilderLevelLoader levelLoader;
         [SerializeField] private BuilderMainMenu mainMenuManager;
+        [SerializeField] private GameObject tileHighlighterPrefab;
 
         [Header("UI")]
         [SerializeField] private GameObject builderHUD;
@@ -44,10 +48,19 @@ namespace Split.Builder {
         private TileType currentType;
         private bool eraseMode;
         private bool emptyVisibility;
+        private GameObject currentFillPosHL;
+        private Vector2Int? fillPos1;
+        private Stack<GameObject> tileHighlighters;
+        
 
         private void Awake() {
             this.currentType = TileType.BASIC;
             this.eraseMode = false;
+            this.tileHighlighters = new Stack<GameObject>();
+
+            for (int i = 0; i < initialTileHighlighters; ++i) {
+                AddTileHighlighter();
+            }
         }
 
         private void Start() {
@@ -75,10 +88,37 @@ namespace Split.Builder {
         * INPUT KEYS *
         *************/
 
-        public void PlaceTile() {
+        public void SelectFillPosition(InputAction.CallbackContext context) {
+            if (!context.performed) return;
+
             Vector2Int? vec = cameraController.GetState().GetPosition();
             if (vec.HasValue) {
-                levelLoader.SetTile(vec.Value, (eraseMode ? TileType.EMPTY : currentType));
+                fillPos1 = vec.Value;
+
+                GameObject highlighter = (currentFillPosHL != null) ? currentFillPosHL : GetTileHighlighter();
+                highlighter.transform.position = levelLoader.GridToWorldPos(vec.Value.x, vec.Value.y);
+                highlighter.SetActive(true);
+
+                currentFillPosHL = highlighter;
+            }
+        }
+
+        public void PlaceTile(InputAction.CallbackContext context) {
+            if (!context.performed) return;
+
+            Vector2Int? vec = cameraController.GetState().GetPosition();
+            if (vec.HasValue) {
+                if (fillPos1.HasValue) {
+                    StartCoroutine(levelLoader.Fill(fillPos1.Value, vec.Value, (eraseMode ? TileType.EMPTY : currentType)));
+
+                    currentFillPosHL.SetActive(false);
+                    tileHighlighters.Push(currentFillPosHL);
+                    currentFillPosHL = null;
+                    fillPos1 = null;
+                }
+                else {
+                    levelLoader.SetTile(vec.Value, (eraseMode ? TileType.EMPTY : currentType));
+                }
             }
         }
 
@@ -162,6 +202,28 @@ namespace Split.Builder {
             // else if (state is TopDownFreeMove) {
 
             // }
+        }
+
+
+        /**************
+        *    OTHER    *
+        **************/
+
+        private GameObject GetTileHighlighter() {
+            if (tileHighlighters.Count > 0) {
+                return tileHighlighters.Pop();
+            }
+            else {
+                AddTileHighlighter();
+                return GetTileHighlighter();
+            }
+        }
+
+        private void AddTileHighlighter() {
+            GameObject obj = Instantiate(tileHighlighterPrefab, Vector3.zero, Quaternion.identity);
+            obj.SetActive(false);
+
+            tileHighlighters.Push(obj);
         }
 
     }
