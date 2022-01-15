@@ -58,5 +58,30 @@ namespace Split.Builder {
             }
             
         }
+
+        public LevelData ToLevelData() {
+            LevelData output = new LevelData();
+
+            //All the data that is directly transferrable is assigned
+            output.levelName = this.levelName;
+            output.levelDescription = this.levelDescription;
+            output.startPosition = this.startPosition;
+            output.endPosition = this.endPosition;
+            output.maxPlayers = this.maxPlayers;
+
+            output.buttonTileData = this.buttonTileData.ToArray();
+
+            //Converts 2D List<> to 2D array[]
+            output.gridData = new TileGrid(this.gridData.Count, this.gridData[0].Count);
+            for (int x = 0; x < this.gridData.Count; ++x) {
+                for (int y = 0; y < this.gridData[0].Count; ++y) {
+                    output.gridData[x, y] = this.gridData[x][y];
+                }
+            }
+            
+            return output;
+        }
     }
+
+
 }

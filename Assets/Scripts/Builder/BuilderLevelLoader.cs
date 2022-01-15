@@ -26,10 +26,12 @@ namespace Split.Builder {
         private List<Row> rows;
         private BuilderLevelData levelData;
         private Array allTiles;
+        private LevelSerializer serializer;
 
         public BuilderLevelData LevelData => levelData;
 
         private void Awake() {
+            this.serializer = new LevelSerializer();
             this.rows = new List<Row>();
             this.allTiles = Enum.GetValues(typeof(TileType));
 
@@ -73,6 +75,8 @@ namespace Split.Builder {
             //Calculate all the new data
             Vector2Int min = new Vector2Int(Math.Min(pos1.x, pos2.x), Math.Min(pos1.y, pos2.y));
             Vector2Int max = new Vector2Int(Math.Max(pos1.x, pos2.x), Math.Max(pos1.y, pos2.y));
+
+            //TODO: verify that the coordinates are in bounds
 
             HashSet<TileType> affectedTypes = new HashSet<TileType>();
             affectedTypes.Add(type);
@@ -187,6 +191,13 @@ namespace Split.Builder {
             combine.transform = tile.transform.localToWorldMatrix;
 
             return combine;
+        }
+
+        /**************************
+        *         SAVING          *
+        **************************/
+        public void Save() {
+            serializer.Save(levelData.ToLevelData(), levelData.fileName, true);
         }
 
         /**************************
