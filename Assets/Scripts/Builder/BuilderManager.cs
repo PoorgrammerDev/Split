@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using Split.Builder.CameraStates;
 using Split.Tiles;
+using Split.Builder.States;
 
 namespace Split.Builder {
     /// <summary>
@@ -15,7 +16,11 @@ namespace Split.Builder {
         [SerializeField] private Color inactiveCameraColor;
         [SerializeField] private Color activeCameraColor;
         [SerializeField] private Color fillHighlighterColor;
+        [SerializeField] private Color dataHighlighterColor;
+        [SerializeField] private Color dataTargetsHLColor;
         [SerializeField] private int initialTileHighlighters;
+        [SerializeField] private TileType[] dataTilesArr;
+        [SerializeField] private TileType[] bridgeTilesArr;
 
         [Header("References")]
         [SerializeField] private CameraController cameraController;
@@ -25,8 +30,8 @@ namespace Split.Builder {
 
         [Header("UI")]
         [SerializeField] private GameObject builderHUD;
+        [SerializeField] private GameObject dataMode;
         
-
         [Header("UI - Base Topbar")]
         [SerializeField] private GameObject normalTopbar;
         [SerializeField] private Image tileTypeButton;
@@ -42,21 +47,30 @@ namespace Split.Builder {
         [SerializeField] private Image tdTileboundButton;
         [SerializeField] private Image tdFreeMoveButton;
 
+        private BuilderState state;
         private BuilderLevelData data;
-        private TileType currentType;
-        private bool eraseMode;
         private bool emptyVisibility;
-        private GameObject currentFillPosHL;
-        private Vector2Int? fillPos1;
         private Stack<GameObject> tileHighlighters;
         private bool shiftPressed;
+        private HashSet<TileType> dataTiles;
+        private HashSet<TileType> bridgeTiles;
+
+
+        public TileType CurrentType {get; private set;}
+        public bool EraseMode {get; private set;}
+        public Color FillHighlighterColor => fillHighlighterColor;
+        public Color DataHighlighterColor => dataHighlighterColor;
+        public Color DataTargetsHLColor => dataTargetsHLColor;
 
         private void Awake() {
-            this.currentType = TileType.BASIC;
-            this.eraseMode = false;
+            this.CurrentType = TileType.BASIC;
+            this.EraseMode = false;
             this.shiftPressed = false;
             this.emptyVisibility = true;
             this.tileHighlighters = new Stack<GameObject>();
+            this.dataTiles = new HashSet<TileType>(dataTilesArr);
+            this.bridgeTiles = new HashSet<TileType>(bridgeTilesArr);
+            SetState(new Normal(this, cameraController, levelLoader));
 
             for (int i = 0; i < initialTileHighlighters; ++i) {
                 AddTileHighlighter();
@@ -64,7 +78,7 @@ namespace Split.Builder {
         }
 
         private void Start() {
-            this.tileTypeButton.color = levelLoader.GetTileColor(this.currentType);
+            this.tileTypeButton.color = levelLoader.GetTileColor(this.CurrentType);
         }
         
         public void OpenLevel(BuilderLevelData data) {
@@ -83,46 +97,31 @@ namespace Split.Builder {
             cameraController.SetState(new IsoTilebound(cameraController, levelLoader));
         }
 
+        public BuilderState GetState() {
+            return this.state;
+        }
+
+        public void SetState(BuilderState state) {
+            if (this.state != null) this.state.End();
+
+            this.state = state;
+            this.state.Start();
+        }
+
         /*************
         * INPUT KEYS *
         *************/
 
-        public void SetFillPosition() {
-            Vector2Int? vec = cameraController.GetState().GetPosition();
-            if (vec.HasValue) {
-                fillPos1 = vec.Value;
-
-                GameObject highlighter = (currentFillPosHL != null) ? currentFillPosHL : GetTileHighlighter(fillHighlighterColor);
-                highlighter.transform.position = levelLoader.GridToWorldPos(vec.Value.x, vec.Value.y);
-
-                currentFillPosHL = highlighter;
-            }
-        }
-
         public void PlaceTile(InputAction.CallbackContext context) {
             if (!context.performed) return;
 
-            //Shift + Space -> Override to Select Fill POS1
             if (shiftPressed) {
-                SetFillPosition();
-                return;
+                GetState().ShiftPlaceKey();
             }
-
-            Vector2Int? vec = cameraController.GetState().GetPosition();
-            if (vec.HasValue) {
-                //If fill POS1 is already set - start filling
-                if (fillPos1.HasValue) {
-                    StartCoroutine(levelLoader.Fill(fillPos1.Value, vec.Value, (eraseMode ? TileType.EMPTY : currentType)));
-
-                    RemoveTileHighlighter(ref currentFillPosHL);
-                    fillPos1 = null;
-                }
-
-                //Fill POS1 not set -> Set tile individually
-                else {
-                    levelLoader.SetTile(vec.Value, (eraseMode ? TileType.EMPTY : currentType));
-                }
+            else {
+                GetState().PlaceKey();
             }
+            
         }
 
         public void ShiftDetector(InputAction.CallbackContext context) {
@@ -143,8 +142,8 @@ namespace Split.Builder {
             normalTopbar.SetActive(!active);
             tileTypeSelTopbar.SetActive(active);
 
-            selectedTileType.color = levelLoader.GetTileColor(currentType);
-            tileTypeButton.color = levelLoader.GetTileColor(currentType);
+            selectedTileType.color = levelLoader.GetTileColor(CurrentType);
+            tileTypeButton.color = levelLoader.GetTileColor(CurrentType);
         }
 
         
@@ -158,12 +157,12 @@ namespace Split.Builder {
         }
 
         public void ToggleEraseMode() {
-            eraseMode = !eraseMode;
+            EraseMode = !EraseMode;
         }
 
         //NOTE: This is an integer because the Unity Inspector does not allow enums in events
         public void SetTileType(int type) {
-            this.currentType = (TileType) type;
+            this.CurrentType = (TileType) type;
             ToggleTileTypeSelector(false);
         }
 
@@ -214,6 +213,43 @@ namespace Split.Builder {
             // else if (state is TopDownFreeMove) {
 
             // }
+        }
+
+        /**************
+        *  DATA MODE  *
+        **************/
+
+        public bool IsDataTile(TileType type) {
+            return dataTiles.Contains(type);
+        }
+
+        public bool IsBridgeTile(TileType type) {
+            return bridgeTiles.Contains(type);
+        }
+
+        public void EnterDataMode() {
+            //Ensures that there is a selected tile
+            Vector2Int? pos = cameraController.GetState().GetPosition();
+            if (!pos.HasValue) return;
+
+            //Ensure that the tile is a data tile
+            if (IsDataTile(levelLoader.LevelData.gridData[pos.Value.x][pos.Value.y])) {
+                //Set UI accordingly
+                normalTopbar.SetActive(false);
+                dataMode.SetActive(true);
+
+                //Change state
+                SetState(new DataModeButton(this, cameraController, levelLoader));
+                GetState().SetPosition(pos.Value);
+            }
+        }
+
+        public void ExitDataMode() {
+            //Set UI accordingly
+            normalTopbar.SetActive(true);
+            dataMode.SetActive(false);
+
+            SetState(new Normal(this, cameraController, levelLoader));
         }
 
         /**************

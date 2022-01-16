@@ -18,7 +18,7 @@ namespace Split.Builder {
         public Vector2Int endPosition;
 
         public List<List<TileType>> gridData;
-        public List<ButtonTileData> buttonTileData;
+        public List<BuilderButtonTileData> buttonTileData;
 
         public int maxPlayers;
         
@@ -27,7 +27,7 @@ namespace Split.Builder {
         /// </summary>
         public BuilderLevelData() {
             this.gridData = new List<List<TileType>>();
-            this.buttonTileData = new List<ButtonTileData>();
+            this.buttonTileData = new List<BuilderButtonTileData>();
         }
 
         /// <summary>
@@ -44,8 +44,11 @@ namespace Split.Builder {
             this.endPosition = levelData.endPosition;
             this.maxPlayers = levelData.maxPlayers;
 
-            //Uses List<> ctor to convert 1D arr[] to 1D List<>
-            this.buttonTileData = new List<ButtonTileData>(levelData.buttonTileData);
+            //Converts ButtonTileData to BuilderButtonTileData
+            this.buttonTileData = new List<BuilderButtonTileData>();
+            foreach (ButtonTileData buttonData in levelData.buttonTileData) {
+                this.buttonTileData.Add(new BuilderButtonTileData(buttonData));
+            }
 
             //Converts TileGrid (2D arr[]) to 2D List<>
             this.gridData = new List<List<TileType>>(levelData.gridData.x);
@@ -69,7 +72,11 @@ namespace Split.Builder {
             output.endPosition = this.endPosition;
             output.maxPlayers = this.maxPlayers;
 
-            output.buttonTileData = this.buttonTileData.ToArray();
+            //Converts BuilderBTD to BTD
+            output.buttonTileData = new ButtonTileData[this.buttonTileData.Count];
+            for (int i = 0; i < output.buttonTileData.Length; ++i) {
+                output.buttonTileData[i] = this.buttonTileData[i].ToButtonTileData();
+            }
 
             //Converts 2D List<> to 2D array[]
             output.gridData = new TileGrid(this.gridData.Count, this.gridData[0].Count);
@@ -83,5 +90,28 @@ namespace Split.Builder {
         }
     }
 
+    public class BuilderButtonTileData {
+        public Vector2Int tilePosition;
+        public HashSet<Vector2Int> bridgeTiles;
+
+        public BuilderButtonTileData() {
+            bridgeTiles = new HashSet<Vector2Int>();
+        }
+
+        public BuilderButtonTileData(ButtonTileData data) {
+            this.tilePosition = data.tilePosition;
+            bridgeTiles = new HashSet<Vector2Int>(data.bridgeTiles);
+        }
+
+        public ButtonTileData ToButtonTileData() {
+            ButtonTileData output = new ButtonTileData();
+            output.tilePosition = this.tilePosition;
+            
+            output.bridgeTiles = new Vector2Int[this.bridgeTiles.Count];
+            this.bridgeTiles.CopyTo(output.bridgeTiles);
+
+            return output;
+        }
+    }
 
 }

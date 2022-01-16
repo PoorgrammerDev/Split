@@ -1279,7 +1279,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &220175456
 MonoBehaviour:
@@ -1882,10 +1882,10 @@ RectTransform:
   m_Father: {fileID: 1410598232}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 75}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1156.4636, y: -50}
+  m_SizeDelta: {x: 75, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &271254664
 MonoBehaviour:
@@ -1930,7 +1930,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 271254665}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 472899247}
+        m_TargetAssemblyTypeName: Split.Builder.BuilderManager, Assembly-CSharp
+        m_MethodName: ExitDataMode
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &271254665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2550,7 +2562,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &365706160
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2751,7 +2763,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &407149944
 GameObject:
@@ -3070,7 +3082,7 @@ Transform:
   m_Children:
   - {fileID: 2014488828}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &472899246
 GameObject:
@@ -3104,13 +3116,18 @@ MonoBehaviour:
   freeMoveSpeed: 7.5
   inactiveCameraColor: {r: 0.3254902, g: 0.37254903, b: 0.6431373, a: 1}
   activeCameraColor: {r: 0.105882354, g: 0.6, b: 0.54509807, a: 1}
-  fillHighlighterColor: {r: 0.18039216, g: 0.36862746, b: 0.74509805, a: 0}
+  fillHighlighterColor: {r: 0.18039216, g: 0.36862746, b: 0.74509805, a: 1}
+  dataHighlighterColor: {r: 0.915, g: 0.6309688, b: 0.233325, a: 1}
+  dataTargetsHLColor: {r: 0.60721284, g: 0.816, b: 0.15667197, a: 1}
   initialTileHighlighters: 10
+  dataTilesArr: 0500000008000000
+  bridgeTilesArr: 060000000700000008000000
   cameraController: {fileID: 1465931229}
   levelLoader: {fileID: 948639865}
   mainMenuManager: {fileID: 400178279}
   tileHighlighterPrefab: {fileID: 5866122856591476324, guid: b03f3d9c77e6c6e48a9194750288f5d3, type: 3}
   builderHUD: {fileID: 365706159}
+  dataMode: {fileID: 852888233}
   normalTopbar: {fileID: 1553407233}
   tileTypeButton: {fileID: 2017948449}
   tileTypeSelTopbar: {fileID: 253126843}
@@ -5585,7 +5602,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &717836970
 GameObject:
@@ -6438,7 +6455,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &852888234
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7360,7 +7377,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &948639865
 MonoBehaviour:
@@ -8274,7 +8291,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6495165950577286366, guid: b03f3d9c77e6c6e48a9194750288f5d3, type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 6495165950577286366, guid: b03f3d9c77e6c6e48a9194750288f5d3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -10013,10 +10030,10 @@ RectTransform:
   m_Father: {fileID: 1410598232}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 75}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1006.4636, y: -50}
+  m_SizeDelta: {x: 75, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1381280231
 MonoBehaviour:
@@ -10858,7 +10875,7 @@ Transform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 30, y: -45, z: 0}
 --- !u!114 &1465931227
 MonoBehaviour:
@@ -11674,7 +11691,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1553407234
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13072,7 +13089,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &1737941099
 GameObject:
@@ -14471,56 +14488,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!1 &1863793124
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1863793125}
-  - component: {fileID: 1863793126}
-  m_Layer: 0
-  m_Name: DataModeManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1863793125
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1863793124}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1863793126
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1863793124}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1765d2593759b41b99e675b1569d4c25, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dataTypesArr: 0500000008000000
-  mainTileColor: {r: 0.023529401, g: 0.8392157, b: 0.3565585, a: 1}
-  controller: {fileID: 1465931229}
-  builderManager: {fileID: 472899247}
-  loader: {fileID: 948639865}
-  dataMode: {fileID: 852888233}
-  normalMenu: {fileID: 1553407233}
 --- !u!1 &1866101345
 GameObject:
   m_ObjectHideFlags: 0
@@ -14650,10 +14617,10 @@ RectTransform:
   m_Father: {fileID: 1410598232}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 100}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 446.9818, y: -50}
+  m_SizeDelta: {x: 893.9636, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1881451433
 MonoBehaviour:
@@ -15956,7 +15923,7 @@ RectTransform:
   m_Children:
   - {fileID: 1319909165}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -16455,8 +16422,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1863793126}
-        m_TargetAssemblyTypeName: Split.Builder.DataModeManager, Assembly-CSharp
+      - m_Target: {fileID: 472899247}
+        m_TargetAssemblyTypeName: Split.Builder.BuilderManager, Assembly-CSharp
         m_MethodName: EnterDataMode
         m_Mode: 1
         m_Arguments:
