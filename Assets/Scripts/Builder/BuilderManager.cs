@@ -42,10 +42,8 @@ namespace Split.Builder {
 
         [Header("UI - Camera Mode Menu")]
         [SerializeField] private GameObject cameraModeMenu;
-        [SerializeField] private Image isoTileboundButton;
-        [SerializeField] private Image isoFreeMoveButton;
-        [SerializeField] private Image tdTileboundButton;
-        [SerializeField] private Image tdFreeMoveButton;
+        [SerializeField] private Image isometricButton;
+        [SerializeField] private Image topDownButton;
 
         private BuilderState state;
         private BuilderLevelData data;
@@ -172,21 +170,16 @@ namespace Split.Builder {
                 case "ISO_TILE_BOUND":
                     state = new IsoTilebound(cameraController, levelLoader);
                     break;
-                case "ISO_FREE_MOVE":
-                    state = new IsoFreeMove(cameraController, freeMoveSpeed);
+                case "TOP_DOWN_TILE_BOUND":
+                    state = new TopDownTilebound(cameraController, levelLoader);
                     break;
-                // case "TOP_DOWN_TILE_BOUND":
-                //     state = new TopDownTilebound();
-                //     break;
-                // case "TOP_DOWN_FREE_MOVE":
-                //     state = new TopDownFreeMove();
-                //     break;
                 default:
                     return;
             }
 
             cameraController.SetState(state);
             UpdateCameraMenu(state);
+            ToggleCameraModeMenu();
         }
 
         public void ToggleEmptyTileVisibility() {
@@ -194,25 +187,16 @@ namespace Split.Builder {
             levelLoader.SetTypeActive(TileType.EMPTY, emptyVisibility);
         }
 
-        //TODO: kinda messy
         private void UpdateCameraMenu(CameraState state) {
-            isoTileboundButton.color = inactiveCameraColor;
-            isoFreeMoveButton.color = inactiveCameraColor;
-            tdTileboundButton.color = inactiveCameraColor;
-            tdFreeMoveButton.color = inactiveCameraColor;
+            isometricButton.color = inactiveCameraColor;
+            topDownButton.color = inactiveCameraColor;
 
             if (state is IsoTilebound) {
-                isoTileboundButton.color = activeCameraColor;
+                isometricButton.color = activeCameraColor;
             }
-            else if (state is IsoFreeMove) {
-                isoFreeMoveButton.color = activeCameraColor;
+            else if (state is TopDownTilebound) {
+                topDownButton.color = activeCameraColor;
             }
-            // else if (state is TopDownTilebound) {
-
-            // }
-            // else if (state is TopDownFreeMove) {
-
-            // }
         }
 
         /**************

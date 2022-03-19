@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -86,7 +87,7 @@ namespace Split.Builder {
                 for (int y = min.y; y <= max.y; ++y) {
                     affectedTypes.Add(levelData.gridData[x][y]);
                     levelData.gridData[x][y] = type;
-                }
+				}
             }
 
             //Recalculate all mesh data and re-render
@@ -99,6 +100,36 @@ namespace Split.Builder {
                 }
             }
         }
+		
+		//TODO: This can be a bit performance intensive when increasing Y. Perhaps make updating rendering a coroutine or something?
+		public void AddSize(int x, int y) {
+			if (x > 0) {
+				List<TileType> list = Enumerable.Repeat(TileType.EMPTY, levelData.gridData[0].Count).ToList();
+				
+				for (int i = 0; i < x; ++i) {
+					//populates internal data
+					levelData.gridData.Add(list);
+				
+					//rendering
+					this.rows.Add(new Row());
+					CalculateRowByType(levelData.gridData.Count - 1, TileType.EMPTY);
+					RenderRowByType(this.rows[levelData.gridData.Count - 1], TileType.EMPTY);
+				}
+			}
+
+			if (y > 0) {
+				for (int i = 0; i < levelData.gridData.Count; ++i) {
+					for (int j = 0; j < y; ++j) {
+						//internal data changes
+						levelData.gridData[i].Add(TileType.EMPTY);
+					}
+	
+					//rendering
+					CalculateRowByType(i, TileType.EMPTY);
+					RenderRowByType(this.rows[i], TileType.EMPTY);
+				}
+			}	
+		}
 
         /**************************
         *        RENDERING        *
