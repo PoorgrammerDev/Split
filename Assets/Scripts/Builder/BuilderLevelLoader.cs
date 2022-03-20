@@ -11,6 +11,9 @@ namespace Split.Builder {
     /// Generates the tile objects/meshes for the level in the Builder. Each Row contains a separate mesh (and object) for each Tile Type.
     /// </summary>
     public class BuilderLevelLoader : MonoBehaviour {
+        [Header("References")]
+        [SerializeField] private BuilderManager builderManager;
+
         //NOTE: These prefabs are not to be used directly, other than creating instances from them. These instances are stored in the Dictionary typeToTile.
         [Header("Tile Prefabs")]
         [SerializeField] private MeshFilter emptyTile;
@@ -52,6 +55,15 @@ namespace Split.Builder {
                 CalculateEntireRow(i);
                 RenderRow(rows[i]);
             }
+        }
+
+        public void Clear() {
+            foreach (Row row in rows) {
+                foreach (GameObject obj in row.objects.Values) {
+                    Destroy(obj);
+                }
+            }
+            rows.Clear();
         }
 
         /// <summary>
@@ -149,7 +161,16 @@ namespace Split.Builder {
         /// Creates Tile Mesh GameObjects for a specified TileType in a specified Row
         /// </summary>
         private void RenderRowByType(Row row, TileType type) {
-            GameObject obj = (row.objects.ContainsKey(type) ? row.objects[type] : new GameObject($"Row | {type}"));
+            GameObject obj;
+            if (row.objects.ContainsKey(type)) {
+                obj = row.objects[type];
+            }
+            else {
+                obj = new GameObject($"Row | {type}");
+
+                //check empty type visibility
+                if (type == TileType.EMPTY) obj.SetActive(builderManager.EmptyVisibility);
+            }
             
             MeshFilter filter = obj.GetComponent<MeshFilter>();
             MeshRenderer rend = obj.GetComponent<MeshRenderer>();

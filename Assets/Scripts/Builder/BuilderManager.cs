@@ -18,6 +18,8 @@ namespace Split.Builder {
         [SerializeField] private Color fillHighlighterColor;
         [SerializeField] private Color dataHighlighterColor;
         [SerializeField] private Color dataTargetsHLColor;
+        [SerializeField] private Color inactiveUIButtonColor;
+        [SerializeField] private Color activeUIButtonColor;
         [SerializeField] private int initialTileHighlighters;
         [SerializeField] private TileType[] dataTilesArr;
         [SerializeField] private TileType[] bridgeTilesArr;
@@ -31,10 +33,13 @@ namespace Split.Builder {
         [Header("UI")]
         [SerializeField] private GameObject builderHUD;
         [SerializeField] private GameObject dataMode;
+        [SerializeField] private GameObject menu;
         
         [Header("UI - Base Topbar")]
         [SerializeField] private GameObject normalTopbar;
         [SerializeField] private Image tileTypeButton;
+        [SerializeField] private Image eraserButton;
+        [SerializeField] private Image visibilityButton;
 
         [Header("UI - Tile Type Selector")]
         [SerializeField] private GameObject tileTypeSelTopbar;
@@ -59,6 +64,7 @@ namespace Split.Builder {
         public Color FillHighlighterColor => fillHighlighterColor;
         public Color DataHighlighterColor => dataHighlighterColor;
         public Color DataTargetsHLColor => dataTargetsHLColor;
+        public bool EmptyVisibility => emptyVisibility;
 
         private void Awake() {
             this.CurrentType = TileType.BASIC;
@@ -141,7 +147,7 @@ namespace Split.Builder {
             tileTypeSelTopbar.SetActive(active);
 
             selectedTileType.color = levelLoader.GetTileColor(CurrentType);
-            tileTypeButton.color = levelLoader.GetTileColor(CurrentType);
+            tileTypeButton.color = levelLoader.GetTileColor(EraseMode ? TileType.EMPTY : this.CurrentType);
         }
 
         
@@ -154,8 +160,14 @@ namespace Split.Builder {
             }
         }
 
+        public void ToggleMenu() {
+            menu.SetActive(!menu.activeInHierarchy);
+        }
+
         public void ToggleEraseMode() {
             EraseMode = !EraseMode;
+            eraserButton.color = (EraseMode ? dataHighlighterColor : activeUIButtonColor);
+            tileTypeButton.color = levelLoader.GetTileColor(EraseMode ? TileType.EMPTY : this.CurrentType);
         }
 
         //NOTE: This is an integer because the Unity Inspector does not allow enums in events
@@ -185,6 +197,7 @@ namespace Split.Builder {
         public void ToggleEmptyTileVisibility() {
             emptyVisibility = !emptyVisibility;
             levelLoader.SetTypeActive(TileType.EMPTY, emptyVisibility);
+            visibilityButton.color = (emptyVisibility ? activeUIButtonColor : inactiveUIButtonColor);
         }
 
         private void UpdateCameraMenu(CameraState state) {
@@ -197,6 +210,22 @@ namespace Split.Builder {
             else if (state is TopDownTilebound) {
                 topDownButton.color = activeCameraColor;
             }
+        }
+
+        public void ExitBuilder() {
+            //TODO: check for unsaved changes
+
+            //TODO: delete all panel objects
+
+            //set camera inactive
+            cameraController.SetState(new Inactive(cameraController));
+
+            //change UI
+            builderHUD.SetActive(false);
+            menu.SetActive(false);
+            mainMenuManager.CloseCreateMenu();
+
+            levelLoader.Clear();
         }
 
         /**************
