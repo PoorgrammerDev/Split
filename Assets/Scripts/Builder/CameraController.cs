@@ -40,7 +40,7 @@ namespace Split.Builder {
             this.state.FreeMove(freeMoveVec);
 
             //TODO: Find a better way to do this
-            if (this.state is IsoTilebound) {
+            if (this.state is Tilebound) {
                 if (delayCounter >= tileMoveDelay) {
                     if (gridMoveVec != Vector2Int.zero) {
                         this.state.Move(gridMoveVec);

@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,9 @@ namespace Split.Builder {
     /// Generates the tile objects/meshes for the level in the Builder. Each Row contains a separate mesh (and object) for each Tile Type.
     /// </summary>
     public class BuilderLevelLoader : MonoBehaviour {
+        [Header("References")]
+        [SerializeField] private BuilderManager builderManager;
+
         //NOTE: These prefabs are not to be used directly, other than creating instances from them. These instances are stored in the Dictionary typeToTile.
         [Header("Tile Prefabs")]
         [SerializeField] private MeshFilter emptyTile;
@@ -53,6 +57,15 @@ namespace Split.Builder {
             }
         }
 
+        public void Clear() {
+            foreach (Row row in rows) {
+                foreach (GameObject obj in row.objects.Values) {
+                    Destroy(obj);
+                }
+            }
+            rows.Clear();
+        }
+
         /// <summary>
         /// Modifies the tile at a specific grid location
         /// </summary>
@@ -86,7 +99,7 @@ namespace Split.Builder {
                 for (int y = min.y; y <= max.y; ++y) {
                     affectedTypes.Add(levelData.gridData[x][y]);
                     levelData.gridData[x][y] = type;
-                }
+				}
             }
 
             //Recalculate all mesh data and re-render
@@ -99,6 +112,36 @@ namespace Split.Builder {
                 }
             }
         }
+		
+		//TODO: This can be a bit performance intensive when increasing Y. Perhaps make updating rendering a coroutine or something?
+		public void AddSize(int x, int y) {
+			if (x > 0) {
+				List<TileType> list = Enumerable.Repeat(TileType.EMPTY, levelData.gridData[0].Count).ToList();
+				
+				for (int i = 0; i < x; ++i) {
+					//populates internal data
+					levelData.gridData.Add(list);
+				
+					//rendering
+					this.rows.Add(new Row());
+					CalculateRowByType(levelData.gridData.Count - 1, TileType.EMPTY);
+					RenderRowByType(this.rows[levelData.gridData.Count - 1], TileType.EMPTY);
+				}
+			}
+
+			if (y > 0) {
+				for (int i = 0; i < levelData.gridData.Count; ++i) {
+					for (int j = 0; j < y; ++j) {
+						//internal data changes
+						levelData.gridData[i].Add(TileType.EMPTY);
+					}
+	
+					//rendering
+					CalculateRowByType(i, TileType.EMPTY);
+					RenderRowByType(this.rows[i], TileType.EMPTY);
+				}
+			}	
+		}
 
         /**************************
         *        RENDERING        *
@@ -118,7 +161,16 @@ namespace Split.Builder {
         /// Creates Tile Mesh GameObjects for a specified TileType in a specified Row
         /// </summary>
         private void RenderRowByType(Row row, TileType type) {
-            GameObject obj = (row.objects.ContainsKey(type) ? row.objects[type] : new GameObject($"Row | {type}"));
+            GameObject obj;
+            if (row.objects.ContainsKey(type)) {
+                obj = row.objects[type];
+            }
+            else {
+                obj = new GameObject($"Row | {type}");
+
+                //check empty type visibility
+                if (type == TileType.EMPTY) obj.SetActive(builderManager.EmptyVisibility);
+            }
             
             MeshFilter filter = obj.GetComponent<MeshFilter>();
             MeshRenderer rend = obj.GetComponent<MeshRenderer>();
