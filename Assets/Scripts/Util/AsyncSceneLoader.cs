@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class AsyncSceneLoader : MonoBehaviour
 {
     [SerializeField] private int sceneBuildIndex;
-    [SerializeField] private Animator animator;
+    [SerializeField] private SceneSwitcherGUI switchAnimator;
     [SerializeField] private AnimationClip animationClip;
     private bool readyToSwitchScenes = false;
 
@@ -19,8 +19,8 @@ public class AsyncSceneLoader : MonoBehaviour
         }
 
         //animation for transition
-        if (animator != null && animationClip != null) {
-            animator.Play(animationClip.name);
+        if (switchAnimator != null && animationClip != null) {
+            switchAnimator.PlayAnimation(this, animationClip.name);
         }
         
         //fade out music and begin loading

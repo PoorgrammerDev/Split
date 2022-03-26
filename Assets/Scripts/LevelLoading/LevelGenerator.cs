@@ -43,7 +43,7 @@ namespace Split.LevelLoading
 
             //TODO: testing, remove
             LevelData levelData;
-            new LevelSerializer().Load(out levelData, "test123.json");
+            new LevelSerializer().Load(out levelData, "New Level.json");
             this.LevelData = levelData;
 
             Generate();
