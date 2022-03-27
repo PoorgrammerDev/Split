@@ -31,7 +31,7 @@ public class MainMenuManager : MonoBehaviour {
 	}
 
 	public void StartGame(LevelEntry levelEntry) {
-		GameObject obj = new GameObject();
+		GameObject obj = new GameObject("LevelDataHolder");
 		LevelDataHolder dataHolder = obj.AddComponent<LevelDataHolder>();
 		dataHolder.Data = levelEntry.Data.ToLevelData();
 		
