@@ -30,12 +30,10 @@ namespace Split.Builder {
         private List<Row> rows;
         private BuilderLevelData levelData;
         private Array allTiles;
-        private LevelSerializer serializer;
 
         public BuilderLevelData LevelData => levelData;
 
         private void Awake() {
-            this.serializer = new LevelSerializer();
             this.rows = new List<Row>();
             this.allTiles = Enum.GetValues(typeof(TileType));
 
@@ -249,7 +247,7 @@ namespace Split.Builder {
         *         SAVING          *
         **************************/
         public void Save() {
-            serializer.Save(levelData.ToLevelData(), levelData.fileName, true);
+            LevelSerializer.Save(levelData.ToLevelData(), levelData.fileName, true);
         }
 
         /**************************

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Split.Tiles;
 using System.Linq;
 using Split.Player;
@@ -32,7 +33,9 @@ namespace Split.LevelLoading
         private float bridgeBrokenTileAlpha;
         private float bridgeButtonTileAlpha;
 
-        private void Start() {
+        private void Awake() {
+            PopulateLevelData();
+
             this.basicTile = Instantiate(basicTile, Vector3.zero, Quaternion.identity);
             this.basicMeshFilter = basicTile.GetComponent<MeshFilter>();
             this.basicTile.SetActive(false);
@@ -41,12 +44,22 @@ namespace Split.LevelLoading
             this.bridgeBrokenTileAlpha = bridgeBrokenTile.GetComponent<Renderer>().sharedMaterial.color.a;
             this.bridgeButtonTileAlpha = bridgeButtonTile.GetComponent<Renderer>().sharedMaterial.color.a;
 
-            //TODO: testing, remove
-            LevelData levelData;
-            new LevelSerializer().Load(out levelData, "New Level.json");
-            this.LevelData = levelData;
-
             Generate();
+        }
+
+        private void PopulateLevelData() {
+            LevelDataHolder dataHolder = FindObjectOfType<LevelDataHolder>();
+
+            //No valid level data - return to main menu
+            if (dataHolder == null) {
+                SceneManager.LoadScene(TagHolder.MAIN_MENU_SCENE, LoadSceneMode.Single);
+                return;
+            }
+
+            this.LevelData = dataHolder.Data;
+            Destroy(dataHolder.gameObject);
+
+            print("success!");
         }
 
         /// <summary>

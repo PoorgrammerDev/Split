@@ -6,14 +6,14 @@ namespace Split.LevelLoading {
     /// <summary>
     /// Saves and loads LevelData objects to/from JSON files
     /// </summary>
-    public class LevelSerializer {
+    public static class LevelSerializer {
         public const string DEFAULT_DIRECTORY = "SplitLevels";
         
-        public bool Save(LevelData data, string fileName, bool force) {
+        public static bool Save(LevelData data, string fileName, bool force) {
             return Save(data, fileName, GetDefaultDirectoryPath(), force);
         }
         
-        public bool Save(LevelData data, string fileName, string directoryPath, bool force) {
+        public static bool Save(LevelData data, string fileName, string directoryPath, bool force) {
             string fullPath = Path.Combine(directoryPath, fileName);
 
             //Makes directory if it doesn't exist
@@ -33,11 +33,11 @@ namespace Split.LevelLoading {
             return true;
         }
 
-        public bool Load(out LevelData data, string fileName) {
+        public static bool Load(out LevelData data, string fileName) {
             return Load(out data, fileName, GetDefaultDirectoryPath());
         }
 
-        public bool Load(out LevelData data, string fileName, string directoryPath) {
+        public static bool Load(out LevelData data, string fileName, string directoryPath) {
             string fullPath = Path.Combine(directoryPath, fileName);
             data = null;
 
@@ -49,15 +49,15 @@ namespace Split.LevelLoading {
             return true;
         }
 
-        public bool CheckFileExists(string fileName) {
+        public static bool CheckFileExists(string fileName) {
             return CheckFileExists(GetDefaultDirectoryPath(), fileName);
         }
 
-        public bool CheckFileExists(string directoryName, string fileName) {
+        public static bool CheckFileExists(string directoryName, string fileName) {
             return File.Exists(Path.Combine(directoryName, fileName));
         }
 
-        public string GetDefaultDirectoryPath() {
+        public static string GetDefaultDirectoryPath() {
             return Path.Combine(Application.dataPath, DEFAULT_DIRECTORY);
         }
 

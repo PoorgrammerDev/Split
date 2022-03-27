@@ -35,11 +35,9 @@ namespace Split.Builder {
         [SerializeField] private Color buttonError;
 
         private WaitForSecondsRealtime wait;
-        private LevelSerializer serializer;
 
         private void Awake() {
             this.wait = new WaitForSecondsRealtime(1.5f);
-            this.serializer = new LevelSerializer();
         }
 
         /// <summary>
@@ -52,7 +50,7 @@ namespace Split.Builder {
             if (int.TryParse(gridX.text, out x) & int.TryParse(gridY.text, out y)) {
                 //Check if file name is valid
 
-                string path = Path.Combine(serializer.GetDefaultDirectoryPath(), fileName.text);
+                string path = Path.Combine(LevelSerializer.GetDefaultDirectoryPath(), fileName.text);
                 FileStream stream = null;
                 bool passedFileCheck = false;
 

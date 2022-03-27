@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 using Split.Builder.CameraStates;
 using Split.Tiles;
 using Split.Builder.States;
+using Split.LevelLoading;
 
 namespace Split.Builder {
     /// <summary>
@@ -83,6 +84,12 @@ namespace Split.Builder {
 
         private void Start() {
             this.tileTypeButton.color = levelLoader.GetTileColor(this.CurrentType);
+
+            MenuEvents.current.onLevelEntryPress += OpenLevel;
+        }
+
+        public void OpenLevel(LevelEntry entry) {
+            OpenLevel(entry.Data);
         }
         
         public void OpenLevel(BuilderLevelData data) {
