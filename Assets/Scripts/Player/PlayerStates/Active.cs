@@ -14,8 +14,9 @@ namespace Split.Player.State {
         public override void Start() {
             player.gameObject.SetActive(true);
             LeanTween.color(player.gameObject, player.Colors.ActiveColor, 0.5f);
+            LeanTween.value(player.Icon.gameObject, player.SetIconColor, player.Icon.color, player.Colors.ActiveColor, 0.5f);
         }
-        
+
         public override bool Move(Vector2Int to) {
             if (player.Manager.ValidateMovePosition(to)) {
                 Vector2Int oldPosition = player.Position;

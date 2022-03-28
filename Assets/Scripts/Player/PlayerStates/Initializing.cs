@@ -61,6 +61,8 @@ namespace Split.Player.State {
             //First, fade from old player color to activated new color
             while (t < 1.0f) {
                 plyMat.color = Color.Lerp(lastPlayer.Colors.ActiveColor, player.Colors.ActiveColor, t);
+                player.Icon.color = plyMat.color;
+                
                 t = Mathf.Clamp(t + (Time.deltaTime * 5f), 0, 1);
                 yield return null;
             }
@@ -69,6 +71,7 @@ namespace Split.Player.State {
             t = 0.0f;
             while (!finishAnimation) {
                 plyMat.color = Color.Lerp(player.Colors.ActiveColor, player.Colors.InitializingColor, t);
+                player.Icon.color = plyMat.color;
 
                 t = Mathf.Clamp(t + (Time.deltaTime * 2f * (flip ? -1 : 1)), 0, 1);
                 if (t == 1 || t == 0) {

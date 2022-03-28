@@ -13,9 +13,7 @@ namespace Split.Player {
         [SerializeField] private CameraFollow cameraFollow;
         [SerializeField] private PlayerColors[] colors;
         [SerializeField] private PlayerColors defaultColor;
-
-        [Header("Settings")]
-        [SerializeField] private int maxCount;
+        [SerializeField] private GameUIManager uiManager;
 
         private Player[] players;
         private int activePlayerIndex;
@@ -31,15 +29,16 @@ namespace Split.Player {
         *     METHODS     *
         ******************/
 
-        private void Awake() {
-            this.players = new Player[this.maxCount];
+        private void OnEnable() {
+            this.players = new Player[levelGenerator.LevelData.maxPlayers];
 
             //Instantiates all player instances
-            for (int i = 0; i < maxCount; ++i) {
+            for (int i = 0; i < levelGenerator.LevelData.maxPlayers; ++i) {
                 players[i] = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity, this.transform).GetComponent<Player>();
                 players[i].name = ("Player " + i);
                 players[i].Manager = this;
                 players[i].Colors = (colors.Length > i) ? colors[i] : defaultColor;
+                players[i].Icon = uiManager.PlayerIcons[i];
 
                 players[i].SetState(new State.Uninitialized(players[i]));
             }
@@ -71,7 +70,7 @@ namespace Split.Player {
         /// </summary>
         /// <param name="index">Player Number to switch to</param>
         public void SwitchToPlayer(int index) {
-            if (index < 0 || index >= maxCount || index == activePlayerIndex) return;
+            if (index < 0 || index >= levelGenerator.LevelData.maxPlayers || index == activePlayerIndex) return;
 
             if (this.players[index].GetState().Activate()) {
                 this.players[activePlayerIndex].GetState().Deactivate();

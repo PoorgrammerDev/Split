@@ -694,10 +694,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Split.Builder.BuilderLevelLoader, Assembly-CSharp
-        m_MethodName: Save
-        m_Mode: 1
+      - m_Target: {fileID: 1931462409}
+        m_TargetAssemblyTypeName: AsyncSceneLoader, Assembly-CSharp
+        m_MethodName: BeginAsyncProcess
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -736,6 +736,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 229200878}
   m_CullTransparentMesh: 1
+--- !u!1 &232304611
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 232304613}
+  - component: {fileID: 232304612}
+  m_Layer: 0
+  m_Name: MainMenuSceneLoader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &232304612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 232304611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 386d65ef8c0f9eb49a1e20f3fed31558, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneBuildIndex: 0
+  raycaster: {fileID: 2078796685}
+  switchAnimator: {fileID: 1307812689}
+  animationClip: {fileID: 7400000, guid: 0a0c3d95fac6f5945b340d3af34da9ac, type: 2}
+--- !u!4 &232304613
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 232304611}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &321134674
 GameObject:
   m_ObjectHideFlags: 0
@@ -796,7 +843,7 @@ GameObject:
   - component: {fileID: 340333095}
   - component: {fileID: 340333094}
   m_Layer: 5
-  m_Name: Player 1 (4)
+  m_Name: 'Player 5 '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -886,14 +933,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Split.Builder.BuilderManager, Assembly-CSharp
-        m_MethodName: ToggleTileTypeSelector
-        m_Mode: 6
+      - m_Target: {fileID: 896253138}
+        m_TargetAssemblyTypeName: Split.Player.PlayerManager, Assembly-CSharp
+        m_MethodName: SwitchToPlayer
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 4
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
@@ -1046,7 +1093,7 @@ GameObject:
   - component: {fileID: 455418702}
   - component: {fileID: 455418701}
   m_Layer: 5
-  m_Name: Player 1 (6)
+  m_Name: Player 7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1136,14 +1183,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Split.Builder.BuilderManager, Assembly-CSharp
-        m_MethodName: ToggleTileTypeSelector
-        m_Mode: 6
+      - m_Target: {fileID: 896253138}
+        m_TargetAssemblyTypeName: Split.Player.PlayerManager, Assembly-CSharp
+        m_MethodName: SwitchToPlayer
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 6
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
@@ -1325,10 +1372,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Split.Builder.BuilderManager, Assembly-CSharp
-        m_MethodName: ToggleTileTypeSelector
-        m_Mode: 6
+      - m_Target: {fileID: 896253138}
+        m_TargetAssemblyTypeName: Split.Player.PlayerManager, Assembly-CSharp
+        m_MethodName: SwitchToPlayer
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1381,7 +1428,7 @@ GameObject:
   - component: {fileID: 671033286}
   - component: {fileID: 671033285}
   m_Layer: 5
-  m_Name: Player 1 (8)
+  m_Name: Player 9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1471,14 +1518,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Split.Builder.BuilderManager, Assembly-CSharp
-        m_MethodName: ToggleTileTypeSelector
-        m_Mode: 6
+      - m_Target: {fileID: 896253138}
+        m_TargetAssemblyTypeName: Split.Player.PlayerManager, Assembly-CSharp
+        m_MethodName: SwitchToPlayer
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 8
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
@@ -1661,7 +1708,7 @@ GameObject:
   - component: {fileID: 832417589}
   - component: {fileID: 832417588}
   m_Layer: 5
-  m_Name: Player 1 (2)
+  m_Name: Player 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1751,14 +1798,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Split.Builder.BuilderManager, Assembly-CSharp
-        m_MethodName: ToggleTileTypeSelector
-        m_Mode: 6
+      - m_Target: {fileID: 896253138}
+        m_TargetAssemblyTypeName: Split.Player.PlayerManager, Assembly-CSharp
+        m_MethodName: SwitchToPlayer
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
@@ -2026,24 +2073,24 @@ MonoBehaviour:
   playerPrefab: {fileID: 1062236745390994836, guid: 819940dec239709409b1d0482f8faf27, type: 3}
   cameraFollow: {fileID: 1465931228}
   colors:
-  - ActiveColor: {r: 0.8396226, g: 0.10693307, b: 0.10693307, a: 0}
-    InitializingColor: {r: 1, g: 0, b: 0.44892502, a: 0}
-    DeactivatedColor: {r: 0.4339623, g: 0.16171236, b: 0.16171236, a: 0}
-    LockedColor: {r: 0.5566038, g: 0.3589344, b: 0.33343717, a: 0}
-  - ActiveColor: {r: 0.062077243, g: 0.4218705, b: 0.8773585, a: 0}
-    InitializingColor: {r: 0.10679956, g: 0.8292056, b: 0.9056604, a: 0}
-    DeactivatedColor: {r: 0.20225169, g: 0.23782964, b: 0.4245283, a: 0}
-    LockedColor: {r: 0.37793696, g: 0.40408587, b: 0.5377358, a: 0}
-  - ActiveColor: {r: 0.9150943, g: 0.85423326, b: 0.09927912, a: 0}
-    InitializingColor: {r: 0.88987565, g: 1, b: 0, a: 0}
-    DeactivatedColor: {r: 0.5, g: 0.4062945, b: 0, a: 0}
-    LockedColor: {r: 0.4811321, g: 0.46351346, b: 0.32453722, a: 0}
+  - ActiveColor: {r: 0.8396226, g: 0.10693307, b: 0.10693307, a: 1}
+    InitializingColor: {r: 1, g: 0, b: 0.44892502, a: 1}
+    DeactivatedColor: {r: 0.4339623, g: 0.16171236, b: 0.16171236, a: 1}
+    LockedColor: {r: 0.5566038, g: 0.3589344, b: 0.33343717, a: 1}
+  - ActiveColor: {r: 0.062077243, g: 0.4218705, b: 0.8773585, a: 1}
+    InitializingColor: {r: 0.10679956, g: 0.8292056, b: 0.9056604, a: 1}
+    DeactivatedColor: {r: 0.20225169, g: 0.23782964, b: 0.4245283, a: 1}
+    LockedColor: {r: 0.37793696, g: 0.40408587, b: 0.5377358, a: 1}
+  - ActiveColor: {r: 0.9150943, g: 0.85423326, b: 0.09927912, a: 1}
+    InitializingColor: {r: 0.88987565, g: 1, b: 0, a: 1}
+    DeactivatedColor: {r: 0.5, g: 0.4062945, b: 0, a: 1}
+    LockedColor: {r: 0.4811321, g: 0.46351346, b: 0.32453722, a: 1}
   defaultColor:
     ActiveColor: {r: 1, g: 1, b: 1, a: 0}
     InitializingColor: {r: 1, g: 0.870023, b: 0, a: 0}
     DeactivatedColor: {r: 0.3207547, g: 0.3207547, b: 0.3207547, a: 0}
     LockedColor: {r: 0.15841937, g: 0.19583406, b: 0.3773585, a: 0}
-  maxCount: 5
+  uiManager: {fileID: 1889798945}
 --- !u!1 &959119639
 GameObject:
   m_ObjectHideFlags: 0
@@ -2058,7 +2105,7 @@ GameObject:
   - component: {fileID: 959119642}
   - component: {fileID: 959119641}
   m_Layer: 5
-  m_Name: Player 1 (5)
+  m_Name: Player 6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2148,14 +2195,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Split.Builder.BuilderManager, Assembly-CSharp
-        m_MethodName: ToggleTileTypeSelector
-        m_Mode: 6
+      - m_Target: {fileID: 896253138}
+        m_TargetAssemblyTypeName: Split.Player.PlayerManager, Assembly-CSharp
+        m_MethodName: SwitchToPlayer
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 5
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
@@ -2338,7 +2385,7 @@ GameObject:
   - component: {fileID: 1002440520}
   - component: {fileID: 1002440519}
   m_Layer: 5
-  m_Name: Player 1 (7)
+  m_Name: Player 8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2428,14 +2475,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Split.Builder.BuilderManager, Assembly-CSharp
-        m_MethodName: ToggleTileTypeSelector
-        m_Mode: 6
+      - m_Target: {fileID: 896253138}
+        m_TargetAssemblyTypeName: Split.Player.PlayerManager, Assembly-CSharp
+        m_MethodName: SwitchToPlayer
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 7
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
@@ -2549,7 +2596,7 @@ GameObject:
   - component: {fileID: 1048830653}
   - component: {fileID: 1048830652}
   m_Layer: 5
-  m_Name: Player 1 (3)
+  m_Name: Player 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2639,14 +2686,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Split.Builder.BuilderManager, Assembly-CSharp
-        m_MethodName: ToggleTileTypeSelector
-        m_Mode: 6
+      - m_Target: {fileID: 896253138}
+        m_TargetAssemblyTypeName: Split.Player.PlayerManager, Assembly-CSharp
+        m_MethodName: SwitchToPlayer
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
@@ -2681,6 +2728,108 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1048830650}
   m_CullTransparentMesh: 1
+--- !u!1001 &1058519524
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2078796688}
+    m_Modifications:
+    - target: {fileID: 1413463293164080014, guid: 5716e046c9ef3c33db0bd696dc1455ad, type: 3}
+      propertyPath: m_Name
+      value: SceneSwitcher
+      objectReference: {fileID: 0}
+    - target: {fileID: 1413463293164080015, guid: 5716e046c9ef3c33db0bd696dc1455ad, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1413463293164080015, guid: 5716e046c9ef3c33db0bd696dc1455ad, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1413463293164080015, guid: 5716e046c9ef3c33db0bd696dc1455ad, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1413463293164080015, guid: 5716e046c9ef3c33db0bd696dc1455ad, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1413463293164080015, guid: 5716e046c9ef3c33db0bd696dc1455ad, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1413463293164080015, guid: 5716e046c9ef3c33db0bd696dc1455ad, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1413463293164080015, guid: 5716e046c9ef3c33db0bd696dc1455ad, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1413463293164080015, guid: 5716e046c9ef3c33db0bd696dc1455ad, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1413463293164080015, guid: 5716e046c9ef3c33db0bd696dc1455ad, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1413463293164080015, guid: 5716e046c9ef3c33db0bd696dc1455ad, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1413463293164080015, guid: 5716e046c9ef3c33db0bd696dc1455ad, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1413463293164080015, guid: 5716e046c9ef3c33db0bd696dc1455ad, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1413463293164080015, guid: 5716e046c9ef3c33db0bd696dc1455ad, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1413463293164080015, guid: 5716e046c9ef3c33db0bd696dc1455ad, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1413463293164080015, guid: 5716e046c9ef3c33db0bd696dc1455ad, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1413463293164080015, guid: 5716e046c9ef3c33db0bd696dc1455ad, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1413463293164080015, guid: 5716e046c9ef3c33db0bd696dc1455ad, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1413463293164080015, guid: 5716e046c9ef3c33db0bd696dc1455ad, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1413463293164080015, guid: 5716e046c9ef3c33db0bd696dc1455ad, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1413463293164080015, guid: 5716e046c9ef3c33db0bd696dc1455ad, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1413463293164080015, guid: 5716e046c9ef3c33db0bd696dc1455ad, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5716e046c9ef3c33db0bd696dc1455ad, type: 3}
+--- !u!224 &1058519525 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 1413463293164080015, guid: 5716e046c9ef3c33db0bd696dc1455ad, type: 3}
+  m_PrefabInstance: {fileID: 1058519524}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1183683867
 GameObject:
   m_ObjectHideFlags: 0
@@ -3217,6 +3366,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1278662578}
   m_CullTransparentMesh: 1
+--- !u!114 &1307812689 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 584255053, guid: 5716e046c9ef3c33db0bd696dc1455ad, type: 3}
+  m_PrefabInstance: {fileID: 1058519524}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f473eccac3daaedf09b00903a1392923, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1465931223
 GameObject:
   m_ObjectHideFlags: 0
@@ -3365,7 +3525,7 @@ GameObject:
   - component: {fileID: 1519571167}
   - component: {fileID: 1519571166}
   m_Layer: 5
-  m_Name: Player 1 (1)
+  m_Name: Player 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3455,14 +3615,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Split.Builder.BuilderManager, Assembly-CSharp
-        m_MethodName: ToggleTileTypeSelector
-        m_Mode: 6
+      - m_Target: {fileID: 896253138}
+        m_TargetAssemblyTypeName: Split.Player.PlayerManager, Assembly-CSharp
+        m_MethodName: SwitchToPlayer
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
@@ -3882,6 +4042,108 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!1 &1889798944
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1889798946}
+  - component: {fileID: 1889798945}
+  m_Layer: 0
+  m_Name: GameUIManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1889798945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1889798944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b81dc1ccb2fae4e9482100da77f9b018, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerIcons:
+  - {fileID: 577134189}
+  - {fileID: 1519571168}
+  - {fileID: 832417590}
+  - {fileID: 1048830654}
+  - {fileID: 340333096}
+  - {fileID: 959119643}
+  - {fileID: 455418703}
+  - {fileID: 1002440521}
+  - {fileID: 671033287}
+  menu: {fileID: 0}
+  generator: {fileID: 882023840}
+--- !u!4 &1889798946
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1889798944}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1931462407
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1931462408}
+  - component: {fileID: 1931462409}
+  m_Layer: 0
+  m_Name: GameSceneLoader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1931462408
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1931462407}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1931462409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1931462407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 386d65ef8c0f9eb49a1e20f3fed31558, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneBuildIndex: 1
+  raycaster: {fileID: 2078796685}
+  switchAnimator: {fileID: 1307812689}
+  animationClip: {fileID: 7400000, guid: 0a0c3d95fac6f5945b340d3af34da9ac, type: 2}
 --- !u!1 &2078796684
 GameObject:
   m_ObjectHideFlags: 0
@@ -3975,6 +4237,7 @@ RectTransform:
   m_Children:
   - {fileID: 1027235085}
   - {fileID: 364401579}
+  - {fileID: 1058519525}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

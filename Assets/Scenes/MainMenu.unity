@@ -3157,6 +3157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneBuildIndex: 1
+  raycaster: {fileID: 455386602}
   switchAnimator: {fileID: 1413463293746105797}
   animationClip: {fileID: 7400000, guid: 0a0c3d95fac6f5945b340d3af34da9ac, type: 2}
 --- !u!4 &974905269
@@ -3870,6 +3871,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneBuildIndex: 2
+  raycaster: {fileID: 455386602}
   switchAnimator: {fileID: 1413463293746105797}
   animationClip: {fileID: 7400000, guid: 0a0c3d95fac6f5945b340d3af34da9ac, type: 2}
 --- !u!4 &1391116505

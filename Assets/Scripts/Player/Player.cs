@@ -1,5 +1,6 @@
 using UnityEngine;
 using Split.Player.State;
+using Unity.VectorGraphics;
 
 namespace Split.Player {
     /// <summary>
@@ -9,6 +10,7 @@ namespace Split.Player {
         public PlayerColors Colors {get; set;}
         public Vector2Int Position {get; set;}
         public PlayerManager Manager {get; set;}
+        public SVGImage Icon {get; set;}
 
         private PlayerState state;
 
@@ -25,6 +27,11 @@ namespace Split.Player {
             
             this.state = state;
             this.state.Start();
+        }
+
+        //Used for LeanTween event
+        public void SetIconColor(Color color) {
+            Icon.color = color;
         }
 
     }

@@ -52,14 +52,13 @@ namespace Split.LevelLoading
 
             //No valid level data - return to main menu
             if (dataHolder == null) {
+                Debug.LogError("Loaded Game Scene with no level data; returning to Main Menu");
                 SceneManager.LoadScene(TagHolder.MAIN_MENU_SCENE, LoadSceneMode.Single);
                 return;
             }
 
             this.LevelData = dataHolder.Data;
-            Destroy(dataHolder.gameObject);
-
-            print("success!");
+            // Destroy(dataHolder.gameObject);
         }
 
         /// <summary>

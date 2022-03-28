@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class AsyncSceneLoader : MonoBehaviour
 {
     [SerializeField] private int sceneBuildIndex;
+    [SerializeField] private GraphicRaycaster raycaster;
     [SerializeField] private SceneSwitcherGUI switchAnimator;
     [SerializeField] private AnimationClip animationClip;
     private bool readyToSwitchScenes = false;
@@ -13,9 +14,7 @@ public class AsyncSceneLoader : MonoBehaviour
     public void BeginAsyncProcess(bool disableButtons = true) {
         //disables all buttons
         if (disableButtons) {
-            foreach (Button button in FindObjectsOfType<Button>()) {
-                button.interactable = false;
-            }
+            raycaster.enabled = false;
         }
 
         //animation for transition

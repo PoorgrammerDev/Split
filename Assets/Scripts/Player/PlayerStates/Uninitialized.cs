@@ -11,6 +11,7 @@ namespace Split.Player.State {
 
         public override void Start() {
             player.gameObject.SetActive(false);
+            // player.Icon.color = Color.black;
         }
 
         public override bool Activate() {

@@ -9471,6 +9471,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneBuildIndex: 0
+  raycaster: {fileID: 2014488825}
   switchAnimator: {fileID: 383408164}
   animationClip: {fileID: 7400000, guid: 0a0c3d95fac6f5945b340d3af34da9ac, type: 2}
 --- !u!1001 &1225504459

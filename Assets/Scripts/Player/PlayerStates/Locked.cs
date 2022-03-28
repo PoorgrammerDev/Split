@@ -17,6 +17,7 @@ namespace Split.Player.State {
         public override void Start() {
             //Color
             LeanTween.color(player.gameObject, player.Colors.LockedColor, 0.5f);
+            LeanTween.value(player.Icon.gameObject, player.SetIconColor, player.Icon.color, player.Colors.LockedColor, 0.5f);
         }
 
         public override bool Unlock() {
